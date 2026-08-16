@@ -317,7 +317,7 @@ export function CommandBar({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.96, y: -10 }}
             transition={{ duration: 0.18 }}
-            className="relative w-full max-w-2xl bg-[#161b22] border border-[#30363d] rounded-2xl shadow-2xl overflow-hidden font-mono z-10 flex flex-col max-h-[75vh]"
+            className="relative w-full max-w-2xl bg-[#161b22] border border-[#30363d] rounded-none shadow-2xl overflow-hidden font-mono z-10 flex flex-col max-h-[75vh]"
           >
             {/* Input Bar */}
             <div className="flex items-center px-4 py-3.5 border-b border-[#30363d] bg-[#0d1117]/80 gap-3">
@@ -377,14 +377,14 @@ export function CommandBar({
                             key={item.id}
                             onClick={item.action}
                             onMouseEnter={() => setSelectedIndex(globalIndex)}
-                            className={`flex items-center justify-between px-3 py-2 rounded-xl text-xs cursor-pointer transition-colors ${
+                            className={`flex items-center justify-between px-3 py-2 rounded-none text-xs cursor-pointer transition-colors ${
                               isSelected
                                 ? 'bg-indigo-600 text-white'
                                 : 'text-slate-300 hover:bg-[#21262d] hover:text-white'
                             }`}
                           >
                             <div className="flex items-center gap-3 overflow-hidden">
-                              <div className={`p-1.5 rounded-lg shrink-0 ${isSelected ? 'bg-indigo-700 text-white' : 'bg-[#0d1117] text-indigo-400 border border-[#30363d]'}`}>
+                              <div className={`p-1.5 rounded-none shrink-0 ${isSelected ? 'bg-indigo-700 text-white' : 'bg-[#0d1117] text-indigo-400 border border-[#30363d]'}`}>
                                 <Icon size={14} />
                               </div>
                               <div className="truncate">

@@ -22,17 +22,12 @@ import {
   Cpu, 
   Network, 
   ChevronDown, 
-  MapPin,
-  Building2,
   FolderTree,
   Camera,
-  Search,
-  Sliders,
   Keyboard,
-  CheckCircle2,
   Sparkles,
-  Sun,
-  Moon
+  Plane,
+  Home
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -43,8 +38,6 @@ function GDRDashboardContent() {
     selectNode, 
     resetNodes,
     addNodeArtifact,
-    overlayOpacity,
-    setOverlayOpacity,
     commandBarOpen,
     setCommandBarOpen,
     keyMapOpen,
@@ -58,9 +51,8 @@ function GDRDashboardContent() {
   const [terminalOpen, setTerminalOpen] = useState(false);
   
   // Projection mode state
-  const [projection, setProjection] = useState<ProjectionMode>('knowledge');
+  const [projection, setProjection] = useState<ProjectionMode>('geographic');
   const [projectionMenuOpen, setProjectionMenuOpen] = useState(false);
-  const [opacityMenuOpen, setOpacityMenuOpen] = useState(false);
 
   // Snapshot flash & toast feedback
   const [snapshotFlash, setSnapshotFlash] = useState(false);
@@ -166,7 +158,6 @@ function GDRDashboardContent() {
         resetNodes();
       } else if (e.key === 'Escape') {
         setProjectionMenuOpen(false);
-        setOpacityMenuOpen(false);
         if (commandBarOpen) { setCommandBarOpen(false); clearSearchSelectionHalo(); }
         if (keyMapOpen) setKeyMapOpen(false);
       }
@@ -206,7 +197,7 @@ function GDRDashboardContent() {
             initial={{ opacity: 0, y: -20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            className="fixed top-16 left-1/2 -translate-x-1/2 z-50 bg-[#161b22]/95 backdrop-blur-md border border-indigo-500/80 px-4 py-2.5 rounded-xl shadow-2xl flex items-center gap-3 font-mono text-xs text-white"
+            className="fixed top-16 left-1/2 -translate-x-1/2 z-50 bg-[#161b22]/95 backdrop-blur-md border border-indigo-500/80 px-4 py-2.5 rounded-none shadow-2xl flex items-center gap-3 font-mono text-xs text-white"
           >
             <div className="w-6 h-6 rounded-full bg-indigo-600/30 text-indigo-400 flex items-center justify-center border border-indigo-500">
               <Camera size={13} />
@@ -219,19 +210,19 @@ function GDRDashboardContent() {
         )}
       </AnimatePresence>
 
-      {/* Top Main Application Bar */}
+      {/* Top Status Bar */}
       <header className="h-14 border-b border-[#30363d] bg-[#161b22]/95 backdrop-blur-md px-4 flex items-center justify-between shrink-0 z-40">
-        {/* Brand & Active System Indicator */}
+        {/* Left: Brand & Active System Indicator */}
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-indigo-600/20 border border-indigo-500/50 flex items-center justify-center shadow-inner">
+            <div className="w-8 h-8 rounded-sm bg-indigo-600/20 border border-indigo-500/50 flex items-center justify-center shadow-inner">
               <span className="text-indigo-400 font-bold text-sm">◰</span>
             </div>
             <div>
               <div className="flex items-center gap-2">
                 <h1 className="text-sm font-bold tracking-tight text-white font-mono">GDR</h1>
-                <span className="text-slate-400 text-xs font-mono">{'// Global Distribution Runtime'}</span>
-                <span className="px-1.5 py-0.5 rounded text-[9px] font-mono bg-emerald-950/80 text-emerald-300 border border-emerald-800/80 font-semibold">
+                <span className="text-slate-400 text-xs font-mono">{'// DISTRIBUTION RUNTIME AGENT'}</span>
+                <span className="px-1.5 py-0.5 rounded-sm text-[9px] font-mono bg-emerald-950/80 text-emerald-300 border border-emerald-800/80 font-semibold">
                   v3.7.0
                 </span>
               </div>
@@ -242,23 +233,23 @@ function GDRDashboardContent() {
             </div>
           </div>
 
-          <div className="h-6 w-px bg-[#30363d] hidden lg:block" />
+          <div className="h-6 w-px bg-[#30363d]" />
 
-          {/* Quick 1-Click Jump Presets (Portland Metro, Louisa Flowers, Global Earth) */}
-          <div className="hidden xl:flex items-center gap-1.5 bg-[#0d1117] p-1 border border-[#30363d] rounded-lg">
+          {/* Quick 1-Click Jump Presets */}
+          <div className="flex items-center gap-1.5">
             <button
               onClick={() => {
                 selectNode('pdx');
                 setProjection('geographic');
               }}
-              className={`px-2.5 py-1 text-xs font-mono rounded flex items-center gap-1.5 transition-colors cursor-pointer ${
+              className={`px-2.5 py-1 text-xs font-mono rounded-sm flex items-center gap-1.5 transition-colors cursor-pointer ${
                 activeNodeId === 'pdx'
                   ? 'bg-indigo-600 text-white font-bold shadow-sm'
                   : 'text-slate-400 hover:text-white hover:bg-[#21262d]'
               }`}
               title="Jump to Portland Metro Operations [1]"
             >
-              <MapPin size={12} className={activeNodeId === 'pdx' ? 'text-white' : 'text-indigo-400'} />
+              <Plane size={12} className={activeNodeId === 'pdx' ? 'text-white' : 'text-indigo-400'} />
               <span>Portland (PDX)</span>
             </button>
 
@@ -267,14 +258,14 @@ function GDRDashboardContent() {
                 selectNode('apt');
                 setProjection('geographic');
               }}
-              className={`px-2.5 py-1 text-xs font-mono rounded flex items-center gap-1.5 transition-colors cursor-pointer ${
+              className={`px-2.5 py-1 text-xs font-mono rounded-sm flex items-center gap-1.5 transition-colors cursor-pointer ${
                 activeNodeId === 'apt'
                   ? 'bg-indigo-600 text-white font-bold shadow-sm'
                   : 'text-slate-400 hover:text-white hover:bg-[#21262d]'
               }`}
               title="Jump to The Louisa Flowers (515 NE Holladay St)"
             >
-              <Building2 size={12} className={activeNodeId === 'apt' ? 'text-white' : 'text-emerald-400'} />
+              <Home size={12} className={activeNodeId === 'apt' ? 'text-white' : 'text-emerald-400'} />
               <span>515 NE Holladay</span>
             </button>
 
@@ -283,7 +274,7 @@ function GDRDashboardContent() {
                 selectNode('earth');
                 setProjection('geographic');
               }}
-              className={`px-2.5 py-1 text-xs font-mono rounded flex items-center gap-1.5 transition-colors cursor-pointer ${
+              className={`px-2.5 py-1 text-xs font-mono rounded-sm flex items-center gap-1.5 transition-colors cursor-pointer ${
                 activeNodeId === 'earth'
                   ? 'bg-indigo-600 text-white font-bold shadow-sm'
                   : 'text-slate-400 hover:text-white hover:bg-[#21262d]'
@@ -294,27 +285,16 @@ function GDRDashboardContent() {
               <span>Global Earth</span>
             </button>
           </div>
-
-          {/* Global Command Bar Trigger Button */}
-          <button
-            onClick={() => setCommandBarOpen(true)}
-            className="flex items-center gap-2 px-3 py-1.5 bg-[#0d1117] hover:bg-[#21262d] border border-[#30363d] hover:border-slate-500 rounded-lg text-xs font-mono text-slate-300 hover:text-white transition-all cursor-pointer shadow-sm"
-            title="Global Command Palette / Search (⌘K or /)"
-          >
-            <Search size={13} className="text-indigo-400" />
-            <span className="hidden sm:inline">Spotlight Search</span>
-            <kbd className="text-[10px] bg-[#161b22] px-1.5 py-0.5 rounded border border-[#30363d] text-slate-400 font-bold">
-              ⌘K
-            </kbd>
-          </button>
         </div>
 
-        {/* Right Controls, Dropdowns & Global Time-Sync Overlay */}
+        <div className="h-5 w-px bg-[#30363d]" />
+
+        {/* Right Controls */}
         <div className="flex items-center gap-2">
           {/* Capture Canvas Snapshot Button */}
           <button
             onClick={handleCaptureSnapshot}
-            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-indigo-600/20 hover:bg-indigo-600 text-indigo-300 hover:text-white border border-indigo-500/50 hover:border-indigo-400 rounded-lg text-xs font-mono font-semibold transition-all cursor-pointer shadow-sm"
+            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-indigo-600/20 hover:bg-indigo-600 text-indigo-300 hover:text-white border border-indigo-500/50 hover:border-indigo-400 rounded-sm text-xs font-mono font-semibold transition-all cursor-pointer shadow-sm"
             title="Capture Canvas Snapshot artifact into node metadata (Hotkey: S)"
           >
             <Camera size={13} />
@@ -328,7 +308,7 @@ function GDRDashboardContent() {
           <div className="relative">
             <button
               onClick={() => setProjectionMenuOpen(!projectionMenuOpen)}
-              className="px-3 py-1.5 bg-[#0d1117] hover:bg-[#21262d] border border-[#30363d] hover:border-slate-500 rounded-lg text-xs font-mono flex items-center gap-2 text-white transition-all cursor-pointer shadow-sm"
+              className="px-3 py-1.5 bg-[#0d1117] hover:bg-[#21262d] border border-[#30363d] hover:border-slate-500 rounded-sm text-xs font-mono flex items-center gap-2 text-white transition-all cursor-pointer shadow-sm"
             >
               <CurrentProjectionIcon size={13} className="text-indigo-400" />
               <span className="font-semibold hidden sm:inline">{projectionLabels[projection].label}</span>
@@ -342,7 +322,7 @@ function GDRDashboardContent() {
                   className="fixed inset-0 z-40" 
                   onClick={() => setProjectionMenuOpen(false)} 
                 />
-                <div className="absolute right-0 top-full mt-1.5 w-64 bg-[#161b22] border border-[#30363d] rounded-xl shadow-2xl p-1.5 z-50 font-mono space-y-1">
+                <div className="absolute right-0 top-full mt-1.5 w-64 bg-[#161b22] border border-[#30363d] rounded-sm shadow-2xl p-1.5 z-50 font-mono space-y-1">
                   <div className="px-2.5 py-1 text-[10px] text-slate-400 uppercase font-bold border-b border-[#30363d]">
                     Select Canvas Projection
                   </div>
@@ -357,7 +337,7 @@ function GDRDashboardContent() {
                           setProjection(mode);
                           setProjectionMenuOpen(false);
                         }}
-                        className={`w-full text-left px-2.5 py-2 rounded-lg text-xs transition-all flex items-start gap-2.5 cursor-pointer ${
+                        className={`w-full text-left px-2.5 py-2 rounded-sm text-xs transition-all flex items-start gap-2.5 cursor-pointer ${
                           isSelected
                             ? 'bg-indigo-600 text-white font-bold'
                             : 'hover:bg-[#21262d] text-slate-300 hover:text-white'
@@ -383,94 +363,10 @@ function GDRDashboardContent() {
             )}
           </div>
 
-          {/* UI Overlay Opacity Slider Control */}
-          <div className="relative">
-            <button
-              onClick={() => setOpacityMenuOpen(!opacityMenuOpen)}
-              className={`px-2.5 py-1.5 border rounded-lg text-xs font-mono flex items-center gap-1.5 transition-all cursor-pointer shadow-sm ${
-                opacityMenuOpen
-                  ? 'bg-indigo-600 border-indigo-500 text-white'
-                  : 'bg-[#0d1117] hover:bg-[#21262d] border-[#30363d] hover:border-slate-500 text-slate-300 hover:text-white'
-              }`}
-              title="Adjust UI Overlays Opacity (See-through Canvas)"
-            >
-              <Sliders size={13} className="text-indigo-400" />
-              <span className="hidden md:inline font-bold">{Math.round(overlayOpacity * 100)}%</span>
-            </button>
-
-            {opacityMenuOpen && (
-              <>
-                <div 
-                  className="fixed inset-0 z-40" 
-                  onClick={() => setOpacityMenuOpen(false)} 
-                />
-                <div className="absolute right-0 top-full mt-1.5 w-64 bg-[#161b22] border border-[#30363d] rounded-xl shadow-2xl p-3 z-50 font-mono space-y-3">
-                  <div className="flex items-center justify-between text-xs border-b border-[#30363d] pb-2">
-                    <span className="font-bold text-white uppercase text-[10px] flex items-center gap-1.5">
-                      <Sliders size={12} className="text-indigo-400" />
-                      UI Overlay Opacity
-                    </span>
-                    <span className="text-indigo-400 font-bold">{Math.round(overlayOpacity * 100)}%</span>
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <div className="flex justify-between text-[10px] text-slate-400">
-                      <span>Transparent (See-through)</span>
-                      <span>Solid</span>
-                    </div>
-                    <input
-                      type="range"
-                      min="0.25"
-                      max="1.0"
-                      step="0.05"
-                      value={overlayOpacity}
-                      onChange={(e) => setOverlayOpacity(parseFloat(e.target.value))}
-                      className="w-full h-1.5 bg-[#0d1117] rounded-lg appearance-none cursor-pointer accent-indigo-500"
-                    />
-                  </div>
-
-                  {/* Preset quick buttons */}
-                  <div className="grid grid-cols-3 gap-1.5 pt-1">
-                    <button
-                      onClick={() => setOverlayOpacity(0.35)}
-                      className={`px-2 py-1 text-[10px] rounded border transition-colors cursor-pointer ${
-                        overlayOpacity <= 0.45 
-                          ? 'bg-indigo-600 border-indigo-500 text-white font-bold' 
-                          : 'bg-[#0d1117] border-[#30363d] text-slate-400 hover:text-white'
-                      }`}
-                    >
-                      Glass 35%
-                    </button>
-                    <button
-                      onClick={() => setOverlayOpacity(0.70)}
-                      className={`px-2 py-1 text-[10px] rounded border transition-colors cursor-pointer ${
-                        overlayOpacity > 0.45 && overlayOpacity < 0.85
-                          ? 'bg-indigo-600 border-indigo-500 text-white font-bold' 
-                          : 'bg-[#0d1117] border-[#30363d] text-slate-400 hover:text-white'
-                      }`}
-                    >
-                      Medium 70%
-                    </button>
-                    <button
-                      onClick={() => setOverlayOpacity(0.95)}
-                      className={`px-2 py-1 text-[10px] rounded border transition-colors cursor-pointer ${
-                        overlayOpacity >= 0.85
-                          ? 'bg-indigo-600 border-indigo-500 text-white font-bold' 
-                          : 'bg-[#0d1117] border-[#30363d] text-slate-400 hover:text-white'
-                      }`}
-                    >
-                      Solid 95%
-                    </button>
-                  </div>
-                </div>
-              </>
-            )}
-          </div>
-
           {/* Keyboard Shortcuts Key-Map Button */}
           <button
             onClick={() => setKeyMapOpen(true)}
-            className="p-1.5 bg-[#0d1117] hover:bg-[#21262d] border border-[#30363d] hover:border-slate-500 text-slate-300 hover:text-white rounded-lg transition-colors cursor-pointer shadow-sm"
+            className="p-1.5 bg-[#0d1117] hover:bg-[#21262d] border border-[#30363d] hover:border-slate-500 text-slate-300 hover:text-white rounded-sm transition-colors cursor-pointer shadow-sm"
             title="View Keyboard Shortcuts Key-Map [?]"
           >
             <Keyboard size={14} />
@@ -482,8 +378,8 @@ function GDRDashboardContent() {
           <div className="flex items-center gap-1.5">
             {/* Global Operations File Explorer Toggle */}
             <button
-              onClick={() => setTreeOpen(!treeOpen)}
-              className={`px-3 py-1.5 text-xs font-mono rounded-lg flex items-center gap-1.5 border transition-all cursor-pointer ${
+              onClick={() => setTreeOpen((prev) => !prev)}
+              className={`px-3 py-1.5 text-xs font-mono rounded-sm flex items-center gap-1.5 border transition-all cursor-pointer ${
                 treeOpen
                   ? 'bg-indigo-600 border-indigo-500 text-white shadow-[0_0_12px_rgba(99,102,241,0.3)]'
                   : 'bg-[#0d1117] border-[#30363d] text-slate-300 hover:text-white hover:bg-[#21262d]'
@@ -494,10 +390,10 @@ function GDRDashboardContent() {
               <span className="hidden md:inline">Tree [T]</span>
             </button>
 
-            {/* Node Metadata / Inspector Toggle */}
+            {/* Inspector Toggle */}
             <button
               onClick={() => setInspectorOpen(!inspectorOpen)}
-              className={`px-3 py-1.5 text-xs font-mono rounded-lg flex items-center gap-1.5 border transition-all cursor-pointer ${
+              className={`px-3 py-1.5 text-xs font-mono rounded-sm flex items-center gap-1.5 border transition-all cursor-pointer ${
                 inspectorOpen
                   ? 'bg-indigo-600 border-indigo-500 text-white shadow-[0_0_12px_rgba(99,102,241,0.3)]'
                   : 'bg-[#0d1117] border-[#30363d] text-slate-300 hover:text-white hover:bg-[#21262d]'
@@ -511,7 +407,7 @@ function GDRDashboardContent() {
             {/* Terminal AI Toggle */}
             <button
               onClick={() => setTerminalOpen(!terminalOpen)}
-              className={`px-3 py-1.5 text-xs font-mono rounded-lg flex items-center gap-1.5 border transition-all cursor-pointer ${
+              className={`px-3 py-1.5 text-xs font-mono rounded-sm flex items-center gap-1.5 border transition-all cursor-pointer ${
                 terminalOpen
                   ? 'bg-indigo-600 border-indigo-500 text-white shadow-[0_0_12px_rgba(99,102,241,0.3)]'
                   : 'bg-[#0d1117] border-[#30363d] text-slate-300 hover:text-white hover:bg-[#21262d]'
@@ -526,7 +422,7 @@ function GDRDashboardContent() {
             <button
               onClick={resetNodes}
               title="Reset Ontology State to Defaults [R]"
-              className="p-1.5 bg-[#0d1117] hover:bg-[#21262d] border border-[#30363d] hover:border-slate-500 text-slate-400 hover:text-white rounded-lg transition-colors cursor-pointer"
+              className="p-1.5 bg-[#0d1117] hover:bg-[#21262d] border border-[#30363d] hover:border-slate-500 text-slate-400 hover:text-white rounded-sm transition-colors cursor-pointer"
             >
               <RotateCcw size={13} />
             </button>
@@ -554,6 +450,25 @@ function GDRDashboardContent() {
           onCaptureSnapshot={handleCaptureSnapshot}
         />
 
+        {/* Floating Left Overlay: Node Metadata & Inspector */}
+        <AnimatePresence>
+          {inspectorOpen && (
+            <motion.div
+              initial={{ opacity: 0, x: -30, scale: 0.98 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0, x: -30, scale: 0.98 }}
+              transition={{ duration: 0.2 }}
+              className="absolute left-4 top-4 bottom-4 w-84 sm:w-96 z-30 flex flex-col pointer-events-auto"
+            >
+              <Inspector 
+                activeNode={activeNode} 
+                onCaptureSnapshot={handleCaptureSnapshot}
+                onClose={() => setInspectorOpen(false)}
+              />
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* Floating Left Overlay: Global Operations Hierarchy Tree */}
         <AnimatePresence>
           {treeOpen && (
@@ -569,25 +484,6 @@ function GDRDashboardContent() {
                 activeNodeId={activeNodeId} 
                 onSelectNode={selectNode}
                 onClose={() => setTreeOpen(false)}
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Floating Right Overlay: Node Metadata & Inspector */}
-        <AnimatePresence>
-          {inspectorOpen && (
-            <motion.div
-              initial={{ opacity: 0, x: 30, scale: 0.98 }}
-              animate={{ opacity: 1, x: 0, scale: 1 }}
-              exit={{ opacity: 0, x: 30, scale: 0.98 }}
-              transition={{ duration: 0.2 }}
-              className="absolute right-4 top-4 bottom-4 w-84 sm:w-96 z-30 flex flex-col pointer-events-auto"
-            >
-              <Inspector 
-                activeNode={activeNode} 
-                onCaptureSnapshot={handleCaptureSnapshot}
-                onClose={() => setInspectorOpen(false)}
               />
             </motion.div>
           )}
@@ -623,27 +519,28 @@ function GDRDashboardContent() {
       </main>
 
       {/* Global Status Footer */}
-      <footer className="h-7 border-t border-[#30363d] bg-[#161b22] px-4 flex justify-between items-center shrink-0 text-[10px] font-mono text-slate-400 z-40">
+      <footer className="h-8 border-t border-[#30363d] bg-[#161b22] px-4 flex justify-between items-center shrink-0 text-[11px] font-mono text-slate-400 z-40">
         <div className="flex items-center gap-3">
           <span className="font-semibold text-slate-300">GDR // GLOBAL DISTRIBUTION RUNTIME</span>
           <span className="text-slate-600">|</span>
           <span className="text-emerald-400 flex items-center gap-1 font-semibold">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            ONLINE & ARMED
+            <span>ONLINE & ARMED</span>
           </span>
-          <span className="text-slate-600 hidden sm:inline">|</span>
-          <span className="text-slate-400 hidden sm:inline">LATENCY: <strong className="text-white">4.2ms</strong></span>
-          <span className="text-slate-600 hidden sm:inline">|</span>
-          <span className="text-indigo-400 hidden sm:inline">OPACITY: {Math.round(overlayOpacity * 100)}%</span>
+          <span className="text-slate-600">|</span>
+          <span className="text-white font-mono">
+            LATENCY: <strong className="text-slate-300">4.2ms</strong>
+          </span>
         </div>
         
         <div className="flex items-center gap-4">
-          <div className="text-slate-400 hidden md:block">
-            <span>NODES: </span>
+          <div className="text-slate-400 flex items-center gap-1">
+            <span>NODES:</span> 
             <span className="text-indigo-400 font-bold">{Object.keys(nodes).length} ACTIVE</span>
           </div>
-          <div className="text-slate-400">
-            <span>PROJECTION: </span>
+          <div className="text-slate-600">|</div>
+          <div className="flex items-center gap-1">
+            <span>PROJECTION:</span>
             <span className="text-white font-semibold uppercase">{projection}</span>
           </div>
         </div>

@@ -24,7 +24,7 @@
   --color-text-muted: #6e7681;
 }
 
-@layer utilities {
+  @layer utilities {
   .border-structural {
     @apply border border-[var(--color-border-c2)];
   }
@@ -35,6 +35,10 @@
 
   .glass-panel {
     @apply bg-[#161b22]/90 backdrop-blur-md border border-[#30363d] shadow-2xl;
+  }
+
+  .sharp {
+    @apply rounded-none;
   }
 }
 

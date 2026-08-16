@@ -5,18 +5,19 @@ Hermes C2 is an interactive command-and-control dashboard for exploring and oper
 ## Features
 
 - **Five synchronized projections** over one node graph:
-  - Geographic intelligence
+  - Geographic intelligence (default on load)
   - Digital topology
   - Physical hardware rack
   - Ontology matrix
 - **Drill-down hierarchy** from global operations to regions, facilities, runtime services, and execution nodes.
 - **Searchable command palette** for nodes, projections, and system actions.
-- **Telemetry inspector** with metrics, health, logs, and snapshot artifacts.
-- **Hierarchy tree navigation**.
+- **Telemetry inspector** (left canvas panel) with metrics, health, logs, and snapshot artifacts.
+- **Hierarchy tree navigation** (left canvas panel).
 - **Natural-language Gemini terminal** with validated structured actions.
 - **Local CLI commands** and a useful no-key/offline terminal mode.
 - **Canvas-generated PNG snapshot artifacts** attached to node metadata.
 - **Health rings, data-flow paths, time synchronization, keyboard controls, and responsive overlays**.
+- **Sharp 90-degree panels**, consistent design tokens, and a subtle animated grid background.
 
 ## Technology
 
@@ -123,7 +124,19 @@ Single-key shortcuts are disabled while typing in an input, textarea, or editabl
 | `R` | Reset the in-memory ontology. |
 | `Escape` | Close menus and global modals. |
 
-In the digital projection, double-clicking the background toggles radial/grid organization. Zoom controls are constrained to the supported visualization range.
+### Top Status Bar
+
+The top status bar contains the brand, active target indicator, quick-jump location presets (Portland with an airplane icon, 515 NE Holladay with a house icon, and Global Earth with a globe icon), snapshot capture, a projection selector dropdown, and panel toggles (Tree, Inspector, Terminal, Reset). The projection selector dropdown is the single source of projection navigation; the earlier bottom-right projection switcher has been removed to avoid duplication.
+
+The UI overlay opacity slider has been removed from the top bar; overlay opacity is now managed programmatically by C2 actions and the active projection.
+
+### Canvas Layout
+
+- The **Inspector** panel docks on the far-left canvas space; toggle with `I`.
+- The **MiniMap** is always visible in the bottom-right corner of the canvas.
+- The **TreeNav** overlays the left side when open (toggle with `T`).
+- The **Terminal Chatbox** appears at the bottom center of the canvas (toggle with `C` or backtick).
+- Double-clicking the digital canvas background toggles radial/grid organization. Zoom controls are constrained to the supported visualization range.
 
 ### Terminal Commands
 

@@ -20,7 +20,7 @@ export function TreeNav({ nodes, activeNodeId, onSelectNode, onClose }: TreeNavP
   return (
     <div 
       id="c2-treenav-panel"
-      className="h-full w-full flex flex-col relative overflow-hidden border border-border-c2 rounded-xl shadow-2xl transition-all duration-200"
+      className="h-full w-full flex flex-col relative overflow-hidden border border-border-c2 rounded-none shadow-2xl transition-all duration-200"
       style={{
         backgroundColor: `rgba(13, 17, 23, ${overlayOpacity})`,
         backdropFilter: `blur(${Math.max(4, overlayOpacity * 16)}px)`,

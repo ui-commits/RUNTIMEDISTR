@@ -292,8 +292,34 @@ export function OperationSphere({
     <div 
       ref={containerRef}
       onDoubleClick={handleCanvasDoubleClick}
-      className="OperationSphere relative h-full w-full bg-[#07070a] border border-border-c2 rounded-lg overflow-hidden flex flex-col items-center justify-center panel-bg select-none"
+      className="OperationSphere relative h-full w-full bg-[#07070a] border border-border-c2 rounded overflow-hidden flex flex-col items-center justify-center panel-bg select-none"
     >
+      {/* Animated Background: Subtle pulsing grid with floating nodes */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div 
+          className="absolute inset-0 opacity-8" 
+          style={{ 
+            backgroundImage: 'linear-gradient(rgba(99,102,241,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(99,102,241,0.08) 1px, transparent 1px)',
+            backgroundSize: '32px 32px',
+          }}
+        />
+        <motion.div 
+          className="absolute top-1/4 left-1/3 w-1 h-1 rounded-full bg-cobalt-c2/30"
+          animate={{ scale: [1, 2.5, 1], opacity: [0.3, 0.6, 0.3] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div 
+          className="absolute top-3/4 left-1/4 w-1.5 h-1.5 rounded-full bg-cobalt-c2/25"
+          animate={{ scale: [1, 2, 1], opacity: [0.25, 0.5, 0.25] }}
+          transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
+        />
+        <motion.div 
+          className="absolute top-1/3 left-2/3 w-1 h-1 rounded-full bg-blue-c2/30"
+          animate={{ scale: [1, 2, 1], opacity: [0.3, 0.5, 0.3] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 1.5 }}
+        />
+      </div>
+
       {/* Background Radar / Polar Grid Grid */}
       <div 
         className="absolute inset-0 opacity-15 pointer-events-none" 
@@ -399,7 +425,7 @@ export function OperationSphere({
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 6, scale: 0.95 }}
                 transition={{ duration: 0.18 }}
-                className="absolute top-full left-0 mt-1.5 w-80 bg-[#0c1017]/98 backdrop-blur-xl border border-indigo-500/60 rounded-xl shadow-[0_12px_36px_rgba(0,0,0,0.9),0_0_24px_rgba(99,102,241,0.3)] p-3 font-mono text-xs text-slate-200 z-50"
+                className="absolute top-full left-0 mt-1.5 w-80 bg-[#0c1017]/98 backdrop-blur-xl border border-indigo-500/60 rounded-none shadow-[0_12px_36px_rgba(0,0,0,0.9),0_0_24px_rgba(99,102,241,0.3)] p-3 font-mono text-xs text-slate-200 z-50"
               >
                 <div className="flex items-center justify-between border-b border-[#222a3a] pb-2 mb-2.5">
                   <div className="flex items-center gap-1.5 font-bold text-white text-[11px]">
@@ -415,7 +441,7 @@ export function OperationSphere({
                 </div>
 
                 {/* Current State Quick Summary */}
-                <div className="bg-[#121724] border border-[#1f2638] rounded-lg p-2 mb-2.5 space-y-1 text-[9.5px]">
+                <div className="bg-[#121724] border border-[#1f2638] rounded-none p-2 mb-2.5 space-y-1 text-[9.5px]">
                   <div className="text-[#889] uppercase tracking-wider font-semibold">CURRENT ACTIVE VIEW:</div>
                   <div className="grid grid-cols-2 gap-1 text-slate-300">
                     <div>MODE: <span className="font-bold text-indigo-300 uppercase">{digitalLayout}</span></div>
@@ -459,7 +485,7 @@ export function OperationSphere({
                     layoutSnapshots.map((snap) => (
                       <div
                         key={snap.id}
-                        className="p-2 bg-[#090d16] hover:bg-[#111728] border border-[#1f283d] rounded-lg flex items-center justify-between gap-2 transition-colors group"
+                        className="p-2 bg-[#090d16] hover:bg-[#111728] border border-[#1f283d] rounded-none flex items-center justify-between gap-2 transition-colors group"
                       >
                         <div className="min-w-0 flex-1">
                           <div className="font-bold text-slate-200 text-[10.5px] truncate">{snap.name}</div>
@@ -541,7 +567,7 @@ export function OperationSphere({
         <button
           onClick={() => setShowRecent(prev => !prev)}
           title="Toggle faint 'ghost' representations of recently closed or moved nodes for trace analysis"
-          className={`px-2.5 py-1 text-[10px] font-mono rounded-lg flex items-center gap-1.5 transition-all cursor-pointer border shadow-lg ${
+          className={`px-2.5 py-1 text-[10px] font-mono rounded-none flex items-center gap-1.5 transition-all cursor-pointer border shadow-lg ${
             showRecent
               ? 'bg-cyan-950/90 text-cyan-300 border-cyan-500/80 shadow-[0_0_15px_rgba(6,182,212,0.35)]'
               : 'bg-[#0d111a]/90 text-slate-400 border-border-c2 hover:text-slate-200 hover:bg-white/5'
@@ -559,7 +585,7 @@ export function OperationSphere({
         {projection === 'digital' && (
           <>
             {/* Snap To Grid Auto-Organize Toggle */}
-            <div className="flex items-center bg-[#0d111a]/90 backdrop-blur-md border border-border-c2 rounded-lg p-0.5 shadow-lg">
+            <div className="flex items-center bg-[#0d111a]/90 backdrop-blur-md border border-border-c2 rounded-none p-0.5 shadow-lg">
               <button
                 onClick={() => triggerSnapToGrid('radial')}
                 title="Snap to Radial Layout (or Double Click Canvas)"
@@ -587,7 +613,7 @@ export function OperationSphere({
             </div>
 
             {/* Canvas Zoom Controls */}
-            <div className="flex items-center bg-[#0d111a]/90 backdrop-blur-md border border-border-c2 rounded-lg p-0.5 shadow-lg text-[10px] font-mono text-slate-300">
+            <div className="flex items-center bg-[#0d111a]/90 backdrop-blur-md border border-border-c2 rounded-none p-0.5 shadow-lg text-[10px] font-mono text-slate-300">
               <button
                 onClick={() => handleZoomChange(-0.15)}
                 title="Zoom Out"
@@ -719,7 +745,7 @@ export function OperationSphere({
         </div>
       </div>
       
-      {/* Mini-Map HUD fixed in bottom-right above projection switcher */}
+      {/* Mini-Map HUD fixed in bottom-right */}
       <MiniMap
         nodes={nodes}
         activeNodeId={activeNode.id}
@@ -728,71 +754,8 @@ export function OperationSphere({
         onZoomChange={handleZoomChange}
         onResetZoom={handleResetZoom}
         projection={projection}
-        className="bottom-14 right-3"
+        className="bottom-3 right-3"
       />
-
-      {/* 5-Layer Projection Switcher */}
-      <div className="absolute bottom-3 right-3 flex items-center space-x-1.5 z-30 bg-[#09090d]/90 backdrop-blur-md p-1 border border-border-c2 rounded-lg shadow-xl">
-        <button 
-          onClick={() => setProjection('knowledge')}
-          className={`px-2.5 py-1 text-[10px] rounded transition-all cursor-pointer font-mono font-semibold flex items-center gap-1.5 ${
-            projection === 'knowledge'
-              ? 'bg-amber-600 text-white shadow-[0_0_12px_rgba(245,158,11,0.5)]'
-              : 'text-[#888] hover:text-[#bbb] hover:bg-white/5'
-          }`}
-        >
-          <Sparkles size={11} className="text-amber-400" />
-          <span>Knowledge Space</span>
-        </button>
-
-        <button 
-          onClick={() => setProjection('geographic')}
-          className={`px-2.5 py-1 text-[10px] rounded transition-all cursor-pointer font-mono font-semibold flex items-center gap-1.5 ${
-            projection === 'geographic'
-              ? 'bg-cobalt-c2 text-white shadow-[0_0_12px_rgba(99,102,241,0.4)]'
-              : 'text-[#888] hover:text-[#bbb] hover:bg-white/5'
-          }`}
-        >
-          <Globe size={11} />
-          <span>Geographic</span>
-        </button>
-
-        <button 
-          onClick={() => setProjection('digital')}
-          className={`px-2.5 py-1 text-[10px] rounded transition-all cursor-pointer font-mono font-semibold flex items-center gap-1.5 ${
-            projection === 'digital'
-              ? 'bg-cobalt-c2 text-white shadow-[0_0_12px_rgba(99,102,241,0.4)]'
-              : 'text-[#888] hover:text-[#bbb] hover:bg-white/5'
-          }`}
-        >
-          <Network size={11} />
-          <span>Digital</span>
-        </button>
-
-        <button 
-          onClick={() => setProjection('physical')}
-          className={`px-2.5 py-1 text-[10px] rounded transition-all cursor-pointer font-mono font-semibold flex items-center gap-1.5 ${
-            projection === 'physical'
-              ? 'bg-cobalt-c2 text-white shadow-[0_0_12px_rgba(99,102,241,0.4)]'
-              : 'text-[#888] hover:text-[#bbb] hover:bg-white/5'
-          }`}
-        >
-          <Cpu size={11} />
-          <span>Physical</span>
-        </button>
-
-        <button 
-          onClick={() => setProjection('ontology')}
-          className={`px-2.5 py-1 text-[10px] rounded transition-all cursor-pointer font-mono font-semibold flex items-center gap-1.5 ${
-            projection === 'ontology'
-              ? 'bg-cobalt-c2 text-white shadow-[0_0_12px_rgba(99,102,241,0.4)]'
-              : 'text-[#888] hover:text-[#bbb] hover:bg-white/5'
-          }`}
-        >
-          <Layers size={11} />
-          <span>Ontology</span>
-        </button>
-      </div>
     </div>
   );
 }
@@ -823,7 +786,7 @@ function OperationSphereNodeTooltip({
         left: `${x + offsetX}px`,
         top: `${y + offsetY}px`,
       }}
-      className="absolute z-50 pointer-events-none w-72 bg-[#0c1017]/95 backdrop-blur-xl border border-indigo-500/70 rounded-xl shadow-[0_12px_36px_rgba(0,0,0,0.85),0_0_20px_rgba(99,102,241,0.25)] p-3 font-mono text-xs text-slate-200 select-none overflow-hidden"
+      className="absolute z-50 pointer-events-none w-72 bg-[#0c1017]/95 backdrop-blur-xl border border-indigo-500/70 rounded-none shadow-[0_12px_36px_rgba(0,0,0,0.85),0_0_20px_rgba(99,102,241,0.25)] p-3 font-mono text-xs text-slate-200 select-none overflow-hidden"
     >
       {/* Decorative top health glow accent */}
       <div 
@@ -858,7 +821,7 @@ function OperationSphereNodeTooltip({
       </div>
 
       {/* Live SVG Heartbeat / EKG Telemetry Stream */}
-      <div className="mb-2 bg-[#090d16] p-2 rounded-lg border border-[#1e2538] flex items-center justify-between">
+      <div className="mb-2 bg-[#090d16] p-2 rounded-none border border-[#1e2538] flex items-center justify-between">
         <div className="flex flex-col">
           <span className="text-[8px] text-slate-400 font-mono flex items-center gap-1">
             <Activity size={10} className="text-indigo-400" />
@@ -872,7 +835,7 @@ function OperationSphereNodeTooltip({
       </div>
 
       {/* Current Operational Status & Latency Breakdown */}
-      <div className="space-y-1.5 mb-2.5 bg-[#141824]/70 p-2 rounded-lg border border-[#262c3e]/80 text-[10px]">
+      <div className="space-y-1.5 mb-2.5 bg-[#141824]/70 p-2 rounded-none border border-[#262c3e]/80 text-[10px]">
         <div className="flex items-center justify-between text-slate-300">
           <span className="text-slate-400 text-[9px]">HEALTH STATUS:</span>
           <span className="font-bold flex items-center gap-1" style={{ color: health.color }}>
@@ -1034,7 +997,7 @@ export function BreadcrumbsTraceOverlay({
   return (
     <div className="absolute inset-0 pointer-events-none z-15 flex items-center justify-center overflow-visible">
       {/* Top Left HUD Trace Indicator */}
-      <div className="absolute top-14 left-4 pointer-events-auto z-30 flex items-center gap-2 px-3 py-1.5 bg-[#0b101c]/90 border border-indigo-500/50 rounded-lg shadow-[0_0_20px_rgba(99,102,241,0.3)] backdrop-blur text-indigo-300 font-mono text-[10px]">
+      <div className="absolute top-14 left-4 pointer-events-auto z-30 flex items-center gap-2 px-3 py-1.5 bg-[#0b101c]/90 border border-indigo-500/50 rounded-none shadow-[0_0_20px_rgba(99,102,241,0.3)] backdrop-blur text-indigo-300 font-mono text-[10px]">
         <Route size={13} className="text-indigo-400 animate-pulse" />
         <span className="font-bold">MOVEMENT TRACE ACTIVE</span>
         <span className="px-1.5 py-0.2 bg-indigo-500/20 text-indigo-200 rounded border border-indigo-400/30 text-[9px] font-bold">
@@ -1164,7 +1127,7 @@ export function GhostTracesLayer({
   return (
     <div className="absolute inset-0 pointer-events-none z-20 flex items-center justify-center">
       {/* Historical Ghost Overlay Badge */}
-      <div className="absolute top-14 right-4 pointer-events-auto z-30 flex items-center gap-2 px-3 py-1.5 bg-[#0a1018]/90 border border-cyan-500/50 rounded-lg shadow-[0_0_20px_rgba(6,182,212,0.25)] backdrop-blur text-cyan-300 font-mono text-[10px]">
+      <div className="absolute top-14 right-4 pointer-events-auto z-30 flex items-center gap-2 px-3 py-1.5 bg-[#0a1018]/90 border border-cyan-500/50 rounded-none shadow-[0_0_20px_rgba(6,182,212,0.25)] backdrop-blur text-cyan-300 font-mono text-[10px]">
         <Ghost size={13} className="text-cyan-400 animate-pulse" />
         <span className="font-bold">RECENT TRACES ACTIVE</span>
         <span className="px-1.5 py-0.2 bg-cyan-500/20 text-cyan-200 rounded border border-cyan-400/30 text-[9px] font-bold">
@@ -1220,7 +1183,7 @@ export function GhostTracesLayer({
                   }
                 }}
             >
-              <div className="relative p-2.5 bg-[#06121e]/80 border border-dashed border-cyan-400/60 group-hover:border-cyan-300 rounded-lg shadow-[0_0_15px_rgba(6,182,212,0.2)] backdrop-blur-md flex flex-col items-center w-36 text-center transition-all">
+              <div className="relative p-2.5 bg-[#06121e]/80 border border-dashed border-cyan-400/60 group-hover:border-cyan-300 rounded-none shadow-[0_0_15px_rgba(6,182,212,0.2)] backdrop-blur-md flex flex-col items-center w-36 text-center transition-all">
                 {/* Ghost Icon & Reason Badge */}
                 <div className="flex items-center justify-between w-full mb-1">
                   <span className="flex items-center gap-1 text-[8px] font-mono text-cyan-400">
@@ -1611,7 +1574,7 @@ function DigitalPolarView({
                   {childIsQueryMatch && (
                     <>
                       <motion.div
-                        className="absolute -inset-7 rounded-2xl border border-cyan-400/70 pointer-events-none z-0"
+                        className="absolute -inset-7 rounded-none border border-cyan-400/70 pointer-events-none z-0"
                         animate={{
                           scale: [1, 1.28, 1.5],
                           opacity: [0.9, 0.4, 0],
@@ -1619,7 +1582,7 @@ function DigitalPolarView({
                         transition={{ repeat: Infinity, duration: 1.6, ease: "easeOut" }}
                       />
                       <motion.div
-                        className="absolute -inset-3 rounded-xl border-2 border-cyan-300 pointer-events-none z-0"
+                        className="absolute -inset-3 rounded-none border-2 border-cyan-300 pointer-events-none z-0"
                         animate={{
                           scale: [1, 1.14, 1],
                           opacity: [0.95, 0.5, 0.95],
@@ -1669,7 +1632,7 @@ function DigitalPolarView({
                       delay: (index % 4) * 0.4,
                       ease: "easeInOut"
                     }}
-                    className={`relative border p-2.5 flex flex-col items-center hover:bg-[#181822] transition-all cursor-grab active:cursor-grabbing group w-36 text-center rounded-lg overflow-hidden ${
+                    className={`relative border p-2.5 flex flex-col items-center hover:bg-[#181822] transition-all cursor-grab active:cursor-grabbing group w-36 text-center rounded-none overflow-hidden ${
                       childPriorityStyle.borderClass
                     } ${
                       childPriorityStyle.bgGradientClass
@@ -1805,7 +1768,7 @@ function PhysicalHardwareView({
   return (
     <div className="w-full h-full overflow-y-auto p-6 flex flex-col items-center justify-center font-mono">
       <div 
-        className="w-full max-w-lg bg-[#0b0b10] border border-border-c2 rounded-xl p-5 shadow-2xl space-y-4"
+        className="w-full max-w-lg bg-[#0b0b10] border border-border-c2 rounded-none p-5 shadow-2xl space-y-4"
         onMouseEnter={(e) => onHoverNode(node, e)}
         onMouseMove={(e) => onHoverNode(node, e)}
         onMouseLeave={() => onHoverNode(null)}
@@ -1823,28 +1786,28 @@ function PhysicalHardwareView({
 
         {/* Specs Grid */}
         <div className="grid grid-cols-2 gap-3 text-xs">
-          <div className="bg-[#121218] border border-[#222] p-2.5 rounded-lg space-y-1">
+          <div className="bg-[#121218] border border-[#222] p-2.5 rounded-none space-y-1">
             <div className="text-[9px] text-[#666] uppercase flex items-center gap-1">
               <Cpu size={11} className="text-cobalt-c2" /> Hardware Specification
             </div>
             <div className="text-white font-semibold">{spec.hardware}</div>
           </div>
 
-          <div className="bg-[#121218] border border-[#222] p-2.5 rounded-lg space-y-1">
+          <div className="bg-[#121218] border border-[#222] p-2.5 rounded-none space-y-1">
             <div className="text-[9px] text-[#666] uppercase flex items-center gap-1">
               <Power size={11} className="text-amber-400" /> Power Ingress
             </div>
             <div className="text-amber-300 font-semibold">{spec.power}</div>
           </div>
 
-          <div className="bg-[#121218] border border-[#222] p-2.5 rounded-lg space-y-1">
+          <div className="bg-[#121218] border border-[#222] p-2.5 rounded-none space-y-1">
             <div className="text-[9px] text-[#666] uppercase flex items-center gap-1">
               <Flame size={11} className="text-sky-400" /> Thermal / Cooling
             </div>
             <div className="text-sky-300 font-semibold">{spec.cooling}</div>
           </div>
 
-          <div className="bg-[#121218] border border-[#222] p-2.5 rounded-lg space-y-1">
+          <div className="bg-[#121218] border border-[#222] p-2.5 rounded-none space-y-1">
             <div className="text-[9px] text-[#666] uppercase flex items-center gap-1">
               <MapPin size={11} className="text-rose-400" /> Physical Address
             </div>
@@ -1853,7 +1816,7 @@ function PhysicalHardwareView({
         </div>
 
         {/* Chassis Rack Vector Graphic */}
-        <div className="bg-[#08080c] border border-[#1f1f26] p-3 rounded-lg flex flex-col gap-1.5">
+        <div className="bg-[#08080c] border border-[#1f1f26] p-3 rounded-none flex flex-col gap-1.5">
           <div className="text-[9px] text-[#666] uppercase tracking-wider mb-1">CHASSIS BLADE SLOTS (4U ARRAY)</div>
           <div className="flex gap-2">
             {[1, 2, 3, 4].map(slot => (
@@ -1923,7 +1886,7 @@ function OntologyGraphView({
                 delay: (idx % 6) * 0.3, 
                 ease: "easeInOut" 
               }}
-              className={`p-2.5 rounded-lg border cursor-pointer transition-all ${
+              className={`p-2.5 rounded-none border cursor-pointer transition-all ${
                 isCurrent
                   ? 'bg-cobalt-c2/15 border-cobalt-c2'
                   : 'bg-[#0f0f14] border-[#222] hover:border-[#444] text-[#888]'

@@ -260,7 +260,7 @@ You can enter natural language instructions, system queries, topology mutations,
         backgroundColor: `rgba(8, 8, 10, ${overlayOpacity})`,
         backdropFilter: `blur(${Math.max(4, overlayOpacity * 16)}px)`,
       }}
-      className={`border border-border-c2 flex flex-col transition-all duration-200 rounded-lg overflow-hidden shadow-2xl relative ${
+      className={`border border-border-c2 flex flex-col transition-all duration-200 rounded-none overflow-hidden shadow-2xl relative ${
         isExpanded ? "h-[480px]" : "h-56"
       }`}
     >

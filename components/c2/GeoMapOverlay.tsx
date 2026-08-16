@@ -92,7 +92,7 @@ export function GeoMapOverlay({ nodes, activeNode, onSelectNode }: GeoMapOverlay
     >
       {/* Top Map HUD Telemetry */}
       <div className="absolute top-3 left-3 right-3 flex justify-between items-center z-30 pointer-events-none">
-        <div className="bg-[#0c0c10]/90 backdrop-blur-md border border-border-c2 px-3 py-1.5 rounded-lg flex items-center gap-3 shadow-xl pointer-events-auto">
+        <div className="bg-[#0c0c10]/90 backdrop-blur-md border border-border-c2 px-3 py-1.5 rounded-none flex items-center gap-3 shadow-xl pointer-events-auto">
           <div className="flex items-center gap-1.5 text-cobalt-c2 text-xs font-bold">
             <Radio size={14} className="animate-pulse" />
             <span>GEO_INTEL // PRELOADED ENGINE</span>
@@ -108,7 +108,7 @@ export function GeoMapOverlay({ nodes, activeNode, onSelectNode }: GeoMapOverlay
         </div>
 
         {/* Style Switcher & Controls */}
-        <div className="flex items-center gap-1.5 bg-[#0c0c10]/90 backdrop-blur-md border border-border-c2 p-1 rounded-lg shadow-xl pointer-events-auto">
+        <div className="flex items-center gap-1.5 bg-[#0c0c10]/90 backdrop-blur-md border border-border-c2 p-1 rounded-none shadow-xl pointer-events-auto">
           <button
             onClick={() => setMapStyle('blueprint')}
             className={`px-2 py-1 text-[9px] rounded uppercase font-semibold transition-colors cursor-pointer ${
@@ -213,7 +213,7 @@ export function GeoMapOverlay({ nodes, activeNode, onSelectNode }: GeoMapOverlay
       </div>
 
       {/* Bottom Floating Location Badge */}
-      <div className="absolute bottom-3 left-3 bg-[#0a0a0e]/95 backdrop-blur-md border border-border-c2 p-3 rounded-lg z-30 max-w-sm shadow-2xl space-y-1">
+      <div className="absolute bottom-3 left-3 bg-[#0a0a0e]/95 backdrop-blur-md border border-border-c2 p-3 rounded-none z-30 max-w-sm shadow-2xl space-y-1">
         <div className="flex items-center gap-2">
           <Building2 size={13} className="text-cobalt-c2" />
           <span className="text-xs font-bold text-white uppercase">{geo.name || activeNode.label}</span>
@@ -236,7 +236,7 @@ export function GeoMapOverlay({ nodes, activeNode, onSelectNode }: GeoMapOverlay
 
       {/* Bottom Right Map Zoom & Tool Controls */}
       <div className="absolute bottom-3 right-3 flex flex-col gap-1.5 z-30">
-        <div className="bg-[#0c0c10]/90 backdrop-blur-md border border-border-c2 rounded-lg p-1 flex flex-col gap-1 shadow-xl">
+        <div className="bg-[#0c0c10]/90 backdrop-blur-md border border-border-c2 rounded-none p-1 flex flex-col gap-1 shadow-xl">
           <button
             onClick={() => setManualZoomOffset(prev => Math.min(prev + 1, 4))}
             className="p-1.5 hover:bg-zinc-800 text-[#888] hover:text-white rounded transition-colors cursor-pointer"
@@ -298,7 +298,7 @@ function GeoNodeTooltip({
         left: `${x + offsetX}px`,
         top: `${y + offsetY}px`,
       }}
-      className="absolute z-50 pointer-events-auto w-72 bg-[#0c1017]/95 backdrop-blur-xl border border-indigo-500/70 rounded-xl shadow-[0_12px_36px_rgba(0,0,0,0.8),0_0_20px_rgba(99,102,241,0.25)] p-3 font-mono text-xs text-slate-200 select-none overflow-hidden"
+      className="absolute z-50 pointer-events-auto w-72 bg-[#0c1017]/95 backdrop-blur-xl border border-indigo-500/70 rounded-none shadow-[0_12px_36px_rgba(0,0,0,0.8),0_0_20px_rgba(99,102,241,0.25)] p-3 font-mono text-xs text-slate-200 select-none overflow-hidden"
     >
       {/* Decorative Top Accent Glow Bar based on health */}
       <div 
@@ -333,7 +333,7 @@ function GeoNodeTooltip({
       </div>
 
       {/* Live SVG Heartbeat / EKG Stream */}
-      <div className="mb-2 bg-[#090d16] p-2 rounded-lg border border-[#1e2538] flex items-center justify-between">
+      <div className="mb-2 bg-[#090d16] p-2 rounded-none border border-[#1e2538] flex items-center justify-between">
         <div className="flex flex-col">
           <span className="text-[8px] text-slate-400 font-mono flex items-center gap-1">
             <Activity size={10} className="text-indigo-400" />
@@ -348,7 +348,7 @@ function GeoNodeTooltip({
 
       {/* Location Metadata */}
       {node.geo && (
-        <div className="space-y-1 mb-2.5 bg-[#161b22]/70 p-2 rounded-lg border border-[#30363d]/80 text-[10px]">
+        <div className="space-y-1 mb-2.5 bg-[#161b22]/70 p-2 rounded-none border border-[#30363d]/80 text-[10px]">
           {node.geo.address && (
             <div className="flex items-center gap-1.5 text-slate-300 font-sans font-medium">
               <MapPin size={11} className="text-rose-400 shrink-0" />

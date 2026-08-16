@@ -231,7 +231,7 @@ export function MiniMap({
       aria-label="Network Mini-Map"
       className={`fixed z-30 font-mono transition-all select-none ${className}`}
     >
-      <div className="bg-[#0b0e17]/95 border border-indigo-500/40 hover:border-indigo-400/70 rounded-xl overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.85),0_0_15px_rgba(99,102,241,0.2)] backdrop-blur-md transition-all w-[218px]">
+      <div className="bg-[#0b0e17]/95 border border-indigo-500/40 hover:border-indigo-400/70 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.85),0_0_15px_rgba(99,102,241,0.2)] backdrop-blur-md transition-all w-[218px]">
         {/* Mini-Map Header */}
         <div className="flex items-center justify-between px-2.5 py-1.5 bg-[#121624] border-b border-indigo-900/40 text-[10px] text-slate-300">
           <div className="flex items-center gap-1.5 font-bold tracking-wider text-white truncate">
@@ -277,7 +277,7 @@ export function MiniMap({
         {!isCollapsed && (
           <div className="p-2 flex flex-col gap-1.5">
             {/* SVG Visual Canvas with Node Topology and Dynamic Viewport Box */}
-            <div className="relative w-full aspect-[190/125] bg-[#070910] border border-[#1b2234] rounded-lg overflow-hidden flex items-center justify-center">
+            <div className="relative w-full aspect-[190/125] bg-[#070910] border border-[#1b2234] rounded-none overflow-hidden flex items-center justify-center">
               {/* Radar Grid overlay background */}
               <div 
                 className="absolute inset-0 opacity-15 pointer-events-none" 

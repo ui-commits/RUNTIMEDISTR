@@ -62,10 +62,12 @@ When adding or changing an AI action, update all of the following together:
 ### UI and Performance
 
 - Reuse design tokens from `app/globals.css` before introducing new hard-coded colors.
+- Prefer sharp (90-degree) corners for panels and cards; reserve `rounded-full` for status indicators and small badges.
 - Preserve keyboard accessibility and do not trigger single-key shortcuts while users are typing.
 - Keep heavy closed-by-default panels dynamically imported in `app/page.tsx`. In particular, avoid moving Recharts or React Markdown back into the initial bundle.
 - Projection components receive `NodeData`; they must not become alternate state stores.
-- Preserve the four projection IDs: `geographic`, `digital`, `physical`, and `ontology`.
+- The default projection on app load is `geographic`. The projection selector dropdown in the top status bar is the single source of projection navigation; remove duplicate switchers from canvas overlays.
+- Preserve the four projection IDs: `geographic`, `digital`, `physical`, and `ontology`. The `knowledge` projection is a fifth loaded only on demand.
 - Keep the dashboard usable at common desktop widths and avoid breaking the existing responsive panel sizing.
 
 ### Build and Dependencies
@@ -139,3 +141,5 @@ A change is complete only when:
 - Treat resource load as explicitly supplied sample/operator telemetry unless a real telemetry adapter is introduced. It must remain separate from getNodeHealth.
 - Use C2Provider methods for pinning, load updates, snapshots, and history so terminal actions retain validation.
 - Preserve dynamic loading for heavy panels and retain coordinate-based SVG primitives. Do not reintroduce CSS calc(...) inside SVG path data.
+- The inspector panel docks on the far-left canvas space; the MiniMap stays fixed in the bottom-right. The top status bar is the single source for projection selection, panel toggles, and snapshot capture.
+- The top status bar must not include a duplicate projection switcher or an opacity slider dropdown; these were removed. Panel toggles (Tree, Inspector, Terminal) and Reset remain.

@@ -516,7 +516,7 @@ export function KnowledgeSpaceView({
               placeholder="Search domains, projects, incidents..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-48 sm:w-64 pl-8 pr-3 py-1 bg-[#0a0d14] border border-[#2d3748] rounded-lg text-xs font-mono text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-all"
+              className="w-48 sm:w-64 pl-8 pr-3 py-1 bg-[#0a0d14] border border-[#2d3748] rounded-none text-xs font-mono text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-all"
             />
             {searchQuery && (
               <button
@@ -529,7 +529,7 @@ export function KnowledgeSpaceView({
           </div>
 
           {/* Zoom Level Bar */}
-          <div className="flex items-center bg-[#0a0d14] border border-[#2d3748] rounded-lg p-0.5 font-mono text-xs text-slate-300">
+          <div className="flex items-center bg-[#0a0d14] border border-[#2d3748] rounded-none p-0.5 font-mono text-xs text-slate-300">
             <button
               onClick={() => handleZoom(-0.15)}
               className="p-1 hover:bg-white/10 hover:text-white rounded transition-colors cursor-pointer"
@@ -614,7 +614,7 @@ export function KnowledgeSpaceView({
                     whileHover={{ scale: 1.03, y: -4 }}
                     whileTap={{ scale: 0.98 }}
                     onClick={() => handleSelectContinent(continent.id)}
-                    className={`relative p-5 rounded-2xl bg-gradient-to-b ${continent.bgGlow} bg-[#0c101d]/90 border ${continent.borderAccent} shadow-[0_0_25px_rgba(0,0,0,0.6)] backdrop-blur-md cursor-pointer transition-all duration-300 group flex flex-col justify-between h-[210px] overflow-hidden`}
+                    className={`relative p-5 rounded-none bg-gradient-to-b ${continent.bgGlow} bg-[#0c101d]/90 border ${continent.borderAccent} shadow-[0_0_25px_rgba(0,0,0,0.6)] backdrop-blur-md cursor-pointer transition-all duration-300 group flex flex-col justify-between h-[210px] overflow-hidden`}
                   >
                     {/* Background Radial Glow */}
                     <div 
@@ -629,7 +629,7 @@ export function KnowledgeSpaceView({
                           {continent.code}
                         </span>
                         <div 
-                          className="w-9 h-9 rounded-xl flex items-center justify-center border shadow-md transition-transform group-hover:rotate-6"
+                          className="w-9 h-9 rounded-none flex items-center justify-center border shadow-md transition-transform group-hover:rotate-6"
                           style={{ backgroundColor: `${continent.color}20`, borderColor: continent.color, color: continent.color }}
                         >
                           <Icon size={20} />
@@ -676,7 +676,7 @@ export function KnowledgeSpaceView({
               </div>
 
               {searchResults.length === 0 ? (
-                <div className="p-12 text-center text-slate-500 font-mono text-xs bg-[#0c101d] rounded-xl border border-slate-800">
+                <div className="p-12 text-center text-slate-500 font-mono text-xs bg-[#0c101d] rounded-none border border-slate-800">
                   No artifacts or domains match your query.
                 </div>
               ) : (
@@ -686,7 +686,7 @@ export function KnowledgeSpaceView({
                       key={item.id}
                       onClick={() => handleSelectItem(item, continent.id)}
                       whileHover={{ scale: 1.01 }}
-                      className="p-4 rounded-xl bg-[#0e1322] border border-slate-700 hover:border-indigo-500 cursor-pointer transition-all font-mono space-y-2"
+                      className="p-4 rounded-none bg-[#0e1322] border border-slate-700 hover:border-indigo-500 cursor-pointer transition-all font-mono space-y-2"
                     >
                       <div className="flex items-center justify-between text-[10px]">
                         <span className="px-2 py-0.5 rounded bg-indigo-950 text-indigo-300 border border-indigo-800 uppercase font-bold">
@@ -716,7 +716,7 @@ export function KnowledgeSpaceView({
             <div className="max-w-6xl mx-auto space-y-6">
               {/* Continent Header Banner */}
               <div 
-                className={`p-6 rounded-2xl bg-gradient-to-r ${activeContinent.bgGlow} bg-[#0c101d] border ${activeContinent.borderAccent} shadow-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 font-mono`}
+                className={`p-6 rounded-none bg-gradient-to-r ${activeContinent.bgGlow} bg-[#0c101d] border ${activeContinent.borderAccent} shadow-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 font-mono`}
               >
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
@@ -739,7 +739,7 @@ export function KnowledgeSpaceView({
 
                 <button
                   onClick={() => setSelectedContinentId(null)}
-                  className="px-3.5 py-1.5 bg-[#161b26] hover:bg-white/10 text-slate-300 hover:text-white border border-slate-700 rounded-lg text-xs font-mono font-semibold transition-all cursor-pointer flex items-center gap-1.5 shrink-0"
+                  className="px-3.5 py-1.5 bg-[#161b26] hover:bg-white/10 text-slate-300 hover:text-white border border-slate-700 rounded-none text-xs font-mono font-semibold transition-all cursor-pointer flex items-center gap-1.5 shrink-0"
                 >
                   <RotateCcw size={13} />
                   <span>Back to All Domains</span>
@@ -756,7 +756,7 @@ export function KnowledgeSpaceView({
                       whileHover={{ scale: 1.02, y: -2 }}
                       whileTap={{ scale: 0.98 }}
                       onClick={() => handleSelectItem(item)}
-                      className={`p-5 rounded-xl bg-[#0c101d]/90 border transition-all cursor-pointer font-mono flex flex-col justify-between space-y-4 shadow-lg ${
+                      className={`p-5 rounded-none bg-[#0c101d]/90 border transition-all cursor-pointer font-mono flex flex-col justify-between space-y-4 shadow-lg ${
                         isSelected 
                           ? 'border-indigo-400 bg-indigo-950/40 shadow-[0_0_20px_rgba(99,102,241,0.3)]' 
                           : 'border-slate-800 hover:border-slate-600'
@@ -833,7 +833,7 @@ export function KnowledgeSpaceView({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 50 }}
             transition={{ duration: 0.22 }}
-            className="absolute bottom-4 left-4 right-4 max-w-4xl mx-auto z-40 bg-[#0e1322]/98 border border-indigo-500/80 rounded-2xl p-5 shadow-[0_0_40px_rgba(0,0,0,0.8)] backdrop-blur-xl font-mono text-xs text-white space-y-4"
+            className="absolute bottom-4 left-4 right-4 max-w-4xl mx-auto z-40 bg-[#0e1322]/98 border border-indigo-500/80 rounded-none p-5 shadow-[0_0_40px_rgba(0,0,0,0.8)] backdrop-blur-xl font-mono text-xs text-white space-y-4"
           >
             {/* Header */}
             <div className="flex items-start justify-between gap-4 border-b border-indigo-500/30 pb-3">
@@ -849,7 +849,7 @@ export function KnowledgeSpaceView({
 
               <button
                 onClick={() => setSelectedItemId(null)}
-                className="p-1.5 hover:bg-white/10 rounded-lg text-slate-400 hover:text-white transition-colors cursor-pointer"
+                className="p-1.5 hover:bg-white/10 rounded-none text-slate-400 hover:text-white transition-colors cursor-pointer"
               >
                 ✕
               </button>
@@ -875,7 +875,7 @@ export function KnowledgeSpaceView({
                 {activeItem.codeSnippet && (
                   <div className="space-y-1 pt-2">
                     <h4 className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Implementation Snippet:</h4>
-                    <pre className="p-3 bg-[#05070a] border border-slate-800 rounded-lg text-[11px] text-indigo-300 overflow-x-auto">
+                    <pre className="p-3 bg-[#05070a] border border-slate-800 rounded-none text-[11px] text-indigo-300 overflow-x-auto">
                       <code>{activeItem.codeSnippet}</code>
                     </pre>
                   </div>
@@ -883,7 +883,7 @@ export function KnowledgeSpaceView({
               </div>
 
               {/* Sidebar Metrics & Tags */}
-              <div className="space-y-3 bg-[#05070a]/80 p-3.5 rounded-xl border border-slate-800">
+              <div className="space-y-3 bg-[#05070a]/80 p-3.5 rounded-none border border-slate-800">
                 <h4 className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Node Telemetry Metrics</h4>
                 {activeItem.metrics && (
                   <div className="space-y-1.5">
@@ -914,7 +914,7 @@ export function KnowledgeSpaceView({
                         onSelectNode(activeItem.ontologyNodeId);
                       }
                     }}
-                    className="w-full mt-3 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow-md"
+                    className="w-full mt-3 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-none font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow-md"
                   >
                     <Zap size={13} />
                     <span>Select Node in C2 Telemetry</span>

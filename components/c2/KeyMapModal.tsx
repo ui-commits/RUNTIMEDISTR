@@ -89,12 +89,12 @@ export function KeyMapModal() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 10 }}
             transition={{ duration: 0.18 }}
-            className="relative w-full max-w-xl bg-[#161b22] border border-[#30363d] rounded-2xl shadow-2xl overflow-hidden font-mono z-10 flex flex-col"
+            className="relative w-full max-w-xl bg-[#161b22] border border-[#30363d] rounded-none shadow-2xl overflow-hidden font-mono z-10 flex flex-col"
           >
             {/* Header */}
             <div className="flex items-center justify-between px-5 py-4 border-b border-[#30363d] bg-[#0d1117]/80">
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-indigo-600/20 border border-indigo-500/40 flex items-center justify-center text-indigo-400">
+                <div className="w-8 h-8 rounded-none bg-indigo-600/20 border border-indigo-500/40 flex items-center justify-center text-indigo-400">
                   <Keyboard size={16} />
                 </div>
                 <div>
@@ -110,7 +110,7 @@ export function KeyMapModal() {
 
               <button
                 onClick={() => setKeyMapOpen(false)}
-                className="p-1.5 text-slate-400 hover:text-white hover:bg-[#21262d] rounded-lg transition-colors cursor-pointer"
+                className="p-1.5 text-slate-400 hover:text-white hover:bg-[#21262d] rounded-none transition-colors cursor-pointer"
               >
                 <X size={16} />
               </button>
@@ -129,7 +129,7 @@ export function KeyMapModal() {
                       return (
                         <div
                           key={idx}
-                          className="flex items-center justify-between p-2 rounded-lg bg-[#0d1117]/70 border border-[#30363d]/60 hover:border-slate-500 transition-colors text-xs"
+                          className="flex items-center justify-between p-2 rounded-none bg-[#0d1117]/70 border border-[#30363d]/60 hover:border-slate-500 transition-colors text-xs"
                         >
                           <div className="flex items-center gap-2.5 text-slate-300">
                             {Icon && <Icon size={14} className="text-indigo-400 shrink-0" />}

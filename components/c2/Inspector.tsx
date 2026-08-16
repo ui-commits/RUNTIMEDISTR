@@ -222,7 +222,7 @@ export function Inspector({ activeNode, onCaptureSnapshot, onClose }: InspectorP
           </div>
         </div>
 
-        <div className="text-[11px] font-mono text-white flex items-center justify-between border-l-2 border-indigo-500 pl-3 py-1 bg-indigo-500/10 rounded-r">
+         <div className="text-[11px] font-mono text-white flex items-center justify-between border-l-2 border-indigo-500 pl-3 py-1 bg-indigo-500/10 rounded-r-none">
           <div className="flex items-center gap-2">
             <Activity size={14} className="text-indigo-400" />
             <span>INSPECTOR MATRIX</span>
@@ -247,7 +247,7 @@ export function Inspector({ activeNode, onCaptureSnapshot, onClose }: InspectorP
         </div>
 
         {/* Tab Switcher */}
-        <div className="grid grid-cols-3 gap-1 mt-2.5 bg-[#161b22] p-1 rounded-lg border border-[#30363d] text-[10px] font-mono">
+        <div className="grid grid-cols-3 gap-1 mt-2.5 bg-[#161b22] p-1 rounded-none border border-[#30363d] text-[10px] font-mono">
           <button
             onClick={() => setActiveTab('overview')}
             className={`py-1 rounded font-semibold transition-colors flex items-center justify-center gap-1 cursor-pointer ${
@@ -362,7 +362,7 @@ export function Inspector({ activeNode, onCaptureSnapshot, onClose }: InspectorP
             />
 
             {/* Recharts Mini-Bar Chart Visualization */}
-            <section className="bg-[#0b0b0e] border border-border-c2 rounded-lg p-3">
+            <section className="bg-[#0b0b0e] border border-border-c2 rounded-none p-3">
               <div className="flex items-center justify-between mb-2 border-b border-border-c2/60 pb-1.5">
                 <div className="flex items-center gap-1.5 text-white font-mono text-xs">
                   <BarChart2 size={13} className="text-indigo-400" />
@@ -506,7 +506,7 @@ export function Inspector({ activeNode, onCaptureSnapshot, onClose }: InspectorP
             </div>
 
             {artifacts.length === 0 ? (
-              <div className="flex-1 flex flex-col items-center justify-center p-6 text-center border border-dashed border-[#30363d] rounded-xl bg-[#0d1117]/50 font-mono">
+              <div className="flex-1 flex flex-col items-center justify-center p-6 text-center border border-dashed border-[#30363d] rounded-none bg-[#0d1117]/50 font-mono">
                 <div className="w-10 h-10 rounded-full bg-indigo-950/60 border border-indigo-800/80 flex items-center justify-center text-indigo-400 mb-2">
                   <Camera size={20} />
                 </div>
@@ -535,7 +535,7 @@ export function Inspector({ activeNode, onCaptureSnapshot, onClose }: InspectorP
                   {artifacts.map((art) => (
                     <div
                       key={art.id}
-                      className="group bg-[#161b22] border border-[#30363d] rounded-xl overflow-hidden shadow hover:border-indigo-500 transition-all font-mono"
+                      className="group bg-[#161b22] border border-[#30363d] rounded-none overflow-hidden shadow hover:border-indigo-500 transition-all font-mono"
                     >
                       {/* Image Thumbnail Preview */}
                       <div 
@@ -638,7 +638,7 @@ export function Inspector({ activeNode, onCaptureSnapshot, onClose }: InspectorP
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="relative w-full max-w-4xl bg-[#161b22] border border-[#30363d] rounded-2xl overflow-hidden shadow-2xl flex flex-col font-mono"
+              className="relative w-full max-w-4xl bg-[#161b22] border border-[#30363d] rounded-none overflow-hidden shadow-2xl flex flex-col font-mono"
             >
               {/* Lightbox Header */}
               <div className="flex items-center justify-between px-4 py-3 bg-[#0d1117] border-b border-[#30363d]">
@@ -915,7 +915,7 @@ function TelemetryLogWidget({
   };
 
   return (
-    <section className="bg-[#0b0d13] border border-border-c2 rounded-xl overflow-hidden font-mono text-xs shadow-lg">
+    <section className="bg-[#0b0d13] border border-border-c2 rounded-none overflow-hidden font-mono text-xs shadow-lg">
       {/* Widget Header */}
       <div className="p-2.5 bg-[#121622] border-b border-border-c2 flex items-center justify-between">
         <div className="flex items-center gap-2">

@@ -198,7 +198,7 @@ export function TimeSyncOverlay({ activeNode }: TimeSyncOverlayProps) {
       {/* Top Header Pill Trigger / Mini Clock Bar */}
       <div 
         onClick={() => setIsExpanded(!isExpanded)}
-        className="flex items-center gap-2 bg-[#161b22]/95 hover:bg-[#21262d] border border-[#30363d] hover:border-slate-500 rounded-lg px-2.5 py-1 text-slate-200 transition-all cursor-pointer shadow-sm group"
+        className="flex items-center gap-2 bg-[#161b22]/95 hover:bg-[#21262d] border border-[#30363d] hover:border-slate-500 rounded-none px-2.5 py-1 text-slate-200 transition-all cursor-pointer shadow-sm group"
         title="Click to expand synchronized global multi-zone time matrix"
       >
         {/* Sync Pulse Light */}
@@ -261,12 +261,12 @@ export function TimeSyncOverlay({ activeNode }: TimeSyncOverlayProps) {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 6, scale: 0.98 }}
               transition={{ duration: 0.18 }}
-              className="absolute right-0 top-full mt-2 w-84 sm:w-96 bg-[#161b22]/98 backdrop-blur-2xl border border-[#30363d] rounded-xl shadow-2xl p-3 z-50 text-slate-200 overflow-hidden"
+              className="absolute right-0 top-full mt-2 w-84 sm:w-96 bg-[#161b22]/98 backdrop-blur-2xl border border-[#30363d] rounded-none shadow-2xl p-3 z-50 text-slate-200 overflow-hidden"
             >
               {/* Header */}
               <div className="flex items-center justify-between pb-2.5 mb-2.5 border-b border-[#30363d]">
                 <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 rounded-md bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center">
+                  <div className="w-6 h-6 rounded-none bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center">
                     <Radio size={13} className="text-indigo-400 animate-pulse" />
                   </div>
                   <div>
@@ -302,7 +302,7 @@ export function TimeSyncOverlay({ activeNode }: TimeSyncOverlayProps) {
               </div>
 
               {/* Master Epoch & ISO Timestamp Banner */}
-              <div className="bg-[#0d1117] border border-[#30363d] rounded-lg p-2 mb-2.5 flex items-center justify-between text-[10px]">
+              <div className="bg-[#0d1117] border border-[#30363d] rounded-none p-2 mb-2.5 flex items-center justify-between text-[10px]">
                 <div className="space-y-0.5 overflow-hidden">
                   <div className="text-slate-400 text-[9px] uppercase font-bold flex items-center gap-1">
                     <Zap size={10} className="text-amber-400" />
@@ -341,7 +341,7 @@ export function TimeSyncOverlay({ activeNode }: TimeSyncOverlayProps) {
                   return (
                     <div
                       key={zone.id}
-                      className={`p-2 rounded-lg border transition-all ${
+                      className={`p-2 rounded-none border transition-all ${
                         isNodePrimary
                           ? 'bg-indigo-950/40 border-indigo-500/70 shadow-[0_0_12px_rgba(99,102,241,0.15)]'
                           : 'bg-[#0d1117]/80 border-[#30363d] hover:bg-[#161b22] hover:border-slate-500'
