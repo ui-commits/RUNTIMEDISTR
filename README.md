@@ -126,16 +126,16 @@ Single-key shortcuts are disabled while typing in an input, textarea, or editabl
 
 ### Top Status Bar
 
-The top status bar contains the brand, active target indicator, quick-jump location presets (Portland with an airplane icon, 515 NE Holladay with a house icon, and Global Earth with a globe icon), snapshot capture, a projection selector dropdown, and panel toggles (Tree, Inspector, Terminal, Reset). The projection selector dropdown is the single source of projection navigation; the earlier bottom-right projection switcher has been removed to avoid duplication.
+The top status bar contains the brand logo (radar icon, top-left), the active target indicator, icon-only quick-jump presets, snapshot capture, a projection selector dropdown, the Tree toggle, and Reset. The quick-jump presets appear in order **globe → plane → house** (Global Earth, Portland/PDX, 515 NE Holladay); the globe is the actively highlighted target on load. The projection selector dropdown is the single source of projection navigation; the earlier bottom-right projection switcher has been removed to avoid duplication. The Inspector and Terminal toggles no longer live in the header.
 
 The UI overlay opacity slider has been removed from the top bar; overlay opacity is now managed programmatically by C2 actions and the active projection.
 
 ### Canvas Layout
 
-- The **Inspector** panel docks on the far-left canvas space; toggle with `I`.
+- The **Inspector** panel docks on the far-left canvas space; pull it out by clicking the slim green tab on the left edge of the canvas (or `I`).
 - The **MiniMap** is always visible in the bottom-right corner of the canvas.
-- The **TreeNav** overlays the left side when open (toggle with `T`).
-- The **Terminal Chatbox** appears at the bottom center of the canvas (toggle with `C` or backtick).
+- The **TreeNav** overlays the left side when open (toggle with `T` from the header).
+- The **Terminal Chatbox** rises from the bottom center; toggle it with the small terminal tab docked at the bottom center (or `C` or backtick).
 - Double-clicking the digital canvas background toggles radial/grid organization. Zoom controls are constrained to the supported visualization range.
 
 ### Terminal Commands

@@ -64,7 +64,7 @@ const C2Context = createContext<C2ContextType | undefined>(undefined);
 
 export function C2Provider({ children }: { children: ReactNode }) {
   const [nodes, setNodes] = useState<Record<string, NodeData>>(initialNodes);
-  const [activeNodeId, setActiveNodeId] = useState("pdx");
+  const [activeNodeId, setActiveNodeId] = useState("earth");
   const [overlayOpacity, setOverlayOpacity] = useState(0.92);
   const [commandBarOpen, setCommandBarOpen] = useState(false);
   const [keyMapOpen, setKeyMapOpen] = useState(false);

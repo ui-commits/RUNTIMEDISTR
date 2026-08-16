@@ -141,5 +141,5 @@ A change is complete only when:
 - Treat resource load as explicitly supplied sample/operator telemetry unless a real telemetry adapter is introduced. It must remain separate from getNodeHealth.
 - Use C2Provider methods for pinning, load updates, snapshots, and history so terminal actions retain validation.
 - Preserve dynamic loading for heavy panels and retain coordinate-based SVG primitives. Do not reintroduce CSS calc(...) inside SVG path data.
-- The inspector panel docks on the far-left canvas space; the MiniMap stays fixed in the bottom-right. The top status bar is the single source for projection selection, panel toggles, and snapshot capture.
-- The top status bar must not include a duplicate projection switcher or an opacity slider dropdown; these were removed. Panel toggles (Tree, Inspector, Terminal) and Reset remain.
+- The inspector panel docks on the far-left canvas space and is pulled out with the slim left-edge tab; the MiniMap stays fixed in the bottom-right. The top status bar is the single source for projection selection and snapshot capture, plus the Tree toggle and Reset.
+- The top status bar must not include a duplicate projection switcher, an opacity slider dropdown, or the Inspector/Terminal toggles; these were removed. The Inspector opens from the left-edge shelf pull-tab and the Terminal from the bottom-center dock tab.

@@ -297,10 +297,18 @@ export function OperationSphere({
       {/* Animated Background: Subtle pulsing grid with floating nodes */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div 
-          className="absolute inset-0 opacity-8" 
+          className="absolute inset-0 opacity-8 animate-grid-drift" 
           style={{ 
             backgroundImage: 'linear-gradient(rgba(99,102,241,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(99,102,241,0.08) 1px, transparent 1px)',
             backgroundSize: '32px 32px',
+          }}
+        />
+        {/* Slow drifting radial glow — simple, subtle, CSS-only */}
+        <div
+          className="absolute inset-0 animate-glow-drift"
+          style={{
+            backgroundImage:
+              'radial-gradient(ellipse at 30% 30%, rgba(99,102,241,0.10), transparent 55%), radial-gradient(ellipse at 72% 62%, rgba(16,185,129,0.05), transparent 55%)',
           }}
         />
         <motion.div 

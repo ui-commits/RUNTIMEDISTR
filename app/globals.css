@@ -40,6 +40,28 @@
   .sharp {
     @apply rounded-none;
   }
+
+  /* Low-resource animated canvas backdrop: slow grid drift (background-position) */
+  .animate-grid-drift {
+    animation: c2-grid-drift 120s linear infinite;
+  }
+
+  /* Low-resource animated canvas backdrop: drifting radial glow (compositor-only) */
+  .animate-glow-drift {
+    animation: c2-glow-drift 30s ease-in-out infinite;
+    will-change: transform;
+  }
+}
+
+@keyframes c2-grid-drift {
+  from { background-position: 0 0; }
+  to { background-position: 0 64px; }
+}
+
+@keyframes c2-glow-drift {
+  0%   { transform: translate3d(-4%, -3%, 0) scale(1); }
+  50%  { transform: translate3d(4%, 4%, 0) scale(1.12); }
+  100% { transform: translate3d(-4%, -3%, 0) scale(1); }
 }
 
 /* Refined custom scrollbar */

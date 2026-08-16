@@ -27,7 +27,8 @@ import {
   Keyboard,
   Sparkles,
   Plane,
-  Home
+  Home,
+  Radar
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -212,78 +213,57 @@ function GDRDashboardContent() {
 
       {/* Top Status Bar */}
       <header className="h-14 border-b border-[#30363d] bg-[#161b22]/95 backdrop-blur-md px-4 flex items-center justify-between shrink-0 z-40">
-        {/* Left: Brand & Active System Indicator */}
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-sm bg-indigo-600/20 border border-indigo-500/50 flex items-center justify-center shadow-inner">
-              <span className="text-indigo-400 font-bold text-sm">◰</span>
-            </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <h1 className="text-sm font-bold tracking-tight text-white font-mono">GDR</h1>
-                <span className="text-slate-400 text-xs font-mono">{'// DISTRIBUTION RUNTIME AGENT'}</span>
-                <span className="px-1.5 py-0.5 rounded-sm text-[9px] font-mono bg-emerald-950/80 text-emerald-300 border border-emerald-800/80 font-semibold">
-                  v3.7.0
-                </span>
-              </div>
-              <div className="text-[10px] text-slate-400 flex items-center gap-1.5 font-mono">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                <span>ACTIVE TARGET: <strong className="text-white">{activeNode.label}</strong></span>
-              </div>
-            </div>
-          </div>
+        {/* Left: Brand Logo & Quick Jump Presets */}
+        <div className="flex items-center gap-3">
+          {/* Brand Logo */}
+          <button
+            onClick={() => {
+              selectNode('earth');
+              setProjection('geographic');
+            }}
+            className="w-8 h-8 rounded-sm bg-indigo-600/20 border border-indigo-500/50 flex items-center justify-center shadow-inner hover:bg-indigo-600/30 transition-colors cursor-pointer"
+            title="GDR // Global Distribution Runtime — return to Global Earth"
+            aria-label="Global Distribution Runtime"
+          >
+            <Radar size={16} className="text-indigo-300" />
+          </button>
+
+          {/* Active Target Indicator */}
+          <span className="text-[10px] font-mono text-slate-300 tracking-wider uppercase flex items-center gap-1.5 whitespace-nowrap">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            TARGET: <strong className="text-white">{activeNode.label}</strong>
+          </span>
 
           <div className="h-6 w-px bg-[#30363d]" />
 
-          {/* Quick 1-Click Jump Presets */}
+          {/* Quick 1-Click Jump Presets (icon-only: globe, plane, house) */}
           <div className="flex items-center gap-1.5">
-            <button
-              onClick={() => {
-                selectNode('pdx');
-                setProjection('geographic');
-              }}
-              className={`px-2.5 py-1 text-xs font-mono rounded-sm flex items-center gap-1.5 transition-colors cursor-pointer ${
-                activeNodeId === 'pdx'
-                  ? 'bg-indigo-600 text-white font-bold shadow-sm'
-                  : 'text-slate-400 hover:text-white hover:bg-[#21262d]'
-              }`}
-              title="Jump to Portland Metro Operations [1]"
-            >
-              <Plane size={12} className={activeNodeId === 'pdx' ? 'text-white' : 'text-indigo-400'} />
-              <span>Portland (PDX)</span>
-            </button>
-
-            <button
-              onClick={() => {
-                selectNode('apt');
-                setProjection('geographic');
-              }}
-              className={`px-2.5 py-1 text-xs font-mono rounded-sm flex items-center gap-1.5 transition-colors cursor-pointer ${
-                activeNodeId === 'apt'
-                  ? 'bg-indigo-600 text-white font-bold shadow-sm'
-                  : 'text-slate-400 hover:text-white hover:bg-[#21262d]'
-              }`}
-              title="Jump to The Louisa Flowers (515 NE Holladay St)"
-            >
-              <Home size={12} className={activeNodeId === 'apt' ? 'text-white' : 'text-emerald-400'} />
-              <span>515 NE Holladay</span>
-            </button>
-
-            <button
-              onClick={() => {
-                selectNode('earth');
-                setProjection('geographic');
-              }}
-              className={`px-2.5 py-1 text-xs font-mono rounded-sm flex items-center gap-1.5 transition-colors cursor-pointer ${
-                activeNodeId === 'earth'
-                  ? 'bg-indigo-600 text-white font-bold shadow-sm'
-                  : 'text-slate-400 hover:text-white hover:bg-[#21262d]'
-              }`}
-              title="Jump to Global Earth Root"
-            >
-              <Globe size={12} className={activeNodeId === 'earth' ? 'text-white' : 'text-indigo-400'} />
-              <span>Global Earth</span>
-            </button>
+            {[
+              { id: 'earth', icon: Globe, label: 'Global Earth', hint: 'Jump to Global Earth Root (default view)' },
+              { id: 'pdx', icon: Plane, label: 'Portland (PDX)', hint: 'Jump to Portland Metro Operations' },
+              { id: 'apt', icon: Home, label: '515 NE Holladay', hint: 'Jump to The Louisa Flowers (515 NE Holladay St)' },
+            ].map(({ id, icon: PresetIcon, label, hint }) => {
+              const isActive = activeNodeId === id;
+              return (
+                <button
+                  key={id}
+                  onClick={() => {
+                    selectNode(id);
+                    setProjection('geographic');
+                  }}
+                  className={`w-7 h-7 rounded-sm flex items-center justify-center transition-colors cursor-pointer ${
+                    isActive
+                      ? 'bg-indigo-600 text-white shadow-[0_0_10px_rgba(99,102,241,0.35)]'
+                      : 'text-slate-400 border border-[#30363d] bg-[#0d1117] hover:text-white hover:bg-[#21262d] hover:border-slate-500'
+                  }`}
+                  title={hint}
+                  aria-label={label}
+                  aria-pressed={isActive}
+                >
+                  <PresetIcon size={14} className={isActive ? 'text-white' : 'text-indigo-400'} />
+                </button>
+              );
+            })}
           </div>
         </div>
 
@@ -291,17 +271,14 @@ function GDRDashboardContent() {
 
         {/* Right Controls */}
         <div className="flex items-center gap-2">
-          {/* Capture Canvas Snapshot Button */}
+          {/* Capture Canvas Snapshot Button (icon-only) */}
           <button
             onClick={handleCaptureSnapshot}
-            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 bg-indigo-600/20 hover:bg-indigo-600 text-indigo-300 hover:text-white border border-indigo-500/50 hover:border-indigo-400 rounded-sm text-xs font-mono font-semibold transition-all cursor-pointer shadow-sm"
+            className="p-1.5 bg-[#0d1117] hover:bg-indigo-600/30 border border-indigo-500/50 text-indigo-300 hover:text-white rounded-sm shadow-sm transition-all cursor-pointer"
             title="Capture Canvas Snapshot artifact into node metadata (Hotkey: S)"
+            aria-label="Capture Canvas Snapshot"
           >
             <Camera size={13} />
-            <span>Snapshot</span>
-            <kbd className="text-[9px] bg-indigo-950/80 px-1 rounded border border-indigo-700/80 text-indigo-300">
-              S
-            </kbd>
           </button>
 
           {/* Projection Selector Dropdown */}
@@ -390,34 +367,6 @@ function GDRDashboardContent() {
               <span className="hidden md:inline">Tree [T]</span>
             </button>
 
-            {/* Inspector Toggle */}
-            <button
-              onClick={() => setInspectorOpen(!inspectorOpen)}
-              className={`px-3 py-1.5 text-xs font-mono rounded-sm flex items-center gap-1.5 border transition-all cursor-pointer ${
-                inspectorOpen
-                  ? 'bg-indigo-600 border-indigo-500 text-white shadow-[0_0_12px_rgba(99,102,241,0.3)]'
-                  : 'bg-[#0d1117] border-[#30363d] text-slate-300 hover:text-white hover:bg-[#21262d]'
-              }`}
-              title="Toggle Node Metadata & Telemetry Inspector [I]"
-            >
-              <Activity size={13} className={inspectorOpen ? 'text-white' : 'text-emerald-400'} />
-              <span className="hidden md:inline">Inspector [I]</span>
-            </button>
-
-            {/* Terminal AI Toggle */}
-            <button
-              onClick={() => setTerminalOpen(!terminalOpen)}
-              className={`px-3 py-1.5 text-xs font-mono rounded-sm flex items-center gap-1.5 border transition-all cursor-pointer ${
-                terminalOpen
-                  ? 'bg-indigo-600 border-indigo-500 text-white shadow-[0_0_12px_rgba(99,102,241,0.3)]'
-                  : 'bg-[#0d1117] border-[#30363d] text-slate-300 hover:text-white hover:bg-[#21262d]'
-              }`}
-              title="Toggle Natural Language Terminal Chatbox [C]"
-            >
-              <Terminal size={13} className={terminalOpen ? 'text-white' : 'text-indigo-400'} />
-              <span className="hidden lg:inline">{terminalOpen ? 'Terminal [C]' : 'Terminal [C]'}</span>
-            </button>
-
             {/* Reset State */}
             <button
               onClick={resetNodes}
@@ -449,6 +398,24 @@ function GDRDashboardContent() {
           onProjectionChange={setProjection}
           onCaptureSnapshot={handleCaptureSnapshot}
         />
+
+        {/* Floating Left Pull-Tab: Telemetry Inspector Shelf */}
+        <AnimatePresence>
+          {!inspectorOpen && (
+            <motion.button
+              initial={{ opacity: 0, x: -12 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -12 }}
+              transition={{ duration: 0.18 }}
+              onClick={() => setInspectorOpen(true)}
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-40 h-14 w-7 rounded-r-sm bg-emerald-600/20 border border-l-0 border-emerald-500/40 text-emerald-300 hover:bg-emerald-600/30 hover:text-white flex items-center justify-center cursor-pointer shadow-lg transition-colors"
+              title="Pull out Node Telemetry Inspector [I]"
+              aria-label="Open Telemetry Inspector"
+            >
+              <Activity size={14} />
+            </motion.button>
+          )}
+        </AnimatePresence>
 
         {/* Floating Left Overlay: Node Metadata & Inspector */}
         <AnimatePresence>
@@ -489,6 +456,25 @@ function GDRDashboardContent() {
           )}
         </AnimatePresence>
 
+        {/* Floating Bottom Center Dock: Terminal Chatbox */}
+        <motion.button
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.18 }}
+          onClick={() => setTerminalOpen((prev) => !prev)}
+          className={`absolute bottom-2 left-1/2 -translate-x-1/2 z-40 px-2.5 h-8 rounded-none border text-xs font-mono flex items-center gap-1.5 cursor-pointer shadow-lg transition-colors ${
+            terminalOpen
+              ? 'bg-indigo-600 border-indigo-500 text-white'
+              : 'bg-[#161b22]/95 border-indigo-500/40 text-indigo-300 hover:bg-indigo-600/20 hover:text-white'
+          }`}
+          title={terminalOpen ? 'Dismiss Terminal Chatbox [C]' : 'Pull up Terminal Chatbox [C]'}
+          aria-label="Toggle Terminal Chatbox"
+          aria-pressed={terminalOpen}
+        >
+          <Terminal size={13} />
+          <span className="hidden sm:inline">{terminalOpen ? 'CLOSE' : 'TERMINAL'}</span>
+        </motion.button>
+
         {/* Floating Bottom Overlay: Natural Language AI Terminal Chatbox */}
         <AnimatePresence>
           {terminalOpen && (
@@ -497,7 +483,7 @@ function GDRDashboardContent() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 40 }}
               transition={{ duration: 0.22 }}
-              className="absolute bottom-4 left-4 right-4 sm:left-12 sm:right-12 lg:left-1/2 lg:-translate-x-1/2 lg:w-[860px] max-h-[50vh] z-30 flex flex-col shadow-2xl pointer-events-auto"
+              className="absolute bottom-12 left-4 right-4 sm:left-12 sm:right-12 lg:left-1/2 lg:-translate-x-1/2 lg:w-[860px] max-h-[50vh] z-30 flex flex-col shadow-2xl pointer-events-auto"
             >
               <TerminalChatbox />
             </motion.div>
