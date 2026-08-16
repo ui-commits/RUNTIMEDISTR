@@ -213,7 +213,7 @@ export function GeoMapOverlay({ nodes, activeNode, onSelectNode }: GeoMapOverlay
       </div>
 
       {/* Bottom Floating Location Badge */}
-      <div className="absolute bottom-3 left-3 bg-[#0a0a0e]/95 backdrop-blur-md border border-border-c2 p-3 rounded-none z-30 max-w-sm shadow-2xl space-y-1">
+      <div className="absolute bottom-12 left-3 bg-[#0a0a0e]/95 backdrop-blur-md border border-border-c2 p-3 rounded-none z-30 max-w-sm shadow-2xl space-y-1">
         <div className="flex items-center gap-2">
           <Building2 size={13} className="text-cobalt-c2" />
           <span className="text-xs font-bold text-white uppercase">{geo.name || activeNode.label}</span>

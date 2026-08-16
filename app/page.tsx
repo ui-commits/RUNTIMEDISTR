@@ -212,7 +212,7 @@ function GDRDashboardContent() {
       </AnimatePresence>
 
       {/* Top Status Bar */}
-      <header className="h-14 border-b border-[#30363d] bg-[#161b22]/95 backdrop-blur-md px-4 flex items-center justify-between shrink-0 z-40">
+      <header className="relative h-14 border-b border-[#30363d] bg-[#161b22]/95 backdrop-blur-md px-4 flex items-center justify-between shrink-0 z-40">
         {/* Left: Brand Logo & Quick Jump Presets */}
         <div className="flex items-center gap-3">
           {/* Brand Logo */}
@@ -225,19 +225,13 @@ function GDRDashboardContent() {
             title="GDR // Global Distribution Runtime — return to Global Earth"
             aria-label="Global Distribution Runtime"
           >
-            <Radar size={16} className="text-indigo-300" />
+            <Radar size={16} className="text-indigo-300 animate-radar-sweep" />
           </button>
-
-          {/* Active Target Indicator */}
-          <span className="text-[10px] font-mono text-slate-300 tracking-wider uppercase flex items-center gap-1.5 whitespace-nowrap">
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            TARGET: <strong className="text-white">{activeNode.label}</strong>
-          </span>
 
           <div className="h-6 w-px bg-[#30363d]" />
 
-          {/* Quick 1-Click Jump Presets (icon-only: globe, plane, house) */}
-          <div className="flex items-center gap-1.5">
+          {/* Quick 1-Click Jump Presets (shared container: globe, plane, house) */}
+          <div className="flex items-center gap-1 p-1 bg-[#0d1117]/70 border border-[#30363d] rounded-sm">
             {[
               { id: 'earth', icon: Globe, label: 'Global Earth', hint: 'Jump to Global Earth Root (default view)' },
               { id: 'pdx', icon: Plane, label: 'Portland (PDX)', hint: 'Jump to Portland Metro Operations' },
@@ -253,18 +247,77 @@ function GDRDashboardContent() {
                   }}
                   className={`w-7 h-7 rounded-sm flex items-center justify-center transition-colors cursor-pointer ${
                     isActive
-                      ? 'bg-indigo-600 text-white shadow-[0_0_10px_rgba(99,102,241,0.35)]'
-                      : 'text-slate-400 border border-[#30363d] bg-[#0d1117] hover:text-white hover:bg-[#21262d] hover:border-slate-500'
+                      ? 'bg-amber-400 text-amber-950 animate-pulse shadow-[0_0_12px_rgba(245,158,11,0.45)]'
+                      : 'text-slate-400 hover:text-white hover:bg-[#21262d]'
                   }`}
                   title={hint}
                   aria-label={label}
                   aria-pressed={isActive}
                 >
-                  <PresetIcon size={14} className={isActive ? 'text-white' : 'text-indigo-400'} />
+                  <PresetIcon size={14} className={isActive ? 'text-amber-950' : 'text-indigo-400'} />
                 </button>
               );
             })}
           </div>
+        </div>
+
+        {/* Projection Selector Dropdown (header center) */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
+          <button
+            onClick={() => setProjectionMenuOpen(!projectionMenuOpen)}
+            className="px-3 py-1.5 bg-[#0d1117] hover:bg-[#21262d] border border-[#30363d] hover:border-slate-500 rounded-sm text-xs font-mono flex items-center gap-2 text-white transition-all cursor-pointer shadow-sm"
+          >
+            <CurrentProjectionIcon size={13} className="text-indigo-400" />
+            <span className="font-semibold hidden sm:inline">{projectionLabels[projection].label}</span>
+            <ChevronDown size={12} className={`text-slate-400 transition-transform ${projectionMenuOpen ? 'rotate-180' : ''}`} />
+          </button>
+
+          {/* Projection Dropdown Menu */}
+          {projectionMenuOpen && (
+            <>
+              <div
+                className="fixed inset-0 z-40"
+                onClick={() => setProjectionMenuOpen(false)}
+              />
+              <div className="absolute left-1/2 -translate-x-1/2 top-full mt-1.5 w-64 bg-[#161b22] border border-[#30363d] rounded-sm shadow-2xl p-1.5 z-50 font-mono space-y-1">
+                <div className="px-2.5 py-1 text-[10px] text-slate-400 uppercase font-bold border-b border-[#30363d]">
+                  Select Canvas Projection
+                </div>
+                {(Object.keys(projectionLabels) as ProjectionMode[]).map((mode, idx) => {
+                  const item = projectionLabels[mode];
+                  const Icon = item.icon;
+                  const isSelected = projection === mode;
+                  return (
+                    <button
+                      key={mode}
+                      onClick={() => {
+                        setProjection(mode);
+                        setProjectionMenuOpen(false);
+                      }}
+                      className={`w-full text-left px-2.5 py-2 rounded-sm text-xs transition-all flex items-start gap-2.5 cursor-pointer ${
+                        isSelected
+                          ? 'bg-indigo-600 text-white font-bold'
+                          : 'hover:bg-[#21262d] text-slate-300 hover:text-white'
+                      }`}
+                    >
+                      <Icon size={14} className={isSelected ? 'text-white mt-0.5' : 'text-indigo-400 mt-0.5'} />
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between">
+                          <span>{item.label}</span>
+                          <span className={`text-[9px] px-1 rounded ${isSelected ? 'bg-indigo-800 text-white' : 'bg-[#0d1117] text-slate-500'}`}>
+                            {idx + 1}
+                          </span>
+                        </div>
+                        <div className={`text-[10px] ${isSelected ? 'text-indigo-200' : 'text-slate-400'}`}>
+                          {item.desc}
+                        </div>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </>
+          )}
         </div>
 
         <div className="h-5 w-px bg-[#30363d]" />
@@ -280,65 +333,6 @@ function GDRDashboardContent() {
           >
             <Camera size={13} />
           </button>
-
-          {/* Projection Selector Dropdown */}
-          <div className="relative">
-            <button
-              onClick={() => setProjectionMenuOpen(!projectionMenuOpen)}
-              className="px-3 py-1.5 bg-[#0d1117] hover:bg-[#21262d] border border-[#30363d] hover:border-slate-500 rounded-sm text-xs font-mono flex items-center gap-2 text-white transition-all cursor-pointer shadow-sm"
-            >
-              <CurrentProjectionIcon size={13} className="text-indigo-400" />
-              <span className="font-semibold hidden sm:inline">{projectionLabels[projection].label}</span>
-              <ChevronDown size={12} className={`text-slate-400 transition-transform ${projectionMenuOpen ? 'rotate-180' : ''}`} />
-            </button>
-
-            {/* Projection Dropdown Menu */}
-            {projectionMenuOpen && (
-              <>
-                <div 
-                  className="fixed inset-0 z-40" 
-                  onClick={() => setProjectionMenuOpen(false)} 
-                />
-                <div className="absolute right-0 top-full mt-1.5 w-64 bg-[#161b22] border border-[#30363d] rounded-sm shadow-2xl p-1.5 z-50 font-mono space-y-1">
-                  <div className="px-2.5 py-1 text-[10px] text-slate-400 uppercase font-bold border-b border-[#30363d]">
-                    Select Canvas Projection
-                  </div>
-                  {(Object.keys(projectionLabels) as ProjectionMode[]).map((mode, idx) => {
-                    const item = projectionLabels[mode];
-                    const Icon = item.icon;
-                    const isSelected = projection === mode;
-                    return (
-                      <button
-                        key={mode}
-                        onClick={() => {
-                          setProjection(mode);
-                          setProjectionMenuOpen(false);
-                        }}
-                        className={`w-full text-left px-2.5 py-2 rounded-sm text-xs transition-all flex items-start gap-2.5 cursor-pointer ${
-                          isSelected
-                            ? 'bg-indigo-600 text-white font-bold'
-                            : 'hover:bg-[#21262d] text-slate-300 hover:text-white'
-                        }`}
-                      >
-                        <Icon size={14} className={isSelected ? 'text-white mt-0.5' : 'text-indigo-400 mt-0.5'} />
-                        <div className="flex-1">
-                          <div className="flex items-center justify-between">
-                            <span>{item.label}</span>
-                            <span className={`text-[9px] px-1 rounded ${isSelected ? 'bg-indigo-800 text-white' : 'bg-[#0d1117] text-slate-500'}`}>
-                              {idx + 1}
-                            </span>
-                          </div>
-                          <div className={`text-[10px] ${isSelected ? 'text-indigo-200' : 'text-slate-400'}`}>
-                            {item.desc}
-                          </div>
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
-              </>
-            )}
-          </div>
 
           {/* Keyboard Shortcuts Key-Map Button */}
           <button
@@ -396,7 +390,6 @@ function GDRDashboardContent() {
           }}
           projection={projection}
           onProjectionChange={setProjection}
-          onCaptureSnapshot={handleCaptureSnapshot}
         />
 
         {/* Floating Left Pull-Tab: Telemetry Inspector Shelf */}

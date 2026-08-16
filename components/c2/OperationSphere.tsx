@@ -43,7 +43,6 @@ import {
   FolderHeart,
 } from 'lucide-react';
 import { GeoMapOverlay } from '@/components/c2/GeoMapOverlay';
-import { Camera } from 'lucide-react';
 import { NodeHeartbeatRing, LiveEkgWaveform, ResourceLoadHeartbeatRing } from '@/components/c2/NodeHeartbeatRing';
 import { DigitalDataFlowPaths, LayoutNodePosition } from '@/components/c2/DigitalDataFlowPaths';
 import { MiniMap } from '@/components/c2/MiniMap';
@@ -58,7 +57,6 @@ interface OperationSphereProps {
   onSelectNode: (id: string) => void;
   projection?: ProjectionMode;
   onProjectionChange?: (projection: ProjectionMode) => void;
-  onCaptureSnapshot?: () => void;
 }
 
 export interface HoveredSphereNode {
@@ -74,7 +72,6 @@ export function OperationSphere({
   onSelectNode,
   projection: externalProjection,
   onProjectionChange: externalOnProjectionChange,
-  onCaptureSnapshot,
 }: OperationSphereProps) {
   const { 
     searchQuery, 
@@ -550,23 +547,12 @@ export function OperationSphere({
           <button
             onClick={() => triggerTrafficSpike()}
             title="Simulate / Trigger a sudden network traffic spike between nodes"
-            className="px-1.5 py-0.5 text-amber-300 hover:text-amber-100 hover:bg-amber-950/60 rounded flex items-center gap-1 transition-colors cursor-pointer"
+            aria-label="Trigger network traffic spike"
+            className="p-1.5 text-amber-300 hover:text-amber-100 hover:bg-amber-950/60 rounded flex items-center justify-center transition-colors cursor-pointer"
           >
-            <Zap size={10} className="text-amber-400" />
-            <span className="text-[9px]">TRIGGER SPIKE</span>
+            <Zap size={12} className="text-amber-400" />
           </button>
         </div>
-
-        {onCaptureSnapshot && (
-          <button
-            onClick={onCaptureSnapshot}
-            title="Capture Canvas Snapshot artifact to node metadata (Hotkey: S)"
-            className="px-2.5 py-1 bg-[#0e0e12]/90 hover:bg-indigo-600/90 text-slate-300 hover:text-white backdrop-blur-md border border-border-c2 hover:border-indigo-500 text-[10px] font-mono rounded flex items-center gap-1.5 shadow-lg transition-all cursor-pointer"
-          >
-            <Camera size={11} className="text-indigo-400 group-hover:text-white" />
-            <span className="font-bold">SNAPSHOT [S]</span>
-          </button>
-        )}
       </div>
 
       {/* Top Right Controls: Show Recent Toggle, Snap to Grid & Zoom */}

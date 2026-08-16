@@ -51,6 +51,12 @@
     animation: c2-glow-drift 30s ease-in-out infinite;
     will-change: transform;
   }
+
+  /* Header logo: rotating radar sweep */
+  .animate-radar-sweep {
+    animation: c2-radar-sweep 10s linear infinite;
+    will-change: transform;
+  }
 }
 
 @keyframes c2-grid-drift {
@@ -62,6 +68,11 @@
   0%   { transform: translate3d(-4%, -3%, 0) scale(1); }
   50%  { transform: translate3d(4%, 4%, 0) scale(1.12); }
   100% { transform: translate3d(-4%, -3%, 0) scale(1); }
+}
+
+@keyframes c2-radar-sweep {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }
 
 /* Refined custom scrollbar */

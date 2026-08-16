@@ -191,7 +191,6 @@ export function TimeSyncOverlay({ activeNode }: TimeSyncOverlayProps) {
   };
 
   const activeFormatted = formatZoneTime(now, activeZone.timeZone);
-  const utcFormatted = formatZoneTime(now, 'UTC');
 
   return (
     <div id="c2-global-time-sync-overlay" className="relative z-30 font-mono text-xs select-none">
@@ -208,14 +207,6 @@ export function TimeSyncOverlay({ activeNode }: TimeSyncOverlayProps) {
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
           </span>
           <Clock size={13} className="text-indigo-400 group-hover:text-indigo-300 transition-colors" />
-        </div>
-
-        {/* UTC Zulu Timestamp */}
-        <div className="flex items-center gap-1.5 border-r border-[#30363d] pr-2 shrink-0">
-          <span className="text-[9px] text-slate-400 uppercase font-bold tracking-wider">UTC</span>
-          <span className="text-white font-bold tabular-nums text-[11px]">
-            {utcFormatted.timeStr}
-          </span>
         </div>
 
         {/* Active Node Time */}
