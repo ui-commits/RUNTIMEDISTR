@@ -1,0 +1,7 @@
+{
+  "name": "Global Distribution Runtime",
+  "description": "Dense C2 workspace with multi-layer projections, preloaded geographic drill-downs to Portland/Louisa Flowers, and AI terminal orchestration.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

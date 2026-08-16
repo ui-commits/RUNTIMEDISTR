@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-sans), ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  
+  /* Modern Refined C2 Design Tokens (Slightly lighter, high-contrast WCAG AA compliant palette) */
+  --color-void: #0d1117;
+  --color-obsidian: #161b22;
+  --color-surface-subtle: #1c2128;
+  --color-surface-card: #21262d;
+  --color-surface-hover: #30363d;
+  
+  --color-amber-c2: #f59e0b;
+  --color-fern-c2: #10b981;
+  --color-cobalt-c2: #6366f1;
+  --color-blue-c2: #38bdf8;
+  --color-red-c2: #f87171;
+  
+  --color-border-c2: #30363d;
+  --color-border-subtle: #21262d;
+  --color-text-primary: #f0f6fc;
+  --color-text-secondary: #8b949e;
+  --color-text-muted: #6e7681;
+}
+
+@layer utilities {
+  .border-structural {
+    @apply border border-[var(--color-border-c2)];
+  }
+  
+  .panel-bg {
+    @apply bg-[var(--color-obsidian)] border-[var(--color-border-c2)];
+  }
+
+  .glass-panel {
+    @apply bg-[#161b22]/90 backdrop-blur-md border border-[#30363d] shadow-2xl;
+  }
+}
+
+/* Refined custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-void); 
+  border-left: 1px solid var(--color-border-c2);
+}
+::-webkit-scrollbar-thumb {
+  background: #30363d; 
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #484f58; 
+}
