@@ -6,22 +6,10 @@ import { getNodeHealth, NodeHealthInfo } from '@/lib/health';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   MapPin, 
-  ZoomIn, 
-  ZoomOut, 
-  Target, 
   Radio, 
-  ExternalLink,
-  Zap,
   Activity,
-  Layers,
-  Cpu,
-  Server,
   ArrowRight,
-  Sparkles,
-  MousePointerClick,
-  ShieldCheck,
-  AlertTriangle,
-  AlertOctagon
+  Satellite
 } from 'lucide-react';
 import { SvgMapHeartbeatPin, LiveEkgWaveform } from '@/components/c2/NodeHeartbeatRing';
 
@@ -29,6 +17,7 @@ interface GeoMapOverlayProps {
   nodes: Record<string, NodeData>;
   activeNode: NodeData;
   onSelectNode: (id: string) => void;
+  zoomOffset: number;
 }
 
 interface HoveredNodeInfo {
@@ -38,11 +27,13 @@ interface HoveredNodeInfo {
   y: number;
 }
 
-export function GeoMapOverlay({ nodes, activeNode, onSelectNode }: GeoMapOverlayProps) {
+export function GeoMapOverlay({ nodes, activeNode, onSelectNode, zoomOffset }: GeoMapOverlayProps) {
   const [mapStyle, setMapStyle] = useState<'blueprint' | 'satellite' | 'hud'>('blueprint');
-  const [manualZoomOffset, setManualZoomOffset] = useState<number>(0);
   const [hoveredNodeInfo, setHoveredNodeInfo] = useState<HoveredNodeInfo | null>(null);
+  const [hudCursor, setHudCursor] = useState<{ x: number; y: number } | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const zoomO = zoomOffset ?? 0;
 
   // Compute camera focus target based on active node
   const geo = activeNode.geo || {
@@ -54,7 +45,35 @@ export function GeoMapOverlay({ nodes, activeNode, onSelectNode }: GeoMapOverlay
     coordinatesText: "45°31'49.1\"N 122°39'36.4\"W",
   };
 
-  const effectiveZoom = Math.max(1, Math.min(22, (geo.zoom || 5) + manualZoomOffset));
+  const effectiveZoom = Math.max(1, Math.min(22, (geo.zoom || 5) + zoomO));
+
+  const handleMapMouseMove = (e: React.MouseEvent) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    setHudCursor({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+  };
+  const handleMapMouseLeave = () => setHudCursor(null);
+
+  // Approximate earth-scale per pixel for cursor range/bearing HUD readouts
+  const scaleKmPerPx = 40075 / 512 / Math.pow(2, effectiveZoom);
+  let hudRangeText: string | null = null;
+  let hudBearingText: number | null = null;
+  if (hudCursor && containerRef.current) {
+    const rect = containerRef.current.getBoundingClientRect();
+    const dx = hudCursor.x - rect.width / 2;
+    const dy = hudCursor.y - rect.height / 2;
+    const distKm = Math.hypot(dx, dy) * scaleKmPerPx;
+    hudRangeText =
+      distKm >= 40 ? `${distKm.toFixed(0)} km`
+        : distKm >= 1 ? `${distKm.toFixed(1)} km`
+        : `${Math.round(distKm * 1000)} m`;
+    hudBearingText = ((Math.atan2(-dx, -dy) * 180) / Math.PI + 360) % 360;
+  }
+
+  // Scale bar derived from a "nice" target distance at the current zoom level
+  const scaleTargetKm = effectiveZoom >= 14 ? 1 : effectiveZoom >= 10 ? 5 : effectiveZoom >= 7 ? 20 : 100;
+  const scaleBarPx = Math.max(18, Math.min(96, scaleTargetKm / scaleKmPerPx));
+  const scaleBarLabel = scaleTargetKm >= 1 ? `${scaleTargetKm} km` : `${Math.round(scaleTargetKm * 1000)} m`;
 
   const handleNodeHover = (node: NodeData | null, e?: React.MouseEvent) => {
     if (!node || !e) {
@@ -136,7 +155,11 @@ export function GeoMapOverlay({ nodes, activeNode, onSelectNode }: GeoMapOverlay
       </div>
 
       {/* Main Map Viewport with Animated Layout Transitions */}
-      <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
+      <div
+        className="relative w-full h-full flex items-center justify-center overflow-hidden"
+        onMouseMove={handleMapMouseMove}
+        onMouseLeave={handleMapMouseLeave}
+      >
         <AnimatePresence mode="wait">
           <motion.div
             key={`${activeNode.id}-${mapStyle}`}
@@ -164,7 +187,6 @@ export function GeoMapOverlay({ nodes, activeNode, onSelectNode }: GeoMapOverlay
               />
             ) : activeNode.id === 'pnw' || activeNode.id === 'east' ? (
               <RegionalPacificNWView 
-                node={activeNode} 
                 mapStyle={mapStyle} 
                 nodes={nodes} 
                 onSelectNode={onSelectNode}
@@ -172,7 +194,6 @@ export function GeoMapOverlay({ nodes, activeNode, onSelectNode }: GeoMapOverlay
               />
             ) : activeNode.id === 'pdx' ? (
               <PortlandMetroView 
-                node={activeNode} 
                 mapStyle={mapStyle} 
                 nodes={nodes} 
                 onSelectNode={onSelectNode}
@@ -202,44 +223,82 @@ export function GeoMapOverlay({ nodes, activeNode, onSelectNode }: GeoMapOverlay
         </AnimatePresence>
 
         {/* Crosshair Center Reticle */}
+        {/* Target-Lock Bracket Reticle (centered on the active/GEO LOCKED target) */}
         <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
-          <div className="w-12 h-12 border border-cobalt-c2/30 rounded-full flex items-center justify-center animate-pulse">
+          <div className="w-14 h-14 border border-cobalt-c2/25 rounded-full flex items-center justify-center">
+            <div className="absolute w-24 h-px bg-cobalt-c2/20" />
+            <div className="absolute h-24 w-px bg-cobalt-c2/20" />
+            {/* Corner brackets */}
+            <div className="absolute -left-2.5 -top-2.5 w-4 h-4 border-l-2 border-t-2 border-cobalt-c2/90" />
+            <div className="absolute -right-2.5 -top-2.5 w-4 h-4 border-r-2 border-t-2 border-cobalt-c2/90" />
+            <div className="absolute -left-2.5 -bottom-2.5 w-4 h-4 border-l-2 border-b-2 border-cobalt-c2/90" />
+            <div className="absolute -right-2.5 -bottom-2.5 w-4 h-4 border-r-2 border-b-2 border-cobalt-c2/90" />
+            {/* Reticle tick marks */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-2 bg-cobalt-c2/70" />
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-px h-2 bg-cobalt-c2/70" />
+            <div className="absolute left-0 top-1/2 -translate-y-1/2 w-2 h-px bg-cobalt-c2/70" />
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-2 h-px bg-cobalt-c2/70" />
             <div className="w-1.5 h-1.5 bg-cobalt-c2 rounded-full shadow-[0_0_8px_#3b82f6]" />
           </div>
-          <div className="absolute w-24 h-px bg-cobalt-c2/20" />
-          <div className="absolute h-24 w-px bg-cobalt-c2/20" />
         </div>
       </div>
 
-      {/* Bottom Right Map Zoom & Tool Controls */}
-      <div className="absolute bottom-3 right-3 flex flex-col gap-1.5 z-30">
-        <div className="bg-[#0c0c10]/90 backdrop-blur-md border border-border-c2 rounded-none p-1 flex flex-col gap-1 shadow-xl">
-          <button
-            onClick={() => setManualZoomOffset(prev => Math.min(prev + 1, 4))}
-            className="p-1.5 hover:bg-zinc-800 text-[#888] hover:text-white rounded transition-colors cursor-pointer"
-            title="Zoom In"
+      {/* Right-Edge HUD Chrome: Compass Ring, Cursor Range/Bearing, Scale Bar */}
+      <div className="absolute top-16 right-3 z-30 pointer-events-none flex flex-col items-end gap-1.5">
+        {/* Compass Ring */}
+        <div className="relative w-12 h-12 rounded-full border border-cobalt-c2/40 bg-[#0c0c10]/85 backdrop-blur-md shadow-xl">
+          <div className="absolute inset-0 rounded-full overflow-hidden">
+            <svg viewBox="0 0 48 48" className="w-full h-full">
+              <circle cx="24" cy="24" r="22" fill="none" stroke="rgba(59,130,246,0.25)" strokeWidth="1" />
+              <circle cx="24" cy="24" r="18" fill="none" stroke="rgba(59,130,246,0.15)" strokeWidth="0.5" />
+              <line x1="24" y1="2" x2="24" y2="12" stroke="#3b82f6" strokeWidth="1.4" />
+              <line x1="24" y1="36" x2="24" y2="46" stroke="rgba(255,255,255,0.35)" strokeWidth="0.8" />
+              <line x1="2" y1="24" x2="12" y2="24" stroke="rgba(255,255,255,0.35)" strokeWidth="0.8" />
+              <line x1="36" y1="24" x2="46" y2="24" stroke="rgba(255,255,255,0.35)" strokeWidth="0.8" />
+              <text x="24" y="6" textAnchor="middle" fontSize="5" fill="#bfdbfe" fontFamily="monospace" fontWeight="bold">N</text>
+              <text x="24" y="47" textAnchor="middle" fontSize="4" fill="#94a3b8" fontFamily="monospace">S</text>
+              <text x="3" y="26" fontSize="4" fill="#94a3b8" fontFamily="monospace" textAnchor="middle">W</text>
+              <text x="45" y="26" fontSize="4" fill="#94a3b8" fontFamily="monospace" textAnchor="middle">E</text>
+            </svg>
+          </div>
+          {/* Rotating heading needle */}
+          <div
+            className="absolute inset-0 flex items-center justify-center animate-[c2-compass-needle_9s_ease-in-out_infinite]"
           >
-            <ZoomIn size={14} />
-          </button>
-          <div className="w-full h-px bg-[#222]" />
-          <button
-            onClick={() => setManualZoomOffset(prev => Math.max(prev - 1, -4))}
-            className="p-1.5 hover:bg-zinc-800 text-[#888] hover:text-white rounded transition-colors cursor-pointer"
-            title="Zoom Out"
-          >
-            <ZoomOut size={14} />
-          </button>
-          <div className="w-full h-px bg-[#222]" />
-          <button
-            onClick={() => setManualZoomOffset(0)}
-            className="p-1.5 hover:bg-zinc-800 text-[#888] hover:text-white rounded transition-colors cursor-pointer"
-            title="Reset Zoom"
-          >
-            <Target size={14} />
-          </button>
+            <div className="w-px h-4 bg-emerald-400/80" style={{ transform: 'rotate(0deg)' }} />
+          </div>
         </div>
-        <div className="text-[9px] text-[#555] bg-[#0c0c10] border border-[#222] px-2 py-0.5 rounded text-center font-bold">
-          ZOOM {effectiveZoom.toFixed(1)}x
+
+        {/* Range / Bearing Cursor Readout */}
+        <div className="bg-[#0c0c10]/85 backdrop-blur-md border border-border-c2 rounded-none px-2 py-1 text-[9px] font-mono text-[#aaa] shadow-xl min-w-[84px] text-right">
+          <div>
+            RNG <span className="text-white font-bold">{hudRangeText ?? '—'}</span>
+          </div>
+          <div>
+            AZ <span className="text-cobalt-c2 font-bold">{hudBearingText !== null ? `${Math.round(hudBearingText)}°` : '—'}</span>
+          </div>
+        </div>
+
+        {/* Scale Bar */}
+        <div className="bg-[#0c0c10]/85 backdrop-blur-md border border-border-c2 rounded-none px-2 py-1 text-[8px] font-mono text-[#888] shadow-xl">
+          <div className="flex items-center gap-1.5 justify-end">
+            <div className="h-px bg-[#555] flex-1 min-w-[24px]" style={{ maxWidth: scaleBarPx }} />
+            <span className="text-white font-bold">{scaleBarLabel}</span>
+          </div>
+          <div className="text-[7px] text-[#555] text-right mt-0.5">NOMINAL SCALE @ {effectiveZoom.toFixed(1)}x</div>
+        </div>
+      </div>
+
+      {/* Orbital Satellite Crossers */}
+      <div className="absolute inset-0 pointer-events-none z-20 overflow-hidden">
+        <div className="absolute top-[18%] -left-12 geo-sat-cross-a will-change-transform">
+          <Satellite size={14} className="text-cobalt-c2/70" />
+        </div>
+        <div className="absolute top-[46%] -left-12 geo-sat-cross-b will-change-transform">
+          <Satellite size={11} className="text-sky-400/60" />
+        </div>
+        <div className="absolute top-[70%] -left-12 geo-sat-cross-c will-change-transform">
+          <Satellite size={13} className="text-cobalt-c2/60" />
         </div>
       </div>
     </div>
@@ -619,6 +678,18 @@ function ContinentalRegionView({
       <svg className="w-full h-full max-h-[460px]" viewBox="0 0 600 400">
         <rect width="600" height="400" fill={mapStyle === 'satellite' ? '#0b1120' : '#07090e'} />
         
+        {node.id === 'na' && (
+          <image
+            href="/maps/us-node-graph-underlay.webp"
+            x="0"
+            y="0"
+            width="600"
+            height="400"
+            preserveAspectRatio="xMidYMid slice"
+            opacity={mapStyle === 'satellite' ? 0.5 : 0.38}
+          />
+        )}
+
         {/* Sector Grid Lines */}
         <g stroke="#1e293b" strokeWidth="1" strokeDasharray="3 3">
           <line x1="50" y1="100" x2="550" y2="100" />
@@ -630,13 +701,15 @@ function ContinentalRegionView({
         </g>
 
         {/* North American Landmass Outline */}
-        <path
-          d="M 60 70 Q 150 40, 280 45 Q 420 50, 520 90 Q 560 160, 510 240 Q 480 320, 380 340 Q 300 350, 240 310 Q 160 280, 100 220 Q 50 160, 60 70 Z"
-          fill={mapStyle === 'satellite' ? '#131d33' : '#0f172a'}
-          stroke="#38bdf8"
-          strokeWidth="1.5"
-          strokeOpacity="0.4"
-        />
+        {node.id !== 'na' && (
+          <path
+            d="M 60 70 Q 150 40, 280 45 Q 420 50, 520 90 Q 560 160, 510 240 Q 480 320, 380 340 Q 300 350, 240 310 Q 160 280, 100 220 Q 50 160, 60 70 Z"
+            fill={mapStyle === 'satellite' ? '#131d33' : '#0f172a'}
+            stroke="#38bdf8"
+            strokeWidth="1.5"
+            strokeOpacity="0.4"
+          />
+        )}
 
         {/* Optical Fiber Trunk Lines */}
         <path
@@ -738,13 +811,11 @@ function ContinentalRegionView({
 // 3. REGIONAL PACIFIC NW VIEW (Level 3: Oregon / WA)
 // ----------------------------------------------------
 function RegionalPacificNWView({ 
-  node, 
   mapStyle, 
   nodes, 
   onSelectNode,
   onHoverNode,
 }: { 
-  node: NodeData; 
   mapStyle: string; 
   nodes: Record<string, NodeData>; 
   onSelectNode: (id: string) => void;
@@ -848,13 +919,11 @@ function RegionalPacificNWView({
 // 4. PORTLAND METRO VIEW (Level 4: City Street Grid)
 // ----------------------------------------------------
 function PortlandMetroView({ 
-  node, 
   mapStyle, 
   nodes, 
   onSelectNode,
   onHoverNode,
 }: { 
-  node: NodeData; 
   mapStyle: string; 
   nodes: Record<string, NodeData>; 
   onSelectNode: (id: string) => void;
@@ -991,10 +1060,7 @@ function LouisaFlowersFacilityView({
   const runtimeNode = nodes['runtime'];
   const reposNode = nodes['repos'];
   const infraNode = nodes['infra'];
-  const archNode = nodes['arch'];
   const actorsNode = nodes['actors'];
-  const eventsNode = nodes['events'];
-  const codeNode = nodes['code'];
 
   const wsHealth = getNodeHealth(wsNode);
   const devEnvHealth = getNodeHealth(devEnvNode);

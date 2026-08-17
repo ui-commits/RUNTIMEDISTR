@@ -3,7 +3,7 @@
 import React from 'react';
 import { NodeData } from '@/lib/ontology';
 import { useC2 } from '@/lib/c2Context';
-import { ChevronRight, ChevronDown, MonitorDot, Database, Server, Box, Globe, Activity, X } from 'lucide-react';
+import { ChevronRight, ChevronDown, Database, Server, Box, Globe, Activity, X } from 'lucide-react';
 
 interface TreeNavProps {
   nodes: Record<string, NodeData>;

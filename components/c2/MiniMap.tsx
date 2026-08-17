@@ -8,12 +8,9 @@ import {
   Minimize2, 
   Pin, 
   Flame, 
-  Layers, 
   ZoomIn, 
   ZoomOut, 
-  RotateCcw,
-  Activity,
-  Crosshair
+  RotateCcw
 } from 'lucide-react';
 import { NodeData } from '@/lib/ontology';
 import { getNodeHealth, getNodeResourcePressure } from '@/lib/health';
@@ -25,7 +22,6 @@ interface MiniMapProps {
   zoomLevel: number;
   onZoomChange?: (delta: number) => void;
   onResetZoom?: () => void;
-  projection?: string;
   className?: string;
 }
 
@@ -48,7 +44,6 @@ export function MiniMap({
   zoomLevel,
   onZoomChange,
   onResetZoom,
-  projection = 'digital',
   className = '',
 }: MiniMapProps) {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -114,9 +109,6 @@ export function MiniMap({
     // Compute orbital rings based on tree depth or grouping
     const totalSatellites = nonRootNodes.length;
     nonRootNodes.forEach((node, idx) => {
-      // Find parent point or default center
-      const parentPt = pointMap[node.parentId || ''] || { x: centerX, y: centerY };
-
       // Compute angle around parent or global circle
       const angle = (idx / Math.max(totalSatellites, 1)) * Math.PI * 2 - Math.PI / 2;
       

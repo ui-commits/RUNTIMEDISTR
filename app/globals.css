@@ -57,6 +57,17 @@
     animation: c2-radar-sweep 10s linear infinite;
     will-change: transform;
   }
+
+  /* Geographic overlay: orbital satellite crossers */
+  .geo-sat-cross-a {
+    animation: c2-geo-sat-a 46s linear infinite;
+  }
+  .geo-sat-cross-b {
+    animation: c2-geo-sat-b 33s linear infinite;
+  }
+  .geo-sat-cross-c {
+    animation: c2-geo-sat-c 58s linear infinite;
+  }
 }
 
 @keyframes c2-grid-drift {
@@ -73,6 +84,31 @@
 @keyframes c2-radar-sweep {
   from { transform: rotate(0deg); }
   to   { transform: rotate(360deg); }
+}
+
+/* Geographic overlay: orbital satellite crossing tracks */
+@keyframes c2-geo-sat-a {
+  0%   { transform: translateX(-14vw) translateY(0); }
+  50%  { transform: translateX(48vw) translateY(-6vh); }
+  100% { transform: translateX(112vw) translateY(0); }
+}
+
+@keyframes c2-geo-sat-b {
+  0%   { transform: translateX(-14vw) translateY(0); }
+  50%  { transform: translateX(46vw) translateY(5vh); }
+  100% { transform: translateX(112vw) translateY(0); }
+}
+
+@keyframes c2-geo-sat-c {
+  0%   { transform: translateX(-14vw) translateY(0); }
+  50%  { transform: translateX(50vw) translateY(-4vh); }
+  100% { transform: translateX(112vw) translateY(0); }
+}
+
+/* Geographic compass: gentle needle oscillation */
+@keyframes c2-compass-needle {
+  0%, 100% { transform: rotate(-14deg); }
+  50%      { transform: rotate(16deg); }
 }
 
 /* Refined custom scrollbar */

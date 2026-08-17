@@ -3,7 +3,7 @@
 import React from 'react';
 import { motion } from 'motion/react';
 import { NodeData } from '@/lib/ontology';
-import { getNodeHealth, NodeHealthInfo, getNodeResourceLoad } from '@/lib/health';
+import { NodeHealthInfo, getNodeResourceLoad } from '@/lib/health';
 
 export interface LayoutNodePosition {
   id: string;
@@ -107,7 +107,6 @@ export function DigitalDataFlowPaths({
             center={centerNode}
             child={child}
             index={idx}
-            total={childrenNodes.length}
             showBandwidthTag={showBandwidthTags}
             hasSpike={activeSpikeNodeId === child.id || activeSpikeNodeId === centerNode.id}
           />
@@ -279,14 +278,12 @@ function CenterToChildFlow({
   center,
   child,
   index,
-  total,
   showBandwidthTag,
   hasSpike,
 }: {
   center: LayoutNodePosition;
   child: LayoutNodePosition;
   index: number;
-  total: number;
   showBandwidthTag?: boolean;
   hasSpike?: boolean;
 }) {

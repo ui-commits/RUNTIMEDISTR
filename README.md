@@ -136,7 +136,9 @@ The UI overlay opacity slider has been removed from the top bar; overlay opacity
 - The **MiniMap** is always visible in the bottom-left corner of the canvas.
 - The **TreeNav** docks from the right edge as a shelf in the empty right canvas space; pull it out with the slim blue tab on the right edge (or `T`).
 - The **Terminal Chatbox** rises from the bottom center; toggle it with the small terminal tab docked at the bottom center (or `C` or backtick).
-- The **traffic monitor**, spike trigger, active **TARGET** telemetry, and (in geographic projection) the **GEO LOCKED** name/address/sector row are consolidated into a single box fixed in the bottom-right corner of the canvas.
+- The **traffic monitor**, spike trigger, active **TARGET** telemetry, geographic **zoom controls**, and (in geographic projection) the **GEO LOCKED** name/address/sector row are consolidated into a single box fixed in the bottom-right corner of the canvas.
+- The geographic projection overlays a right-edge **HUD chrome stack** (compass ring, live cursor range/bearing readout, nominal scale bar), a **target-lock bracket reticle** on the active GEO LOCKED node, and low-opacity **orbital satellite crossers** drifting across the map.
+- In the **North America (NA) command view** of the geographic projection, a node-graph underlay image (`/maps/us-node-graph-underlay.webp`) is rendered as the base map behind the continental grid and pins. It is sourced from `assets/us-node-graph-underlay.webp` and shipped via `public/maps/`; opacity is style-aware (0.38 on Tactical Vector, 0.5 on Satellite Recon) and the EU/AS continental views keep the vector landmass.
 - Double-clicking the digital canvas background toggles radial/grid organization. Zoom controls are constrained to the supported visualization range.
 
 ### Terminal Commands
@@ -236,6 +238,9 @@ app/
   globals.css            Tailwind theme and shared design tokens
   layout.tsx             Fonts and application metadata
   page.tsx               Dashboard composition and global shortcuts
+assets/                  Source assets (e.g. us-node-graph-underlay.webp)
+public/
+  maps/                  Browser-served underlay imagery used by projections
 components/c2/           Dashboard panels and projection UI
 hooks/                   Shared client hooks
 lib/

@@ -5,27 +5,17 @@ import { motion, AnimatePresence } from 'motion/react';
 import { 
   Globe, 
   Cpu, 
-  Network, 
-  Layers, 
   ShieldAlert, 
   FolderGit2, 
   BookOpen, 
   Briefcase, 
-  Activity, 
-  Sparkles, 
   Search, 
   ZoomIn, 
   ZoomOut, 
   RotateCcw, 
   ChevronRight, 
-  MapPin, 
-  Clock, 
-  FileText, 
   CheckCircle2, 
-  AlertTriangle,
   ArrowRight,
-  Terminal,
-  ExternalLink,
   Zap,
   Server
 } from 'lucide-react';
@@ -61,9 +51,7 @@ export interface ContinentDomain {
 
 interface KnowledgeSpaceViewProps {
   nodes: Record<string, NodeData>;
-  activeNode: NodeData;
   onSelectNode: (nodeId: string) => void;
-  onHoverNode?: (node: NodeData | null, e?: React.MouseEvent) => void;
 }
 
 export const CONTINENTS: ContinentDomain[] = [
@@ -382,9 +370,7 @@ export const CONTINENTS: ContinentDomain[] = [
 
 export function KnowledgeSpaceView({
   nodes,
-  activeNode,
-  onSelectNode,
-  onHoverNode
+  onSelectNode
 }: KnowledgeSpaceViewProps) {
   // Navigation State
   const [selectedContinentId, setSelectedContinentId] = useState<string | null>(null);

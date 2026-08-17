@@ -1,17 +1,15 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-import { NodeData, getNodePriority, NodePriority } from '@/lib/ontology';
-import { getNodeHealth, NodeHealthInfo, isNodeHighPressure, getNodeResourceLoad, getNodePriorityStyling, getResourceLoadHeartbeat } from '@/lib/health';
+import { NodeData, getNodePriority } from '@/lib/ontology';
+import { getNodeHealth, NodeHealthInfo, isNodeHighPressure, getNodeResourceLoad, getNodePriorityStyling } from '@/lib/health';
 import { useC2, GhostNodeTrace, LayoutSnapshot } from '@/lib/c2Context';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Crosshair, 
   ArrowUp, 
   Zap, 
-  Globe, 
   Cpu, 
-  Network, 
   Layers, 
   Server, 
   MapPin, 
@@ -30,16 +28,10 @@ import {
   Ghost,
   History,
   Search,
-  Radio,
   Route,
-  Bookmark,
   Save,
   Trash2,
-  Check,
   Play,
-  ShieldAlert,
-  Gauge,
-  Sliders,
   FolderHeart,
   Building2,
 } from 'lucide-react';
@@ -75,7 +67,6 @@ export function OperationSphere({
   onProjectionChange: externalOnProjectionChange,
 }: OperationSphereProps) {
   const { 
-    searchQuery, 
     showRecent, 
     setShowRecent, 
     recentGhosts,
@@ -98,6 +89,9 @@ export function OperationSphere({
   const [spikeMonitorActive, setSpikeMonitorActive] = useState(true);
   const [activeSpikeNodeId, setActiveSpikeNodeId] = useState<string | null>(null);
   const [spikeAlertBanner, setSpikeAlertBanner] = useState<{ message: string; load: number } | null>(null);
+
+  // Geographic map manual zoom offset (lifted from GeoMapOverlay into the telemetry box)
+  const [geoZoomOffset, setGeoZoomOffset] = useState(0);
   
   const toastIdRef = useRef<number>(0);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -133,6 +127,9 @@ export function OperationSphere({
   const activeNode = nodes[activeNodeId] || nodes['earth'];
   const parentNode = activeNode?.parentId && nodes[activeNode.parentId] ? nodes[activeNode.parentId] : null;
   const childrenNodes = (activeNode?.childrenIds || []).map(id => nodes[id]).filter(Boolean);
+
+  // Geographic map zoom indicator (mirrors GeoMapOverlay's effective zoom with the lifted offset)
+  const geoZoom = Math.max(1, Math.min(22, (activeNode?.geo?.zoom ?? 5) + geoZoomOffset));
 
   // High pressure nodes detection
   const highPressureNodes = React.useMemo(() => {
@@ -628,19 +625,21 @@ export function OperationSphere({
         {projection === 'knowledge' && (
           <KnowledgeSpaceView
             nodes={nodes}
-            activeNode={activeNode}
             onSelectNode={onSelectNode}
-            onHoverNode={handleNodeHover}
           />
         )}
 
         {projection === 'geographic' && (
-          <GeoMapOverlay nodes={nodes} activeNode={activeNode} onSelectNode={onSelectNode} />
+          <GeoMapOverlay
+            nodes={nodes}
+            activeNode={activeNode}
+            onSelectNode={onSelectNode}
+            zoomOffset={geoZoomOffset}
+          />
         )}
 
         {projection === 'digital' && (
           <DigitalPolarView
-            nodes={nodes}
             activeNode={activeNode}
             parentNode={parentNode}
             childrenNodes={childrenNodes}
@@ -656,8 +655,6 @@ export function OperationSphere({
         {projection === 'physical' && (
           <PhysicalHardwareView
             node={activeNode}
-            nodes={nodes}
-            onSelectNode={onSelectNode}
             onHoverNode={handleNodeHover}
           />
         )}
@@ -682,7 +679,6 @@ export function OperationSphere({
         {showRecent && (
           <GhostTracesLayer
             ghosts={recentGhosts}
-            activeNode={activeNode}
             onSelectNode={onSelectNode}
             zoomLevel={zoomLevel}
           />
@@ -694,7 +690,6 @@ export function OperationSphere({
         {hoveredNodeInfo && projection !== 'geographic' && projection !== 'knowledge' && (
           <OperationSphereNodeTooltip
             info={hoveredNodeInfo}
-            onSelectNode={onSelectNode}
           />
         )}
       </AnimatePresence>
@@ -733,6 +728,37 @@ export function OperationSphere({
               TARGET: <span className="text-white font-bold">{activeNode.id}</span>
               <span className="text-[#555]">({activeNode.type})</span>
             </div>
+
+            {/* Folded-in Geographic Zoom Controls */}
+            {projection === 'geographic' && (
+              <>
+                <div className="h-5 w-px bg-[#30363d] mx-1.5" />
+                <div className="flex items-center gap-0.5 text-[#888]">
+                  <button
+                    onClick={() => setGeoZoomOffset(prev => Math.min(prev + 1, 4))}
+                    title="Zoom In"
+                    className="p-1 hover:bg-white/10 hover:text-white rounded-none transition-colors cursor-pointer"
+                  >
+                    <ZoomIn size={12} />
+                  </button>
+                  <span className="text-[9px] font-bold px-1 text-slate-400 tabular-nums">Z {geoZoom.toFixed(1)}x</span>
+                  <button
+                    onClick={() => setGeoZoomOffset(prev => Math.max(prev - 1, -4))}
+                    title="Zoom Out"
+                    className="p-1 hover:bg-white/10 hover:text-white rounded-none transition-colors cursor-pointer"
+                  >
+                    <ZoomOut size={12} />
+                  </button>
+                  <button
+                    onClick={() => setGeoZoomOffset(0)}
+                    title="Reset Zoom"
+                    className="p-1 hover:bg-white/10 hover:text-white rounded-none transition-colors cursor-pointer"
+                  >
+                    <RotateCcw size={11} />
+                  </button>
+                </div>
+              </>
+            )}
           </div>
 
           {/* Row 2: Geographic lock details (geographic projection only) */}
@@ -769,7 +795,6 @@ export function OperationSphere({
         zoomLevel={zoomLevel}
         onZoomChange={handleZoomChange}
         onResetZoom={handleResetZoom}
-        projection={projection}
         className="bottom-3 left-3"
       />
     </div>
@@ -781,10 +806,8 @@ export function OperationSphere({
 // ----------------------------------------------------
 function OperationSphereNodeTooltip({
   info,
-  onSelectNode,
 }: {
   info: HoveredSphereNode;
-  onSelectNode: (id: string) => void;
 }) {
   const { node, health, x, y } = info;
 
@@ -1050,8 +1073,6 @@ export function BreadcrumbsTraceOverlay({
 
           // Build SVG path commands
           const pathSegments = points.map((p, idx) => {
-            const px = `calc(50% + ${p.x * zoomLevel}px)`;
-            const py = `calc(50% + ${p.y * zoomLevel}px)`;
             return `${idx === 0 ? 'M' : 'L'} ${p.x * zoomLevel} ${p.y * zoomLevel}`;
           }).join(' ');
 
@@ -1117,12 +1138,10 @@ const emptySubscribe = () => () => {};
 
 export function GhostTracesLayer({
   ghosts,
-  activeNode,
   onSelectNode,
   zoomLevel = 1.0,
 }: {
   ghosts: GhostNodeTrace[];
-  activeNode: NodeData;
   onSelectNode: (id: string) => void;
   zoomLevel?: number;
 }) {
@@ -1233,7 +1252,6 @@ export function GhostTracesLayer({
 // DIGITAL VIEW: SEMANTIC POLAR WITH FRAMER-MOTION ZOOM TRANSITIONS
 // ----------------------------------------------------
 function DigitalPolarView({
-  nodes,
   activeNode,
   parentNode,
   childrenNodes,
@@ -1244,7 +1262,6 @@ function DigitalPolarView({
   onRecordBreadcrumb,
   activeSpikeNodeId,
 }: {
-  nodes: Record<string, NodeData>;
   activeNode: NodeData;
   parentNode: NodeData | null;
   childrenNodes: NodeData[];
@@ -1765,13 +1782,9 @@ function DigitalPolarView({
 // ----------------------------------------------------
 function PhysicalHardwareView({
   node,
-  nodes,
-  onSelectNode,
   onHoverNode,
 }: {
   node: NodeData;
-  nodes: Record<string, NodeData>;
-  onSelectNode: (id: string) => void;
   onHoverNode: (node: NodeData | null, e?: React.MouseEvent) => void;
 }) {
   const spec = node.physicalSpec || {

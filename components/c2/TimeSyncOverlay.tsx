@@ -4,7 +4,6 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { NodeData } from '@/lib/ontology';
 import { 
   Clock, 
-  Globe, 
   ChevronDown, 
   ChevronUp, 
   Copy, 
@@ -12,9 +11,6 @@ import {
   Radio, 
   Sun, 
   Moon, 
-  Sparkles, 
-  Activity,
-  Layers,
   Zap
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';

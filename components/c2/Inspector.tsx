@@ -22,11 +22,7 @@ import {
   RotateCcw,
   Zap,
   Flame,
-  Radio,
-  ArrowUpRight,
-  Filter,
-  CheckCircle2,
-  AlertTriangle
+  Radio
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import {
