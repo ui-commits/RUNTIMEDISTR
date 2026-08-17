@@ -116,7 +116,7 @@ export function Inspector({ activeNode, onCaptureSnapshot, onClose }: InspectorP
           value: stabilityScore,
           displayValue: `${stabilityScore}%`,
           category: 'health' as const,
-          fill: stabilityScore > 80 ? '#6366f1' : '#f59e0b',
+          fill: stabilityScore > 80 ? '#3b82f6' : '#f59e0b',
         },
         {
           name: 'LOAD',
@@ -222,9 +222,9 @@ export function Inspector({ activeNode, onCaptureSnapshot, onClose }: InspectorP
           </div>
         </div>
 
-         <div className="text-[11px] font-mono text-white flex items-center justify-between border-l-2 border-indigo-500 pl-3 py-1 bg-indigo-500/10 rounded-r-none">
+         <div className="text-[11px] font-mono text-white flex items-center justify-between border-l-2 border-blue-500 pl-3 py-1 bg-blue-500/10 rounded-r-none">
           <div className="flex items-center gap-2">
-            <Activity size={14} className="text-indigo-400" />
+            <Activity size={14} className="text-blue-400" />
             <span>INSPECTOR MATRIX</span>
           </div>
           
@@ -252,7 +252,7 @@ export function Inspector({ activeNode, onCaptureSnapshot, onClose }: InspectorP
             onClick={() => setActiveTab('overview')}
             className={`py-1 rounded font-semibold transition-colors flex items-center justify-center gap-1 cursor-pointer ${
               activeTab === 'overview'
-                ? 'bg-indigo-600 text-white shadow'
+                ? 'bg-blue-600 text-white shadow'
                 : 'text-slate-400 hover:text-white'
             }`}
           >
@@ -264,14 +264,14 @@ export function Inspector({ activeNode, onCaptureSnapshot, onClose }: InspectorP
             onClick={() => setActiveTab('artifacts')}
             className={`py-1 rounded font-semibold transition-colors flex items-center justify-center gap-1 cursor-pointer ${
               activeTab === 'artifacts'
-                ? 'bg-indigo-600 text-white shadow'
+                ? 'bg-blue-600 text-white shadow'
                 : 'text-slate-400 hover:text-white'
             }`}
           >
             <Camera size={11} />
             <span>Artifacts</span>
             {artifacts.length > 0 && (
-              <span className="w-4 h-4 rounded-full bg-indigo-900 text-indigo-300 text-[9px] flex items-center justify-center">
+              <span className="w-4 h-4 rounded-full bg-blue-900 text-blue-300 text-[9px] flex items-center justify-center">
                 {artifacts.length}
               </span>
             )}
@@ -281,7 +281,7 @@ export function Inspector({ activeNode, onCaptureSnapshot, onClose }: InspectorP
             onClick={() => setActiveTab('trace')}
             className={`py-1 rounded font-semibold transition-colors flex items-center justify-center gap-1 cursor-pointer ${
               activeTab === 'trace'
-                ? 'bg-indigo-600 text-white shadow'
+                ? 'bg-blue-600 text-white shadow'
                 : 'text-slate-400 hover:text-white'
             }`}
           >
@@ -299,13 +299,13 @@ export function Inspector({ activeNode, onCaptureSnapshot, onClose }: InspectorP
             <section>
               <div className="flex items-center justify-between mb-2 text-slate-400 border-b border-border-c2 pb-1">
                 <div className="flex items-center gap-1.5">
-                  <Database size={13} className="text-indigo-400" />
+                  <Database size={13} className="text-blue-400" />
                   <span className="text-xs font-bold uppercase tracking-widest">Entity Details</span>
                 </div>
                 {onCaptureSnapshot && (
                   <button
                     onClick={onCaptureSnapshot}
-                    className="flex items-center gap-1 text-[10px] text-indigo-300 bg-indigo-950/80 hover:bg-indigo-900 border border-indigo-700/80 px-2 py-0.5 rounded transition-colors cursor-pointer"
+                    className="flex items-center gap-1 text-[10px] text-blue-300 bg-blue-950/80 hover:bg-blue-900 border border-blue-700/80 px-2 py-0.5 rounded transition-colors cursor-pointer"
                   >
                     <Camera size={10} />
                     <span>Snapshot [S]</span>
@@ -315,7 +315,7 @@ export function Inspector({ activeNode, onCaptureSnapshot, onClose }: InspectorP
               <div className="grid grid-cols-2 gap-2 text-xs">
                 <div className="bg-[#111115] border border-border-c2 p-2 rounded">
                   <div className="text-[9px] text-slate-400 uppercase mb-0.5 font-mono">Node ID</div>
-                  <div className="font-mono text-xs text-indigo-400 font-semibold truncate">{activeNode.id}</div>
+                  <div className="font-mono text-xs text-blue-400 font-semibold truncate">{activeNode.id}</div>
                 </div>
                 <div className="bg-[#111115] border border-border-c2 p-2 rounded">
                   <div className="text-[9px] text-slate-400 uppercase mb-0.5 font-mono">Node Class</div>
@@ -338,7 +338,7 @@ export function Inspector({ activeNode, onCaptureSnapshot, onClose }: InspectorP
                     className={`px-2.5 py-1 rounded text-[10px] font-mono font-bold transition-all cursor-pointer flex items-center gap-1 ${
                       activeNode.pinned
                         ? 'bg-amber-600 hover:bg-amber-500 text-white shadow-sm'
-                        : 'bg-indigo-600 hover:bg-indigo-500 text-white'
+                        : 'bg-blue-600 hover:bg-blue-500 text-white'
                     }`}
                   >
                     <Pin size={10} className={activeNode.pinned ? "fill-white" : ""} />
@@ -365,7 +365,7 @@ export function Inspector({ activeNode, onCaptureSnapshot, onClose }: InspectorP
             <section className="bg-[#0b0b0e] border border-border-c2 rounded-none p-3">
               <div className="flex items-center justify-between mb-2 border-b border-border-c2/60 pb-1.5">
                 <div className="flex items-center gap-1.5 text-white font-mono text-xs">
-                  <BarChart2 size={13} className="text-indigo-400" />
+                  <BarChart2 size={13} className="text-blue-400" />
                   <span className="font-bold tracking-wider uppercase text-[11px]">Telemetry Visualizer</span>
                 </div>
                 
@@ -375,7 +375,7 @@ export function Inspector({ activeNode, onCaptureSnapshot, onClose }: InspectorP
                     onClick={() => setChartMode('metrics')}
                     className={`px-2 py-0.5 rounded transition-colors cursor-pointer ${
                       chartMode === 'metrics'
-                        ? 'bg-indigo-600 text-white font-semibold shadow-sm'
+                        ? 'bg-blue-600 text-white font-semibold shadow-sm'
                         : 'text-slate-400 hover:text-slate-200'
                     }`}
                   >
@@ -385,7 +385,7 @@ export function Inspector({ activeNode, onCaptureSnapshot, onClose }: InspectorP
                     onClick={() => setChartMode('health')}
                     className={`px-2 py-0.5 rounded transition-colors cursor-pointer ${
                       chartMode === 'health'
-                        ? 'bg-indigo-600 text-white font-semibold shadow-sm'
+                        ? 'bg-blue-600 text-white font-semibold shadow-sm'
                         : 'text-slate-400 hover:text-slate-200'
                     }`}
                   >
@@ -417,7 +417,7 @@ export function Inspector({ activeNode, onCaptureSnapshot, onClose }: InspectorP
                         axisLine={{ stroke: '#222' }}
                       />
                       <Tooltip
-                        cursor={{ fill: 'rgba(99, 102, 241, 0.08)' }}
+                        cursor={{ fill: 'rgba(59, 130, 246, 0.08)' }}
                         content={({ active, payload }) => {
                           if (active && payload && payload.length) {
                             const data = payload[0].payload as ChartDataPoint;
@@ -426,7 +426,7 @@ export function Inspector({ activeNode, onCaptureSnapshot, onClose }: InspectorP
                                 <div className="text-slate-400 uppercase text-[9px]">{data.fullName}</div>
                                 <div className="text-white font-bold flex items-center justify-between gap-3">
                                   <span>Raw Value:</span>
-                                  <span className="text-indigo-400">{data.displayValue}</span>
+                                  <span className="text-blue-400">{data.displayValue}</span>
                                 </div>
                                 <div className="text-slate-400 flex items-center justify-between gap-3">
                                   <span>Scale Index:</span>
@@ -472,7 +472,7 @@ export function Inspector({ activeNode, onCaptureSnapshot, onClose }: InspectorP
                       </div>
                       <div className="w-full bg-[#1a1a1c] h-1 rounded overflow-hidden">
                         <div
-                          className={`h-full rounded ${key.includes('load') || key.includes('cpu') ? (parseFloat(String(value)) >= 80 ? 'bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]' : 'bg-gradient-to-r from-indigo-500 to-emerald-400') : 'bg-gradient-to-r from-indigo-500 to-emerald-400'}`}
+                          className={`h-full rounded ${key.includes('load') || key.includes('cpu') ? (parseFloat(String(value)) >= 80 ? 'bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]' : 'bg-gradient-to-r from-blue-500 to-emerald-400') : 'bg-gradient-to-r from-blue-500 to-emerald-400'}`}
                           style={{ width: `${Math.min(100, Math.max(15, (i * 23 + key.length * 17) % 55 + 35))}%` }}
                         />
                       </div>
@@ -491,13 +491,13 @@ export function Inspector({ activeNode, onCaptureSnapshot, onClose }: InspectorP
           <section className="flex-1 flex flex-col">
             <div className="flex items-center justify-between mb-3 text-slate-400 border-b border-border-c2 pb-1.5">
               <div className="flex items-center gap-2">
-                <ImageIcon size={14} className="text-indigo-400" />
+                <ImageIcon size={14} className="text-blue-400" />
                 <span className="text-xs font-bold uppercase tracking-widest">Node Artifacts</span>
               </div>
               {onCaptureSnapshot && (
                 <button
                   onClick={onCaptureSnapshot}
-                  className="flex items-center gap-1.5 text-xs text-white bg-indigo-600 hover:bg-indigo-500 px-2.5 py-1 rounded transition-colors font-mono font-semibold shadow cursor-pointer"
+                  className="flex items-center gap-1.5 text-xs text-white bg-blue-600 hover:bg-blue-500 px-2.5 py-1 rounded transition-colors font-mono font-semibold shadow cursor-pointer"
                 >
                   <Camera size={12} />
                   <span>Capture New</span>
@@ -507,7 +507,7 @@ export function Inspector({ activeNode, onCaptureSnapshot, onClose }: InspectorP
 
             {artifacts.length === 0 ? (
               <div className="flex-1 flex flex-col items-center justify-center p-6 text-center border border-dashed border-[#30363d] rounded-none bg-[#0d1117]/50 font-mono">
-                <div className="w-10 h-10 rounded-full bg-indigo-950/60 border border-indigo-800/80 flex items-center justify-center text-indigo-400 mb-2">
+                <div className="w-10 h-10 rounded-full bg-blue-950/60 border border-blue-800/80 flex items-center justify-center text-blue-400 mb-2">
                   <Camera size={20} />
                 </div>
                 <div className="text-xs font-bold text-slate-200 mb-1">No Visual Artifacts Saved</div>
@@ -517,7 +517,7 @@ export function Inspector({ activeNode, onCaptureSnapshot, onClose }: InspectorP
                 {onCaptureSnapshot && (
                   <button
                     onClick={onCaptureSnapshot}
-                    className="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded text-xs font-bold transition-all shadow-md flex items-center gap-1.5 cursor-pointer"
+                    className="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded text-xs font-bold transition-all shadow-md flex items-center gap-1.5 cursor-pointer"
                   >
                     <Camera size={12} />
                     <span>Capture Snapshot [S]</span>
@@ -535,7 +535,7 @@ export function Inspector({ activeNode, onCaptureSnapshot, onClose }: InspectorP
                   {artifacts.map((art) => (
                     <div
                       key={art.id}
-                      className="group bg-[#161b22] border border-[#30363d] rounded-none overflow-hidden shadow hover:border-indigo-500 transition-all font-mono"
+                      className="group bg-[#161b22] border border-[#30363d] rounded-none overflow-hidden shadow hover:border-blue-500 transition-all font-mono"
                     >
                       {/* Image Thumbnail Preview */}
                       <div 
@@ -549,13 +549,13 @@ export function Inspector({ activeNode, onCaptureSnapshot, onClose }: InspectorP
                           className="w-full h-full object-cover"
                         />
                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                          <span className="px-2 py-1 bg-indigo-600 text-white text-[10px] font-bold rounded flex items-center gap-1 shadow">
+                          <span className="px-2 py-1 bg-blue-600 text-white text-[10px] font-bold rounded flex items-center gap-1 shadow">
                             <Maximize2 size={10} /> Expand
                           </span>
                         </div>
 
                         {/* Projection Badge */}
-                        <div className="absolute top-2 left-2 px-2 py-0.5 bg-black/80 backdrop-blur border border-white/10 rounded text-[9px] font-bold uppercase text-indigo-300">
+                        <div className="absolute top-2 left-2 px-2 py-0.5 bg-black/80 backdrop-blur border border-white/10 rounded text-[9px] font-bold uppercase text-blue-300">
                           {art.projection}
                         </div>
                       </div>
@@ -577,7 +577,7 @@ export function Inspector({ activeNode, onCaptureSnapshot, onClose }: InspectorP
                             href={art.previewDataUrl}
                             download={`c2_snapshot_${activeNode.id}_${art.projection}_${art.id}.png`}
                             title="Download PNG Artifact"
-                            className="p-1.5 bg-[#21262d] hover:bg-indigo-600 text-slate-300 hover:text-white rounded transition-colors"
+                            className="p-1.5 bg-[#21262d] hover:bg-blue-600 text-slate-300 hover:text-white rounded transition-colors"
                           >
                             <Download size={13} />
                           </a>
@@ -602,7 +602,7 @@ export function Inspector({ activeNode, onCaptureSnapshot, onClose }: InspectorP
         {activeTab === 'trace' && (
           <section className="flex-1 flex flex-col min-h-[220px]">
             <div className="flex items-center gap-2 mb-2 text-slate-400 border-b border-border-c2 pb-1">
-              <Terminal size={13} className="text-indigo-400" />
+              <Terminal size={13} className="text-blue-400" />
               <span className="text-xs font-bold uppercase tracking-widest">Execution Trace</span>
             </div>
             <div className="flex-1 bg-[#09090b] border border-[#222] p-2.5 overflow-y-auto text-[10px] font-mono rounded mt-1 space-y-1">
@@ -620,7 +620,7 @@ export function Inspector({ activeNode, onCaptureSnapshot, onClose }: InspectorP
                       <span className={log.includes('[SEC]') || log.includes('[SYS]') ? 'text-amber-300/90' : log.includes('[HIGH PRESSURE]') ? 'text-red-400 font-bold' : 'text-slate-200'}>{log}</span>
                     </motion.div>
                   ))}
-                  <div className="animate-pulse text-indigo-400 mt-1">_</div>
+                  <div className="animate-pulse text-blue-400 mt-1">_</div>
                 </div>
               ) : (
                 <div className="text-slate-500">Awaiting event stream...</div>
@@ -643,7 +643,7 @@ export function Inspector({ activeNode, onCaptureSnapshot, onClose }: InspectorP
               {/* Lightbox Header */}
               <div className="flex items-center justify-between px-4 py-3 bg-[#0d1117] border-b border-[#30363d]">
                 <div className="flex items-center gap-2">
-                  <Camera size={16} className="text-indigo-400" />
+                  <Camera size={16} className="text-blue-400" />
                   <div>
                     <h3 className="text-sm font-bold text-white truncate">{selectedArtifact.label}</h3>
                     <div className="text-[10px] text-slate-400">{selectedArtifact.timestamp} • {selectedArtifact.dimensions}</div>
@@ -654,7 +654,7 @@ export function Inspector({ activeNode, onCaptureSnapshot, onClose }: InspectorP
                   <a
                     href={selectedArtifact.previewDataUrl}
                     download={`c2_snapshot_${selectedArtifact.nodeId}_${selectedArtifact.projection}.png`}
-                    className="flex items-center gap-1.5 px-3 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded text-xs font-bold transition-colors"
+                    className="flex items-center gap-1.5 px-3 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded text-xs font-bold transition-colors"
                   >
                     <Download size={13} />
                     <span>Download PNG</span>
@@ -681,7 +681,7 @@ export function Inspector({ activeNode, onCaptureSnapshot, onClose }: InspectorP
               {/* Lightbox Footer */}
               <div className="px-4 py-2.5 bg-[#0d1117] border-t border-[#30363d] flex items-center justify-between text-xs text-slate-400">
                 <span>Node ID: <strong className="text-white">{selectedArtifact.nodeId}</strong></span>
-                <span>Projection: <strong className="text-indigo-400 uppercase">{selectedArtifact.projection}</strong></span>
+                <span>Projection: <strong className="text-blue-400 uppercase">{selectedArtifact.projection}</strong></span>
               </div>
             </motion.div>
           </div>
@@ -975,7 +975,7 @@ function TelemetryLogWidget({
               onClick={() => setFilterType(t)}
               className={`px-1.5 py-0.5 rounded transition-all cursor-pointer ${
                 filterType === t 
-                  ? 'bg-indigo-600 text-white font-bold' 
+                  ? 'bg-blue-600 text-white font-bold' 
                   : 'text-slate-400 hover:text-slate-200'
               }`}
             >
@@ -987,7 +987,7 @@ function TelemetryLogWidget({
         <button
           onClick={() => setAutoScroll(!autoScroll)}
           className={`text-[9px] cursor-pointer flex items-center gap-1 ${
-            autoScroll ? 'text-indigo-400 font-bold' : 'text-slate-500'
+            autoScroll ? 'text-blue-400 font-bold' : 'text-slate-500'
           }`}
         >
           <span>Auto-Scroll: {autoScroll ? 'ON' : 'OFF'}</span>
@@ -1041,7 +1041,7 @@ function TelemetryLogWidget({
       {/* Footer Status Bar */}
       <div className="p-1.5 bg-[#090b10] border-t border-[#1a1e2d] flex items-center justify-between text-[8.5px] text-slate-400 font-mono">
         <div className="flex items-center gap-1.5">
-          <Zap size={10} className={isHighLoad ? "text-red-400" : "text-indigo-400"} />
+          <Zap size={10} className={isHighLoad ? "text-red-400" : "text-blue-400"} />
           <span>CURRENT NODE LOAD:</span>
           <span className={`font-bold ${isHighLoad ? "text-red-400 animate-pulse" : "text-emerald-400"}`}>
             {resourceLoad}% {isHighLoad ? '(HIGH PRESSURE)' : '(NORMAL)'}

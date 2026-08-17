@@ -28,7 +28,7 @@ export function TreeNav({ nodes, activeNodeId, onSelectNode, onClose }: TreeNavP
     >
       <div className="flex items-center justify-between p-3 border-b border-border-c2 shrink-0 bg-[#0d1117]/60">
         <div className="flex items-center gap-2">
-          <Globe size={14} className="text-indigo-400 animate-pulse" />
+          <Globe size={14} className="text-blue-400 animate-pulse" />
           <span className="text-xs font-mono font-bold tracking-wider text-white uppercase">GLOBAL OPERATIONS</span>
         </div>
         <div className="flex items-center gap-1.5">

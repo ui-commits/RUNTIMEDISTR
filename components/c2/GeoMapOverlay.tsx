@@ -10,7 +10,6 @@ import {
   ZoomOut, 
   Target, 
   Radio, 
-  Building2,
   ExternalLink,
   Zap,
   Activity,
@@ -205,33 +204,11 @@ export function GeoMapOverlay({ nodes, activeNode, onSelectNode }: GeoMapOverlay
         {/* Crosshair Center Reticle */}
         <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
           <div className="w-12 h-12 border border-cobalt-c2/30 rounded-full flex items-center justify-center animate-pulse">
-            <div className="w-1.5 h-1.5 bg-cobalt-c2 rounded-full shadow-[0_0_8px_#6366f1]" />
+            <div className="w-1.5 h-1.5 bg-cobalt-c2 rounded-full shadow-[0_0_8px_#3b82f6]" />
           </div>
           <div className="absolute w-24 h-px bg-cobalt-c2/20" />
           <div className="absolute h-24 w-px bg-cobalt-c2/20" />
         </div>
-      </div>
-
-      {/* Bottom Floating Location Badge */}
-      <div className="absolute bottom-12 left-3 bg-[#0a0a0e]/95 backdrop-blur-md border border-border-c2 p-3 rounded-none z-30 max-w-sm shadow-2xl space-y-1">
-        <div className="flex items-center gap-2">
-          <Building2 size={13} className="text-cobalt-c2" />
-          <span className="text-xs font-bold text-white uppercase">{geo.name || activeNode.label}</span>
-          <span className="text-[9px] px-1.5 py-0.5 bg-emerald-950 text-emerald-400 border border-emerald-800/80 rounded font-semibold">
-            GEO LOCKED
-          </span>
-        </div>
-        {geo.address && (
-          <div className="text-[11px] text-zinc-300 font-sans font-medium flex items-center gap-1.5">
-            <MapPin size={11} className="text-rose-400 shrink-0" />
-            <span>{geo.address}</span>
-          </div>
-        )}
-        {geo.district && (
-          <div className="text-[10px] text-[#777]">
-            SECTOR: <span className="text-[#bbb]">{geo.district}</span>
-          </div>
-        )}
       </div>
 
       {/* Bottom Right Map Zoom & Tool Controls */}
@@ -298,13 +275,13 @@ function GeoNodeTooltip({
         left: `${x + offsetX}px`,
         top: `${y + offsetY}px`,
       }}
-      className="absolute z-50 pointer-events-auto w-72 bg-[#0c1017]/95 backdrop-blur-xl border border-indigo-500/70 rounded-none shadow-[0_12px_36px_rgba(0,0,0,0.8),0_0_20px_rgba(99,102,241,0.25)] p-3 font-mono text-xs text-slate-200 select-none overflow-hidden"
+      className="absolute z-50 pointer-events-auto w-72 bg-[#0c1017]/95 backdrop-blur-xl border border-blue-500/70 rounded-none shadow-[0_12px_36px_rgba(0,0,0,0.8),0_0_20px_rgba(59,130,246,0.25)] p-3 font-mono text-xs text-slate-200 select-none overflow-hidden"
     >
       {/* Decorative Top Accent Glow Bar based on health */}
       <div 
         className="absolute top-0 left-0 right-0 h-1 transition-colors"
         style={{
-          background: `linear-gradient(90deg, #6366f1, ${health.color}, #38bdf8)`
+          background: `linear-gradient(90deg, #3b82f6, ${health.color}, #38bdf8)`
         }} 
       />
 
@@ -312,7 +289,7 @@ function GeoNodeTooltip({
       <div className="flex items-start justify-between gap-2 mb-2 pt-1 border-b border-[#21262d] pb-2">
         <div>
           <div className="flex items-center gap-1.5">
-            <span className="text-[10px] text-indigo-400 font-bold uppercase tracking-wider">
+            <span className="text-[10px] text-blue-400 font-bold uppercase tracking-wider">
               {node.type}
             </span>
             <span className="text-[9px] text-slate-500 font-mono">#{node.id}</span>
@@ -336,7 +313,7 @@ function GeoNodeTooltip({
       <div className="mb-2 bg-[#090d16] p-2 rounded-none border border-[#1e2538] flex items-center justify-between">
         <div className="flex flex-col">
           <span className="text-[8px] text-slate-400 font-mono flex items-center gap-1">
-            <Activity size={10} className="text-indigo-400" />
+            <Activity size={10} className="text-blue-400" />
             LIVE SIGNAL
           </span>
           <span className="text-[9px] font-mono font-bold" style={{ color: health.color }}>
@@ -364,7 +341,7 @@ function GeoNodeTooltip({
           {node.geo.district && (
             <div className="flex items-center justify-between text-slate-400 text-[9px]">
               <span>DISTRICT:</span>
-              <span className="text-indigo-300 truncate max-w-[120px]">{node.geo.district}</span>
+              <span className="text-blue-300 truncate max-w-[120px]">{node.geo.district}</span>
             </div>
           )}
         </div>
@@ -385,7 +362,7 @@ function GeoNodeTooltip({
       {/* Quick-Link Shortcut Indicators Footer */}
       <div className="pt-2 border-t border-[#21262d] flex items-center justify-between">
         <div className="flex items-center gap-1 text-[9px] text-slate-400">
-          <span className="bg-[#161b22] px-1 py-0.5 rounded border border-[#30363d] text-indigo-300 font-bold">
+          <span className="bg-[#161b22] px-1 py-0.5 rounded border border-[#30363d] text-blue-300 font-bold">
             CLICK
           </span>
           <span>Open Inspector</span>
@@ -393,7 +370,7 @@ function GeoNodeTooltip({
 
         <button
           onClick={() => onSelectNode(node.id)}
-          className="flex items-center gap-1 px-2.5 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded text-[10px] font-bold transition-colors cursor-pointer shadow-sm"
+          className="flex items-center gap-1 px-2.5 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded text-[10px] font-bold transition-colors cursor-pointer shadow-sm"
         >
           <span>INSPECT</span>
           <ArrowRight size={11} />
@@ -441,7 +418,7 @@ function GlobalEarthView({
           <radialGradient id="globeAtmosphere" cx="50%" cy="50%" r="50%">
             <stop offset="85%" stopColor="transparent" />
             <stop offset="98%" stopColor="#38bdf8" stopOpacity="0.4" />
-            <stop offset="100%" stopColor="#6366f1" stopOpacity="0.8" />
+            <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.8" />
           </radialGradient>
         </defs>
 
@@ -476,7 +453,7 @@ function GlobalEarthView({
           cy="200"
           r="190"
           fill="none"
-          stroke="#6366f1"
+          stroke="#3b82f6"
           strokeWidth="1"
           strokeDasharray="6 8"
           strokeOpacity="0.4"
@@ -664,12 +641,12 @@ function ContinentalRegionView({
         {/* Optical Fiber Trunk Lines */}
         <path
           d="M 120 130 L 480 150"
-          stroke="#6366f1"
+          stroke="#3b82f6"
           strokeWidth="2"
           strokeDasharray="6 4"
           strokeOpacity="0.7"
         />
-        <text x="280" y="135" fill="#818cf8" fontSize="9" fontFamily="monospace" textAnchor="middle">
+        <text x="280" y="135" fill="#60a5fa" fontSize="9" fontFamily="monospace" textAnchor="middle">
           TRANS-CONTINENTAL BACKBONE (24ms)
         </text>
 
@@ -854,7 +831,7 @@ function RegionalPacificNWView({
             <text x="300" y="223" fill="#ffffff" fontSize="10" fontFamily="monospace" fontWeight="bold">
               PORTLAND METRO SUB-GRID
             </text>
-            <text x="300" y="237" fill="#818cf8" fontSize="8.5" fontFamily="monospace">
+            <text x="300" y="237" fill="#60a5fa" fontSize="8.5" fontFamily="monospace">
               LAT 45.5231°N, LNG 122.6765°W
             </text>
             <text x="300" y="250" fill={pdxHealth.color} fontSize="8" fontFamily="monospace">
@@ -928,8 +905,8 @@ function PortlandMetroView({
           <line x1="280" y1="130" x2="550" y2="130" stroke="#38bdf8" strokeWidth="1.8" />
           <line x1="280" y1="145" x2="550" y2="145" />
           <line x1="330" y1="80" x2="330" y2="220" />
-          <line x1="360" y1="80" x2="360" y2="220" stroke="#6366f1" strokeWidth="1.5" />
-          <line x1="410" y1="80" x2="410" y2="220" stroke="#6366f1" strokeWidth="1.5" />
+          <line x1="360" y1="80" x2="360" y2="220" stroke="#3b82f6" strokeWidth="1.5" />
+          <line x1="410" y1="80" x2="410" y2="220" stroke="#3b82f6" strokeWidth="1.5" />
           <line x1="460" y1="80" x2="460" y2="220" />
         </g>
 
@@ -1060,7 +1037,7 @@ function LouisaFlowersFacilityView({
           height="240"
           rx="6"
           fill={mapStyle === 'satellite' ? '#1a2333' : '#0d1526'}
-          stroke="#6366f1"
+          stroke="#3b82f6"
           strokeWidth="2.5"
           className="shadow-2xl"
         />
@@ -1119,8 +1096,8 @@ function LouisaFlowersFacilityView({
               width="100" 
               height="70" 
               rx="5" 
-              fill={node.id === 'ws' ? '#312e81' : '#111827'} 
-              stroke={node.id === 'ws' ? '#818cf8' : wsHealth.color} 
+              fill={node.id === 'ws' ? '#1e3a8a' : '#111827'} 
+              stroke={node.id === 'ws' ? '#60a5fa' : wsHealth.color} 
               strokeWidth={node.id === 'ws' ? '2.5' : '1.5'} 
               className="group-hover:stroke-sky-300 group-hover:fill-[#1e1b4b] transition-all"
             />
@@ -1270,9 +1247,9 @@ function LouisaFlowersFacilityView({
               height="60" 
               rx="4" 
               fill={node.id === 'repos' ? '#1e1b4b' : '#0d1117'} 
-              stroke={node.id === 'repos' ? '#818cf8' : reposHealth.color} 
+              stroke={node.id === 'repos' ? '#60a5fa' : reposHealth.color} 
               strokeWidth="1.4" 
-              className="group-hover:stroke-indigo-400 transition-all"
+              className="group-hover:stroke-blue-400 transition-all"
             />
             <text x="145" y="222" fill="#e2e8f0" fontSize="8" fontFamily="monospace" fontWeight="bold">
               REPOSITORIES

@@ -46,7 +46,7 @@ export async function generateCanvasSnapshot(
     }
 
     // 3. Polar Circles in center
-    ctx.strokeStyle = 'rgba(99, 102, 241, 0.15)';
+    ctx.strokeStyle = 'rgba(59, 130, 246, 0.15)';
     ctx.lineWidth = 1.5;
     [100, 200, 300].forEach((r) => {
       ctx.beginPath();
@@ -55,7 +55,7 @@ export async function generateCanvasSnapshot(
     });
 
     // Crosshairs
-    ctx.strokeStyle = 'rgba(99, 102, 241, 0.25)';
+    ctx.strokeStyle = 'rgba(59, 130, 246, 0.25)';
     ctx.beginPath();
     ctx.moveTo(width / 2 - 320, height / 2);
     ctx.lineTo(width / 2 + 320, height / 2);
@@ -113,8 +113,8 @@ export async function generateCanvasSnapshot(
       ctx.fillText(node.geo?.coordinatesText || '45°31\'54"N 122°39\'36"W', pinX + 32, pinY - 6);
     } else if (projection === 'digital') {
       // Digital polar network
-      ctx.strokeStyle = '#6366f1';
-      ctx.fillStyle = 'rgba(99, 102, 241, 0.2)';
+      ctx.strokeStyle = '#3b82f6';
+      ctx.fillStyle = 'rgba(59, 130, 246, 0.2)';
       ctx.lineWidth = 2;
 
       const nodesPos = [
@@ -138,8 +138,8 @@ export async function generateCanvasSnapshot(
 
       // Draw nodes
       nodesPos.forEach((p) => {
-        ctx.fillStyle = p.primary ? '#6366f1' : '#1e293b';
-        ctx.strokeStyle = p.primary ? '#818cf8' : '#475569';
+        ctx.fillStyle = p.primary ? '#3b82f6' : '#1e293b';
+        ctx.strokeStyle = p.primary ? '#60a5fa' : '#475569';
         ctx.lineWidth = 2;
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.primary ? 18 : 10, 0, Math.PI * 2);
@@ -166,7 +166,7 @@ export async function generateCanvasSnapshot(
       for (let i = 0; i < 8; i++) {
         const by = ry + 20 + i * 52;
         ctx.fillStyle = i === 2 ? '#1e1b4b' : '#1e293b';
-        ctx.strokeStyle = i === 2 ? '#6366f1' : '#334155';
+        ctx.strokeStyle = i === 2 ? '#3b82f6' : '#334155';
         ctx.lineWidth = 1.5;
         ctx.fillRect(rx + 16, by, rackW - 32, 42);
         ctx.strokeRect(rx + 16, by, rackW - 32, 42);
@@ -198,8 +198,8 @@ export async function generateCanvasSnapshot(
           const cy = startY + r * 110;
           const isTarget = c === 1 && r === 1;
 
-          ctx.fillStyle = isTarget ? 'rgba(99, 102, 241, 0.25)' : 'rgba(30, 41, 59, 0.5)';
-          ctx.strokeStyle = isTarget ? '#6366f1' : '#334155';
+          ctx.fillStyle = isTarget ? 'rgba(59, 130, 246, 0.25)' : 'rgba(30, 41, 59, 0.5)';
+          ctx.strokeStyle = isTarget ? '#3b82f6' : '#334155';
           ctx.fillRect(cx, cy, cardW, cardH);
           ctx.strokeRect(cx, cy, cardW, cardH);
 
@@ -215,7 +215,7 @@ export async function generateCanvasSnapshot(
     }
 
     // 5. Tactical HUD Frame / Border Stamp
-    ctx.strokeStyle = '#6366f1';
+    ctx.strokeStyle = '#3b82f6';
     ctx.lineWidth = 3;
     // Corners
     const cornerSize = 28;
@@ -271,7 +271,7 @@ export async function generateCanvasSnapshot(
     ctx.font = '10px "JetBrains Mono", monospace';
     ctx.fillText(`TIMESTAMP: ${dateStr}  |  RES: 1280x720 60FPS  |  ENCRYPTION: AES-256-GCM`, 36, height - 36);
 
-    ctx.fillStyle = '#818cf8';
+    ctx.fillStyle = '#60a5fa';
     ctx.fillText('CONFIDENTIAL // C2 MISSION INTELLIGENCE ARTIFACT', width - 360, height - 36);
   }
 

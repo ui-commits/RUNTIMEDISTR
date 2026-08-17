@@ -126,16 +126,17 @@ Single-key shortcuts are disabled while typing in an input, textarea, or editabl
 
 ### Top Status Bar
 
-The top status bar contains the brand logo (radar icon, top-left), the active target indicator, icon-only quick-jump presets, snapshot capture, a projection selector dropdown, the Tree toggle, and Reset. The quick-jump presets appear in order **globe → plane → house** (Global Earth, Portland/PDX, 515 NE Holladay); the globe is the actively highlighted target on load. The projection selector dropdown is the single source of projection navigation; the earlier bottom-right projection switcher has been removed to avoid duplication. The Inspector and Terminal toggles no longer live in the header.
+The top status bar contains the brand logo (radar icon, top-left) and icon-only quick-jump presets on the left; snapshot capture (Camera), the projection selector dropdown, the keyboard key-map button, and the UTC clock dropdown on the right, with the projection selector centered. The quick-jump presets appear in order **globe → plane → house** (Global Earth, Portland/PDX, 515 NE Holladay); the globe is the actively highlighted preset on load and gets a gold pulse. Clicking the brand logo resets the ontology state and returns to Global Earth. The projection selector dropdown is the single source of projection navigation; the Inspector, Terminal, and Tree toggles, plus a standalone Reset button, no longer live in the header. The active accent color is ops blue (#3b82f6).
 
 The UI overlay opacity slider has been removed from the top bar; overlay opacity is now managed programmatically by C2 actions and the active projection.
 
 ### Canvas Layout
 
 - The **Inspector** panel docks on the far-left canvas space; pull it out by clicking the slim green tab on the left edge of the canvas (or `I`).
-- The **MiniMap** is always visible in the bottom-right corner of the canvas.
-- The **TreeNav** overlays the left side when open (toggle with `T` from the header).
+- The **MiniMap** is always visible in the bottom-left corner of the canvas.
+- The **TreeNav** docks from the right edge as a shelf in the empty right canvas space; pull it out with the slim blue tab on the right edge (or `T`).
 - The **Terminal Chatbox** rises from the bottom center; toggle it with the small terminal tab docked at the bottom center (or `C` or backtick).
+- The **traffic monitor**, spike trigger, active **TARGET** telemetry, and (in geographic projection) the **GEO LOCKED** name/address/sector row are consolidated into a single box fixed in the bottom-right corner of the canvas.
 - Double-clicking the digital canvas background toggles radial/grid organization. Zoom controls are constrained to the supported visualization range.
 
 ### Terminal Commands

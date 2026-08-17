@@ -15,7 +15,6 @@ const CommandBar = dynamic(() => import('@/components/c2/CommandBar').then((m) =
 const KeyMapModal = dynamic(() => import('@/components/c2/KeyMapModal').then((m) => m.KeyMapModal));
 import { 
   Terminal, 
-  RotateCcw, 
   Layers, 
   Globe, 
   Activity, 
@@ -198,9 +197,9 @@ function GDRDashboardContent() {
             initial={{ opacity: 0, y: -20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            className="fixed top-16 left-1/2 -translate-x-1/2 z-50 bg-[#161b22]/95 backdrop-blur-md border border-indigo-500/80 px-4 py-2.5 rounded-none shadow-2xl flex items-center gap-3 font-mono text-xs text-white"
+            className="fixed top-16 left-1/2 -translate-x-1/2 z-50 bg-[#161b22]/95 backdrop-blur-md border border-blue-500/80 px-4 py-2.5 rounded-none shadow-2xl flex items-center gap-3 font-mono text-xs text-white"
           >
-            <div className="w-6 h-6 rounded-full bg-indigo-600/30 text-indigo-400 flex items-center justify-center border border-indigo-500">
+            <div className="w-6 h-6 rounded-full bg-blue-600/30 text-blue-400 flex items-center justify-center border border-blue-500">
               <Camera size={13} />
             </div>
             <span>{snapshotToast.text}</span>
@@ -218,14 +217,15 @@ function GDRDashboardContent() {
           {/* Brand Logo */}
           <button
             onClick={() => {
+              resetNodes();
               selectNode('earth');
               setProjection('geographic');
             }}
-            className="w-8 h-8 rounded-sm bg-indigo-600/20 border border-indigo-500/50 flex items-center justify-center shadow-inner hover:bg-indigo-600/30 transition-colors cursor-pointer"
-            title="GDR // Global Distribution Runtime — return to Global Earth"
+            className="w-8 h-8 rounded-sm bg-blue-600/20 border border-blue-500/50 flex items-center justify-center shadow-inner hover:bg-blue-600/30 transition-colors cursor-pointer"
+            title="GDR // Global Distribution Runtime — reset ontology state & return to Global Earth"
             aria-label="Global Distribution Runtime"
           >
-            <Radar size={16} className="text-indigo-300 animate-radar-sweep" />
+            <Radar size={16} className="text-blue-300 animate-radar-sweep" />
           </button>
 
           <div className="h-6 w-px bg-[#30363d]" />
@@ -254,11 +254,23 @@ function GDRDashboardContent() {
                   aria-label={label}
                   aria-pressed={isActive}
                 >
-                  <PresetIcon size={14} className={isActive ? 'text-amber-950' : 'text-indigo-400'} />
+                  <PresetIcon size={14} className={isActive ? 'text-amber-950' : 'text-blue-400'} />
                 </button>
               );
             })}
           </div>
+
+          <div className="h-5 w-px bg-[#30363d]" />
+
+          {/* Capture Canvas Snapshot Button (left of the centered projection dropdown) */}
+          <button
+            onClick={handleCaptureSnapshot}
+            className="p-1.5 bg-[#0d1117] hover:bg-blue-600/30 border border-blue-500/50 text-blue-300 hover:text-white rounded-sm shadow-sm transition-all cursor-pointer"
+            title="Capture Canvas Snapshot artifact into node metadata (Hotkey: S)"
+            aria-label="Capture Canvas Snapshot"
+          >
+            <Camera size={13} />
+          </button>
         </div>
 
         {/* Projection Selector Dropdown (header center) */}
@@ -267,7 +279,7 @@ function GDRDashboardContent() {
             onClick={() => setProjectionMenuOpen(!projectionMenuOpen)}
             className="px-3 py-1.5 bg-[#0d1117] hover:bg-[#21262d] border border-[#30363d] hover:border-slate-500 rounded-sm text-xs font-mono flex items-center gap-2 text-white transition-all cursor-pointer shadow-sm"
           >
-            <CurrentProjectionIcon size={13} className="text-indigo-400" />
+            <CurrentProjectionIcon size={13} className="text-blue-400" />
             <span className="font-semibold hidden sm:inline">{projectionLabels[projection].label}</span>
             <ChevronDown size={12} className={`text-slate-400 transition-transform ${projectionMenuOpen ? 'rotate-180' : ''}`} />
           </button>
@@ -296,19 +308,19 @@ function GDRDashboardContent() {
                       }}
                       className={`w-full text-left px-2.5 py-2 rounded-sm text-xs transition-all flex items-start gap-2.5 cursor-pointer ${
                         isSelected
-                          ? 'bg-indigo-600 text-white font-bold'
+                          ? 'bg-blue-600 text-white font-bold'
                           : 'hover:bg-[#21262d] text-slate-300 hover:text-white'
                       }`}
                     >
-                      <Icon size={14} className={isSelected ? 'text-white mt-0.5' : 'text-indigo-400 mt-0.5'} />
+                      <Icon size={14} className={isSelected ? 'text-white mt-0.5' : 'text-blue-400 mt-0.5'} />
                       <div className="flex-1">
                         <div className="flex items-center justify-between">
                           <span>{item.label}</span>
-                          <span className={`text-[9px] px-1 rounded ${isSelected ? 'bg-indigo-800 text-white' : 'bg-[#0d1117] text-slate-500'}`}>
+                          <span className={`text-[9px] px-1 rounded ${isSelected ? 'bg-blue-800 text-white' : 'bg-[#0d1117] text-slate-500'}`}>
                             {idx + 1}
                           </span>
                         </div>
-                        <div className={`text-[10px] ${isSelected ? 'text-indigo-200' : 'text-slate-400'}`}>
+                        <div className={`text-[10px] ${isSelected ? 'text-blue-200' : 'text-slate-400'}`}>
                           {item.desc}
                         </div>
                       </div>
@@ -324,16 +336,6 @@ function GDRDashboardContent() {
 
         {/* Right Controls */}
         <div className="flex items-center gap-2">
-          {/* Capture Canvas Snapshot Button (icon-only) */}
-          <button
-            onClick={handleCaptureSnapshot}
-            className="p-1.5 bg-[#0d1117] hover:bg-indigo-600/30 border border-indigo-500/50 text-indigo-300 hover:text-white rounded-sm shadow-sm transition-all cursor-pointer"
-            title="Capture Canvas Snapshot artifact into node metadata (Hotkey: S)"
-            aria-label="Capture Canvas Snapshot"
-          >
-            <Camera size={13} />
-          </button>
-
           {/* Keyboard Shortcuts Key-Map Button */}
           <button
             onClick={() => setKeyMapOpen(true)}
@@ -342,34 +344,6 @@ function GDRDashboardContent() {
           >
             <Keyboard size={14} />
           </button>
-
-          <div className="h-5 w-px bg-[#30363d]" />
-
-          {/* HUD Layer Toggle Buttons */}
-          <div className="flex items-center gap-1.5">
-            {/* Global Operations File Explorer Toggle */}
-            <button
-              onClick={() => setTreeOpen((prev) => !prev)}
-              className={`px-3 py-1.5 text-xs font-mono rounded-sm flex items-center gap-1.5 border transition-all cursor-pointer ${
-                treeOpen
-                  ? 'bg-indigo-600 border-indigo-500 text-white shadow-[0_0_12px_rgba(99,102,241,0.3)]'
-                  : 'bg-[#0d1117] border-[#30363d] text-slate-300 hover:text-white hover:bg-[#21262d]'
-              }`}
-              title="Toggle Global Operations Hierarchy Tree [T]"
-            >
-              <FolderTree size={13} className={treeOpen ? 'text-white' : 'text-indigo-400'} />
-              <span className="hidden md:inline">Tree [T]</span>
-            </button>
-
-            {/* Reset State */}
-            <button
-              onClick={resetNodes}
-              title="Reset Ontology State to Defaults [R]"
-              className="p-1.5 bg-[#0d1117] hover:bg-[#21262d] border border-[#30363d] hover:border-slate-500 text-slate-400 hover:text-white rounded-sm transition-colors cursor-pointer"
-            >
-              <RotateCcw size={13} />
-            </button>
-          </div>
 
           <div className="h-5 w-px bg-[#30363d]" />
 
@@ -429,15 +403,15 @@ function GDRDashboardContent() {
           )}
         </AnimatePresence>
 
-        {/* Floating Left Overlay: Global Operations Hierarchy Tree */}
+        {/* Floating Right Overlay: Global Operations Hierarchy Tree */}
         <AnimatePresence>
           {treeOpen && (
             <motion.div
-              initial={{ opacity: 0, x: -30, scale: 0.98 }}
+              initial={{ opacity: 0, x: 30, scale: 0.98 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
-              exit={{ opacity: 0, x: -30, scale: 0.98 }}
+              exit={{ opacity: 0, x: 30, scale: 0.98 }}
               transition={{ duration: 0.2 }}
-              className="absolute left-4 top-4 bottom-4 w-80 sm:w-88 z-30 flex flex-col pointer-events-auto"
+              className="absolute right-4 top-4 bottom-4 w-80 sm:w-88 z-30 flex flex-col pointer-events-auto"
             >
               <TreeNav 
                 nodes={nodes} 
@@ -449,6 +423,24 @@ function GDRDashboardContent() {
           )}
         </AnimatePresence>
 
+        {/* Floating Right Pull-Tab: Global Operations Hierarchy Tree */}
+        <AnimatePresence>
+          {!treeOpen && (
+            <motion.button
+              initial={{ opacity: 0, x: 12 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 12 }}
+              transition={{ duration: 0.18 }}
+              onClick={() => setTreeOpen(true)}
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-40 h-14 w-7 rounded-l-sm bg-blue-600/20 border border-r-0 border-blue-500/40 text-blue-300 hover:bg-blue-600/30 hover:text-white flex items-center justify-center cursor-pointer shadow-lg transition-colors"
+              title="Pull out Global Operations Hierarchy Tree [T]"
+              aria-label="Open Global Operations Hierarchy Tree"
+            >
+              <FolderTree size={14} />
+            </motion.button>
+          )}
+        </AnimatePresence>
+
         {/* Floating Bottom Center Dock: Terminal Chatbox */}
         <motion.button
           initial={{ opacity: 0, y: 8 }}
@@ -457,8 +449,8 @@ function GDRDashboardContent() {
           onClick={() => setTerminalOpen((prev) => !prev)}
           className={`absolute bottom-2 left-1/2 -translate-x-1/2 z-40 px-2.5 h-8 rounded-none border text-xs font-mono flex items-center gap-1.5 cursor-pointer shadow-lg transition-colors ${
             terminalOpen
-              ? 'bg-indigo-600 border-indigo-500 text-white'
-              : 'bg-[#161b22]/95 border-indigo-500/40 text-indigo-300 hover:bg-indigo-600/20 hover:text-white'
+              ? 'bg-blue-600 border-blue-500 text-white'
+              : 'bg-[#161b22]/95 border-blue-500/40 text-blue-300 hover:bg-blue-600/20 hover:text-white'
           }`}
           title={terminalOpen ? 'Dismiss Terminal Chatbox [C]' : 'Pull up Terminal Chatbox [C]'}
           aria-label="Toggle Terminal Chatbox"
@@ -515,7 +507,7 @@ function GDRDashboardContent() {
         <div className="flex items-center gap-4">
           <div className="text-slate-400 flex items-center gap-1">
             <span>NODES:</span> 
-            <span className="text-indigo-400 font-bold">{Object.keys(nodes).length} ACTIVE</span>
+            <span className="text-blue-400 font-bold">{Object.keys(nodes).length} ACTIVE</span>
           </div>
           <div className="text-slate-600">|</div>
           <div className="flex items-center gap-1">

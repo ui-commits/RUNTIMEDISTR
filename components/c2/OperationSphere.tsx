@@ -41,6 +41,7 @@ import {
   Gauge,
   Sliders,
   FolderHeart,
+  Building2,
 } from 'lucide-react';
 import { GeoMapOverlay } from '@/components/c2/GeoMapOverlay';
 import { NodeHeartbeatRing, LiveEkgWaveform, ResourceLoadHeartbeatRing } from '@/components/c2/NodeHeartbeatRing';
@@ -296,7 +297,7 @@ export function OperationSphere({
         <div 
           className="absolute inset-0 opacity-8 animate-grid-drift" 
           style={{ 
-            backgroundImage: 'linear-gradient(rgba(99,102,241,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(99,102,241,0.08) 1px, transparent 1px)',
+            backgroundImage: 'linear-gradient(rgba(59,130,246,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.08) 1px, transparent 1px)',
             backgroundSize: '32px 32px',
           }}
         />
@@ -305,7 +306,7 @@ export function OperationSphere({
           className="absolute inset-0 animate-glow-drift"
           style={{
             backgroundImage:
-              'radial-gradient(ellipse at 30% 30%, rgba(99,102,241,0.10), transparent 55%), radial-gradient(ellipse at 72% 62%, rgba(16,185,129,0.05), transparent 55%)',
+              'radial-gradient(ellipse at 30% 30%, rgba(59,130,246,0.10), transparent 55%), radial-gradient(ellipse at 72% 62%, rgba(16,185,129,0.05), transparent 55%)',
           }}
         />
         <motion.div 
@@ -341,7 +342,7 @@ export function OperationSphere({
           initial={{ scale: 0.1, opacity: 0.9 }}
           animate={{ scale: 3.5, opacity: 0 }}
           transition={{ duration: 0.65, ease: "easeOut" }}
-          className="absolute w-24 h-24 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-indigo-400 bg-indigo-500/10 pointer-events-none z-30"
+          className="absolute w-24 h-24 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-blue-400 bg-blue-500/10 pointer-events-none z-30"
           style={{ left: clickRipple.x, top: clickRipple.y }}
         />
       )}
@@ -351,7 +352,7 @@ export function OperationSphere({
         <motion.div
           initial={{ opacity: 0, y: -12, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          className="absolute top-3 left-1/2 -translate-x-1/2 z-40 px-3.5 py-1 bg-red-950/95 border border-red-500/90 rounded-full shadow-[0_0_24px_rgba(239,68,68,0.55)] backdrop-blur-md flex items-center gap-2 font-mono text-[10.5px] text-white"
+          className="absolute top-3 left-1/2 -translate-x-1/2 z-40 px-3.5 py-1 bg-red-950/95 border border-red-500/90 rounded-none shadow-[0_0_24px_rgba(239,68,68,0.55)] backdrop-blur-md flex items-center gap-2 font-mono text-[10.5px] text-white"
         >
           <Flame size={13} className="text-red-400 animate-pulse" />
           <span className="font-bold tracking-wider text-red-100">HIGH PRESSURE WARNING:</span>
@@ -359,7 +360,7 @@ export function OperationSphere({
             {highPressureNodes.length} NODE{highPressureNodes.length > 1 ? 'S' : ''} SURGING ({'>'}80% LOAD)
           </span>
           {isActiveHighPressure && (
-            <span className="px-1.5 py-0.2 bg-red-600 text-white font-bold rounded text-[8.5px] uppercase tracking-widest shadow animate-pulse">
+            <span className="px-1.5 py-0.2 bg-red-600 text-white font-bold rounded-none text-[8.5px] uppercase tracking-widest shadow animate-pulse">
               ACTIVE NODE SURGE
             </span>
           )}
@@ -373,7 +374,7 @@ export function OperationSphere({
             initial={{ opacity: 0, y: -20, scale: 0.92 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.92 }}
-            className="absolute top-14 left-1/2 -translate-x-1/2 z-50 px-4 py-2 bg-gradient-to-r from-red-950 via-rose-900 to-red-950 border-2 border-red-500 rounded-full shadow-[0_0_35px_rgba(239,68,68,0.85)] backdrop-blur-md flex items-center gap-2.5 font-mono text-xs text-white"
+            className="absolute top-14 left-1/2 -translate-x-1/2 z-50 px-4 py-2 bg-gradient-to-r from-red-950 via-rose-900 to-red-950 border-2 border-red-500 rounded-none shadow-[0_0_35px_rgba(239,68,68,0.85)] backdrop-blur-md flex items-center gap-2.5 font-mono text-xs text-white"
           >
             <Zap size={15} className="text-amber-300 fill-amber-300 animate-bounce" />
             <span className="font-extrabold tracking-wider text-rose-100 uppercase">
@@ -382,7 +383,7 @@ export function OperationSphere({
             <span className="text-red-200 font-semibold">
               {spikeAlertBanner.message}
             </span>
-            <span className="px-2 py-0.5 bg-red-600 text-white font-bold rounded text-[9px] uppercase tracking-widest animate-pulse shadow">
+            <span className="px-2 py-0.5 bg-red-600 text-white font-bold rounded-none text-[9px] uppercase tracking-widest animate-pulse shadow">
               {spikeAlertBanner.load}% TRAFFIC SPIKE
             </span>
           </motion.div>
@@ -397,13 +398,6 @@ export function OperationSphere({
           <span className="font-bold text-cobalt-c2 uppercase">{projection}</span>
         </div>
 
-        {activeNode.geo?.address && projection === 'geographic' && (
-          <div className="px-2.5 py-1 bg-emerald-950/80 border border-emerald-800/80 text-[10px] font-mono text-emerald-300 rounded flex items-center gap-1.5 shadow-lg">
-            <MapPin size={11} className="text-emerald-400 shrink-0" />
-            <span className="truncate max-w-[220px]">{activeNode.geo.address}</span>
-          </div>
-        )}
-
         {/* Save Layout Snapshot Feature Button & Popover */}
         <div className="relative">
           <button
@@ -411,13 +405,13 @@ export function OperationSphere({
             title="Save or switch between custom Snapshot Layouts"
             className={`px-2.5 py-1 text-[10px] font-mono rounded flex items-center gap-1.5 shadow-lg transition-all cursor-pointer border backdrop-blur-md ${
               showLayoutMenu
-                ? 'bg-indigo-600 text-white border-indigo-400 shadow-[0_0_15px_rgba(99,102,241,0.5)]'
+                ? 'bg-blue-600 text-white border-blue-400 shadow-[0_0_15px_rgba(59,130,246,0.5)]'
                 : 'bg-[#0e0e12]/90 hover:bg-white/10 text-slate-300 hover:text-white border-border-c2'
             }`}
           >
-            <FolderHeart size={11} className={showLayoutMenu ? "text-white" : "text-indigo-400"} />
+            <FolderHeart size={11} className={showLayoutMenu ? "text-white" : "text-blue-400"} />
             <span className="font-bold">LAYOUTS</span>
-            <span className="px-1 py-0.2 bg-indigo-950/80 text-indigo-300 text-[8px] rounded border border-indigo-500/40">
+            <span className="px-1 py-0.2 bg-blue-950/80 text-blue-300 text-[8px] rounded border border-blue-500/40">
               {layoutSnapshots.length}
             </span>
           </button>
@@ -430,11 +424,11 @@ export function OperationSphere({
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 6, scale: 0.95 }}
                 transition={{ duration: 0.18 }}
-                className="absolute top-full left-0 mt-1.5 w-80 bg-[#0c1017]/98 backdrop-blur-xl border border-indigo-500/60 rounded-none shadow-[0_12px_36px_rgba(0,0,0,0.9),0_0_24px_rgba(99,102,241,0.3)] p-3 font-mono text-xs text-slate-200 z-50"
+                className="absolute top-full left-0 mt-1.5 w-80 bg-[#0c1017]/98 backdrop-blur-xl border border-blue-500/60 rounded-none shadow-[0_12px_36px_rgba(0,0,0,0.9),0_0_24px_rgba(59,130,246,0.3)] p-3 font-mono text-xs text-slate-200 z-50"
               >
                 <div className="flex items-center justify-between border-b border-[#222a3a] pb-2 mb-2.5">
                   <div className="flex items-center gap-1.5 font-bold text-white text-[11px]">
-                    <Save size={13} className="text-indigo-400" />
+                    <Save size={13} className="text-blue-400" />
                     <span>SNAPSHOT LAYOUT MANAGER</span>
                   </div>
                   <button
@@ -449,7 +443,7 @@ export function OperationSphere({
                 <div className="bg-[#121724] border border-[#1f2638] rounded-none p-2 mb-2.5 space-y-1 text-[9.5px]">
                   <div className="text-[#889] uppercase tracking-wider font-semibold">CURRENT ACTIVE VIEW:</div>
                   <div className="grid grid-cols-2 gap-1 text-slate-300">
-                    <div>MODE: <span className="font-bold text-indigo-300 uppercase">{digitalLayout}</span></div>
+                    <div>MODE: <span className="font-bold text-blue-300 uppercase">{digitalLayout}</span></div>
                     <div>ZOOM: <span className="font-bold text-sky-300">{Math.round(zoomLevel * 100)}%</span></div>
                     <div>PROJECTION: <span className="font-bold text-amber-300 uppercase">{projection}</span></div>
                     <div className="truncate">NODE: <span className="font-bold text-white truncate">{activeNode.label}</span></div>
@@ -468,12 +462,12 @@ export function OperationSphere({
                         if (e.key === 'Enter') handleSaveCurrentLayout();
                       }}
                       placeholder={`Snapshot: ${activeNode.label} (${digitalLayout})`}
-                      className="flex-1 bg-[#07090e] border border-[#2d3748] rounded px-2 py-1 text-[10px] text-white focus:outline-none focus:border-indigo-500 font-mono"
+                      className="flex-1 bg-[#07090e] border border-[#2d3748] rounded px-2 py-1 text-[10px] text-white focus:outline-none focus:border-blue-500 font-mono"
                     />
                     <button
                       onClick={handleSaveCurrentLayout}
                       title="Save current layout as a snapshot"
-                      className="px-2 py-1 bg-indigo-600 hover:bg-indigo-500 text-white rounded text-[9.5px] font-bold flex items-center gap-1 cursor-pointer transition-colors shadow"
+                      className="px-2 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded text-[9.5px] font-bold flex items-center gap-1 cursor-pointer transition-colors shadow"
                     >
                       <Save size={10} />
                       <span>Save</span>
@@ -495,7 +489,7 @@ export function OperationSphere({
                         <div className="min-w-0 flex-1">
                           <div className="font-bold text-slate-200 text-[10.5px] truncate">{snap.name}</div>
                           <div className="flex items-center gap-2 text-[8px] text-slate-400 mt-0.5">
-                            <span className="px-1 py-0.2 bg-indigo-950 text-indigo-300 rounded uppercase font-semibold">
+                            <span className="px-1 py-0.2 bg-blue-950 text-blue-300 rounded uppercase font-semibold">
                               {snap.digitalLayout}
                             </span>
                             <span>{Math.round(snap.zoomLevel * 100)}% ZOOM</span>
@@ -507,7 +501,7 @@ export function OperationSphere({
                           <button
                             onClick={() => handleApplyLayoutSnapshot(snap)}
                             title="Apply this layout snapshot"
-                            className="px-2 py-1 bg-indigo-700/80 hover:bg-indigo-600 text-white rounded text-[9px] font-bold flex items-center gap-1 cursor-pointer transition-all shadow"
+                            className="px-2 py-1 bg-blue-700/80 hover:bg-blue-600 text-white rounded text-[9px] font-bold flex items-center gap-1 cursor-pointer transition-all shadow"
                           >
                             <Play size={8} />
                             <span>Apply</span>
@@ -527,31 +521,6 @@ export function OperationSphere({
               </motion.div>
             )}
           </AnimatePresence>
-        </div>
-
-        {/* Real-time Traffic Spike Monitor Toggle & Manual Trigger */}
-        <div className="flex items-center bg-[#0e0e12]/90 backdrop-blur-md border border-border-c2 rounded text-[10px] font-mono shadow-lg p-0.5">
-          <button
-            onClick={() => setSpikeMonitorActive(prev => !prev)}
-            title="Real-time monitor detecting sudden network traffic spikes and highlighting connecting lines"
-            className={`px-2 py-0.5 rounded flex items-center gap-1 transition-colors cursor-pointer ${
-              spikeMonitorActive
-                ? 'bg-emerald-950/80 text-emerald-300 border border-emerald-700/60'
-                : 'text-slate-500 hover:text-slate-300'
-            }`}
-          >
-            <span className={`w-1.5 h-1.5 rounded-full ${spikeMonitorActive ? 'bg-emerald-400 animate-pulse' : 'bg-slate-600'}`} />
-            <span className="font-bold">TRAFFIC MONITOR</span>
-          </button>
-
-          <button
-            onClick={() => triggerTrafficSpike()}
-            title="Simulate / Trigger a sudden network traffic spike between nodes"
-            aria-label="Trigger network traffic spike"
-            className="p-1.5 text-amber-300 hover:text-amber-100 hover:bg-amber-950/60 rounded flex items-center justify-center transition-colors cursor-pointer"
-          >
-            <Zap size={12} className="text-amber-400" />
-          </button>
         </div>
       </div>
 
@@ -585,7 +554,7 @@ export function OperationSphere({
                 title="Snap to Radial Layout (or Double Click Canvas)"
                 className={`px-2 py-1 text-[10px] font-mono rounded flex items-center gap-1 transition-all cursor-pointer ${
                   digitalLayout === 'radial' 
-                    ? 'bg-indigo-600 text-white font-bold shadow-sm' 
+                    ? 'bg-blue-600 text-white font-bold shadow-sm' 
                     : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
                 }`}
               >
@@ -597,7 +566,7 @@ export function OperationSphere({
                 title="Snap to Matrix Grid Layout (or Double Click Canvas)"
                 className={`px-2 py-1 text-[10px] font-mono rounded flex items-center gap-1 transition-all cursor-pointer ${
                   digitalLayout === 'grid' 
-                    ? 'bg-indigo-600 text-white font-bold shadow-sm' 
+                    ? 'bg-blue-600 text-white font-bold shadow-sm' 
                     : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
                 }`}
               >
@@ -643,11 +612,11 @@ export function OperationSphere({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -16, scale: 0.95 }}
             transition={{ duration: 0.22, ease: "easeOut" }}
-            className="absolute top-14 left-1/2 -translate-x-1/2 z-40 px-3.5 py-1.5 bg-[#0e1322]/95 border border-indigo-500/60 rounded-full shadow-[0_0_20px_rgba(99,102,241,0.35)] backdrop-blur-md flex items-center gap-2 font-mono text-[10.5px] text-white"
+            className="absolute top-14 left-1/2 -translate-x-1/2 z-40 px-3.5 py-1.5 bg-[#0e1322]/95 border border-blue-500/60 rounded-none shadow-[0_0_20px_rgba(59,130,246,0.35)] backdrop-blur-md flex items-center gap-2 font-mono text-[10.5px] text-white"
           >
             <Sparkles size={13} className="text-amber-400 animate-spin" style={{ animationDuration: '6s' }} />
-            <span className="font-bold tracking-wide text-indigo-300">{snapToast.message}</span>
-            <span className="text-[8.5px] px-1.5 py-0.2 bg-indigo-500/20 text-indigo-300 rounded border border-indigo-400/30 uppercase">
+            <span className="font-bold tracking-wide text-blue-300">{snapToast.message}</span>
+            <span className="text-[8.5px] px-1.5 py-0.2 bg-blue-500/20 text-blue-300 rounded-none border border-blue-400/30 uppercase">
               {snapToast.mode}
             </span>
           </motion.div>
@@ -730,16 +699,69 @@ export function OperationSphere({
         )}
       </AnimatePresence>
 
-      {/* Bottom Center Node Telemetry Indicator */}
-      <div className="absolute bottom-3 left-3 flex flex-col gap-1 z-30 pointer-events-none">
-        <div className="text-[10px] text-[#777] flex items-center gap-2 font-mono bg-[#09090c]/80 backdrop-blur px-2 py-0.5 rounded border border-[#222]">
-          <span className="w-2 h-2 bg-cobalt-c2 rounded-full shadow-[0_0_8px_#6366f1]" /> 
-          TARGET: <span className="text-white font-bold">{activeNode.id}</span>
-          <span className="text-[#555]">({activeNode.type})</span>
+      {/* Consolidated Bottom-Right Telemetry Box: Traffic Monitor + TARGET + GEO lock */}
+      <div className="absolute bottom-3 right-3 z-30 max-w-sm font-mono">
+        <div className="bg-[#0e0e12]/90 backdrop-blur-md border border-border-c2 rounded-none shadow-lg">
+          {/* Row 1: Traffic spike monitor toggle + manual trigger + active target telemetry */}
+          <div className="flex items-center p-1 text-[10px]">
+            <button
+              onClick={() => setSpikeMonitorActive(prev => !prev)}
+              title="Real-time monitor detecting sudden network traffic spikes and highlighting connecting lines"
+              className={`px-2 py-0.5 rounded-none flex items-center gap-1 transition-colors cursor-pointer ${
+                spikeMonitorActive
+                  ? 'bg-emerald-950/80 text-emerald-300 border border-emerald-700/60'
+                  : 'text-slate-500 hover:text-slate-300'
+              }`}
+            >
+              <span className={`w-1.5 h-1.5 rounded-full ${spikeMonitorActive ? 'bg-emerald-400 animate-pulse' : 'bg-slate-600'}`} />
+              <span className="font-bold">TRAFFIC MONITOR</span>
+            </button>
+
+            <button
+              onClick={() => triggerTrafficSpike()}
+              title="Simulate / Trigger a sudden network traffic spike between nodes"
+              aria-label="Trigger network traffic spike"
+              className="p-1.5 text-amber-300 hover:text-amber-100 hover:bg-amber-950/60 rounded-none flex items-center justify-center transition-colors cursor-pointer"
+            >
+              <Zap size={12} className="text-amber-400" />
+            </button>
+
+            <div className="h-5 w-px bg-[#30363d] mx-1.5" />
+
+            <div className="flex items-center gap-1.5 text-[#777] whitespace-nowrap pointer-events-none">
+              <span className="w-2 h-2 bg-cobalt-c2 rounded-full shadow-[0_0_8px_#3b82f6]" />
+              TARGET: <span className="text-white font-bold">{activeNode.id}</span>
+              <span className="text-[#555]">({activeNode.type})</span>
+            </div>
+          </div>
+
+          {/* Row 2: Geographic lock details (geographic projection only) */}
+          {projection === 'geographic' && activeNode.geo && (
+            <div className="border-t border-border-c2 px-2.5 py-1.5 space-y-1 pointer-events-none">
+              <div className="flex items-center gap-2">
+                <Building2 size={13} className="text-cobalt-c2" />
+                <span className="text-xs font-bold text-white uppercase">{activeNode.geo.name || activeNode.label}</span>
+                <span className="text-[9px] px-1.5 py-0.5 bg-emerald-950 text-emerald-400 border border-emerald-800/80 rounded-none font-semibold">
+                  GEO LOCKED
+                </span>
+              </div>
+              {activeNode.geo.address && (
+                <div className="text-[11px] text-zinc-300 font-sans font-medium flex items-center gap-1.5">
+                  <MapPin size={11} className="text-rose-400 shrink-0" />
+                  <span>{activeNode.geo.address}</span>
+                </div>
+              )}
+              {activeNode.geo.district && (
+                <div className="text-[10px] text-[#777]">
+                  SECTOR: <span className="text-[#bbb]">{activeNode.geo.district}</span>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
-      
-      {/* Mini-Map HUD fixed in bottom-right */}
+
+      {/* Mini-Map HUD fixed in bottom-left */}
       <MiniMap
         nodes={nodes}
         activeNodeId={activeNode.id}
@@ -748,7 +770,7 @@ export function OperationSphere({
         onZoomChange={handleZoomChange}
         onResetZoom={handleResetZoom}
         projection={projection}
-        className="bottom-3 right-3"
+        className="bottom-3 left-3"
       />
     </div>
   );
@@ -780,13 +802,13 @@ function OperationSphereNodeTooltip({
         left: `${x + offsetX}px`,
         top: `${y + offsetY}px`,
       }}
-      className="absolute z-50 pointer-events-none w-72 bg-[#0c1017]/95 backdrop-blur-xl border border-indigo-500/70 rounded-none shadow-[0_12px_36px_rgba(0,0,0,0.85),0_0_20px_rgba(99,102,241,0.25)] p-3 font-mono text-xs text-slate-200 select-none overflow-hidden"
+      className="absolute z-50 pointer-events-none w-72 bg-[#0c1017]/95 backdrop-blur-xl border border-blue-500/70 rounded-none shadow-[0_12px_36px_rgba(0,0,0,0.85),0_0_20px_rgba(59,130,246,0.25)] p-3 font-mono text-xs text-slate-200 select-none overflow-hidden"
     >
       {/* Decorative top health glow accent */}
       <div 
         className="absolute top-0 left-0 right-0 h-1 transition-colors"
         style={{
-          background: `linear-gradient(90deg, #6366f1, ${health.color}, #38bdf8)`
+          background: `linear-gradient(90deg, #3b82f6, ${health.color}, #38bdf8)`
         }} 
       />
 
@@ -794,7 +816,7 @@ function OperationSphereNodeTooltip({
       <div className="flex items-start justify-between gap-2 mb-2 pt-1 border-b border-[#21262d] pb-2">
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-1.5 mb-0.5">
-            <span className="text-[10px] text-indigo-400 font-bold uppercase tracking-wider">
+            <span className="text-[10px] text-blue-400 font-bold uppercase tracking-wider">
               {node.type}
             </span>
             <span className="text-[9px] text-slate-500 font-mono">#{node.id}</span>
@@ -818,7 +840,7 @@ function OperationSphereNodeTooltip({
       <div className="mb-2 bg-[#090d16] p-2 rounded-none border border-[#1e2538] flex items-center justify-between">
         <div className="flex flex-col">
           <span className="text-[8px] text-slate-400 font-mono flex items-center gap-1">
-            <Activity size={10} className="text-indigo-400" />
+            <Activity size={10} className="text-blue-400" />
             CONNECTIVITY EKG
           </span>
           <span className="text-[9px] font-mono font-bold" style={{ color: health.color }}>
@@ -878,7 +900,7 @@ function OperationSphereNodeTooltip({
 
       {/* Action Prompt */}
       <div className="flex items-center justify-between text-[9px] text-slate-500 pt-1 border-t border-[#1f2430]">
-        <span className="flex items-center gap-1 text-indigo-400 font-sans">
+        <span className="flex items-center gap-1 text-blue-400 font-sans">
           <MousePointerClick size={11} />
           Click to focus & inspect
         </span>
@@ -934,7 +956,7 @@ export function DynamicSvgNodeLabel({
             x="70"
             y="10"
             textAnchor="middle"
-            fill={isQueryMatch ? '#38bdf8' : isHighPressure ? '#f87171' : '#818cf8'}
+            fill={isQueryMatch ? '#38bdf8' : isHighPressure ? '#f87171' : '#60a5fa'}
             fontSize={subFontSize}
             fontFamily={sansFontFamily}
             fontWeight="600"
@@ -991,10 +1013,10 @@ export function BreadcrumbsTraceOverlay({
   return (
     <div className="absolute inset-0 pointer-events-none z-15 flex items-center justify-center overflow-visible">
       {/* Top Left HUD Trace Indicator */}
-      <div className="absolute top-14 left-4 pointer-events-auto z-30 flex items-center gap-2 px-3 py-1.5 bg-[#0b101c]/90 border border-indigo-500/50 rounded-none shadow-[0_0_20px_rgba(99,102,241,0.3)] backdrop-blur text-indigo-300 font-mono text-[10px]">
-        <Route size={13} className="text-indigo-400 animate-pulse" />
+      <div className="absolute top-14 left-4 pointer-events-auto z-30 flex items-center gap-2 px-3 py-1.5 bg-[#0b101c]/90 border border-blue-500/50 rounded-none shadow-[0_0_20px_rgba(59,130,246,0.3)] backdrop-blur text-blue-300 font-mono text-[10px]">
+        <Route size={13} className="text-blue-400 animate-pulse" />
         <span className="font-bold">MOVEMENT TRACE ACTIVE</span>
-        <span className="px-1.5 py-0.2 bg-indigo-500/20 text-indigo-200 rounded border border-indigo-400/30 text-[9px] font-bold">
+        <span className="px-1.5 py-0.2 bg-blue-500/20 text-blue-200 rounded border border-blue-400/30 text-[9px] font-bold">
           {totalPoints} BREADCRUMBS
         </span>
         {onClear && (
@@ -1010,7 +1032,7 @@ export function BreadcrumbsTraceOverlay({
       <svg className="absolute inset-0 w-full h-full pointer-events-none overflow-visible">
         <defs>
           <linearGradient id="trace-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#818cf8" stopOpacity="0.2" />
+            <stop offset="0%" stopColor="#60a5fa" stopOpacity="0.2" />
             <stop offset="50%" stopColor="#38bdf8" stopOpacity="0.6" />
             <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.9" />
           </linearGradient>
@@ -1072,7 +1094,7 @@ export function BreadcrumbsTraceOverlay({
                         cx={pt.x * zoomLevel}
                         cy={pt.y * zoomLevel}
                         r={isLatest ? 4.5 : isStart ? 3.5 : 2.5}
-                        fill={isLatest ? '#38bdf8' : isStart ? '#818cf8' : '#06b6d4'}
+                        fill={isLatest ? '#38bdf8' : isStart ? '#60a5fa' : '#06b6d4'}
                         fillOpacity={dotOpacity}
                         filter="url(#breadcrumb-glow)"
                       />

@@ -442,7 +442,7 @@ You can enter natural language instructions, system queries, topology mutations,
           <button
             type="submit"
             disabled={isLoading || !input.trim()}
-            className="px-2.5 py-1 bg-cobalt-c2 hover:bg-indigo-600 disabled:bg-zinc-800 text-white text-[10px] font-mono uppercase tracking-wider rounded transition-colors flex items-center gap-1.5 cursor-pointer disabled:cursor-not-allowed"
+            className="px-2.5 py-1 bg-cobalt-c2 hover:bg-blue-600 disabled:bg-zinc-800 text-white text-[10px] font-mono uppercase tracking-wider rounded transition-colors flex items-center gap-1.5 cursor-pointer disabled:cursor-not-allowed"
           >
             <span>Run</span>
             <Send size={10} />

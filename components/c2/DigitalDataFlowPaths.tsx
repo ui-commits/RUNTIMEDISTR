@@ -39,7 +39,7 @@ export function DigitalDataFlowPaths({
   return (
     <svg 
       className="absolute inset-0 w-full h-full pointer-events-none overflow-visible z-0"
-      style={{ filter: 'drop-shadow(0 0 6px rgba(99,102,241,0.25))' }}
+      style={{ filter: 'drop-shadow(0 0 6px rgba(59,130,246,0.25))' }}
     >
       <defs>
         {/* Glow Filters */}
@@ -71,14 +71,14 @@ export function DigitalDataFlowPaths({
 
         {/* Dynamic Flow Gradients */}
         <linearGradient id="flow-gradient-active" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#6366f1" stopOpacity="0.8" />
+          <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.8" />
           <stop offset="50%" stopColor="#38bdf8" stopOpacity="0.9" />
-          <stop offset="100%" stopColor="#818cf8" stopOpacity="0.8" />
+          <stop offset="100%" stopColor="#60a5fa" stopOpacity="0.8" />
         </linearGradient>
 
         <linearGradient id="flow-gradient-parent" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#818cf8" stopOpacity="0.4" />
-          <stop offset="100%" stopColor="#6366f1" stopOpacity="0.8" />
+          <stop offset="0%" stopColor="#60a5fa" stopOpacity="0.4" />
+          <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.8" />
         </linearGradient>
 
         <linearGradient id="flow-gradient-surge" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -150,7 +150,7 @@ function ParentToCenterFlow({
     : 1.5;
 
   const strokeOpacity = isOverload ? 1.0 : Math.min(0.95, 0.28 + (effectiveLoad / 100) * 0.65);
-  const lineColor = isOverload ? '#ff0055' : effectiveLoad >= 50 ? '#f59e0b' : '#6366f1';
+  const lineColor = isOverload ? '#ff0055' : effectiveLoad >= 50 ? '#f59e0b' : '#3b82f6';
 
   const x1 = `calc(50% + ${parent.x}px)`;
   const y1 = `calc(50% + ${parent.y + 24}px)`;
@@ -462,7 +462,7 @@ function SiblingMeshFlows({
             key={`mesh-${child.id}-${nextChild.id}`}
             d={pathD}
             fill="none"
-            stroke={meshLoad > 70 ? "#ef4444" : "#6366f1"}
+            stroke={meshLoad > 70 ? "#ef4444" : "#3b82f6"}
             strokeWidth={meshWidth}
             strokeOpacity={meshOpacity}
             strokeDasharray="3 6"

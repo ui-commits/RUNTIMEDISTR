@@ -231,11 +231,11 @@ export function MiniMap({
       aria-label="Network Mini-Map"
       className={`fixed z-30 font-mono transition-all select-none ${className}`}
     >
-      <div className="bg-[#0b0e17]/95 border border-indigo-500/40 hover:border-indigo-400/70 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.85),0_0_15px_rgba(99,102,241,0.2)] backdrop-blur-md transition-all w-[218px]">
+      <div className="bg-[#0b0e17]/95 border border-blue-500/40 hover:border-blue-400/70 rounded-none overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.85),0_0_15px_rgba(59,130,246,0.2)] backdrop-blur-md transition-all w-[218px]">
         {/* Mini-Map Header */}
-        <div className="flex items-center justify-between px-2.5 py-1.5 bg-[#121624] border-b border-indigo-900/40 text-[10px] text-slate-300">
+        <div className="flex items-center justify-between px-2.5 py-1.5 bg-[#121624] border-b border-blue-900/40 text-[10px] text-slate-300">
           <div className="flex items-center gap-1.5 font-bold tracking-wider text-white truncate">
-            <Compass size={12} className="text-indigo-400 shrink-0" />
+            <Compass size={12} className="text-blue-400 shrink-0" />
             <span className="truncate">NETWORK MINI-MAP</span>
           </div>
 
@@ -282,15 +282,15 @@ export function MiniMap({
               <div 
                 className="absolute inset-0 opacity-15 pointer-events-none" 
                 style={{ 
-                  backgroundImage: 'radial-gradient(#6366f1 1px, transparent 1px)', 
+                  backgroundImage: 'radial-gradient(#3b82f6 1px, transparent 1px)', 
                   backgroundSize: '12px 12px' 
                 }} 
               />
 
               {/* Crosshair Center Reticle */}
               <div className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-20">
-                <div className="w-full h-px bg-indigo-500/50" />
-                <div className="h-full w-px bg-indigo-500/50 absolute" />
+                <div className="w-full h-px bg-blue-500/50" />
+                <div className="h-full w-px bg-blue-500/50 absolute" />
               </div>
 
               <svg
@@ -308,7 +308,7 @@ export function MiniMap({
                       y1={link.from.y}
                       x2={link.to.x}
                       y2={link.to.y}
-                      stroke={link.isHighPressure ? '#ef4444' : '#6366f1'}
+                      stroke={link.isHighPressure ? '#ef4444' : '#3b82f6'}
                       strokeWidth={link.isHighPressure ? '1.2' : '0.8'}
                       strokeDasharray={link.isHighPressure ? '2,2' : undefined}
                       className={link.isHighPressure ? 'animate-pulse' : ''}
@@ -324,8 +324,8 @@ export function MiniMap({
                     y={viewportRect.y}
                     width={viewportRect.width}
                     height={viewportRect.height}
-                    fill="rgba(99, 102, 241, 0.08)"
-                    stroke="rgba(99, 102, 241, 0.9)"
+                    fill="rgba(59, 130, 246, 0.08)"
+                    stroke="rgba(59, 130, 246, 0.9)"
                     strokeWidth="1"
                     strokeDasharray="4,2"
                     rx="3"
@@ -415,7 +415,7 @@ export function MiniMap({
                           cy={pt.y}
                           r={pt.isActive ? 4 : isHovered ? 3.5 : 2.5}
                           fill={pt.isHighPressure ? '#ef4444' : pt.isActive ? '#ffffff' : pt.healthColor}
-                          stroke={pt.isHighPressure ? '#991b1b' : pt.isActive ? '#6366f1' : '#0e1320'}
+                          stroke={pt.isHighPressure ? '#991b1b' : pt.isActive ? '#3b82f6' : '#0e1320'}
                           strokeWidth={1}
                         />
 
@@ -443,7 +443,7 @@ export function MiniMap({
                     initial={{ opacity: 0, y: 3 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0 }}
-                    className="absolute top-1 left-1 right-1 bg-[#0a0d14]/95 border border-indigo-500/80 px-2 py-1 rounded text-[8.5px] text-white z-20 pointer-events-none flex items-center justify-between shadow-lg"
+                    className="absolute top-1 left-1 right-1 bg-[#0a0d14]/95 border border-blue-500/80 px-2 py-1 rounded text-[8.5px] text-white z-20 pointer-events-none flex items-center justify-between shadow-lg"
                   >
                     <div className="flex items-center gap-1 truncate">
                       <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: hoveredMapNode.healthColor }} />
@@ -468,7 +468,7 @@ export function MiniMap({
             <div className="flex items-center justify-between text-[9px] text-slate-400 pt-0.5 border-t border-[#191f30]">
               <div className="flex items-center gap-1 font-mono">
                 <span className="text-slate-500">VIEWPORT:</span>
-                <span className="text-indigo-300 font-bold">{Math.round(zoomLevel * 100)}%</span>
+                <span className="text-blue-300 font-bold">{Math.round(zoomLevel * 100)}%</span>
                 <span className="text-slate-500">•</span>
                 <span className="text-slate-300">{nodePoints.length} NODES</span>
               </div>

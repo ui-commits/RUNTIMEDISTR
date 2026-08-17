@@ -206,7 +206,7 @@ export function TimeSyncOverlay({ activeNode }: TimeSyncOverlayProps) {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
           </span>
-          <Clock size={13} className="text-indigo-400 group-hover:text-indigo-300 transition-colors" />
+          <Clock size={13} className="text-blue-400 group-hover:text-blue-300 transition-colors" />
         </div>
 
         {/* Active Node Time */}
@@ -215,9 +215,9 @@ export function TimeSyncOverlay({ activeNode }: TimeSyncOverlayProps) {
             {activeFormatted.isDay ? (
               <Sun size={11} className="text-amber-400 shrink-0" />
             ) : (
-              <Moon size={11} className="text-indigo-300 shrink-0" />
+              <Moon size={11} className="text-blue-300 shrink-0" />
             )}
-            <span className="text-[9px] text-indigo-300 uppercase font-semibold">
+            <span className="text-[9px] text-blue-300 uppercase font-semibold">
               {activeZone.id === 'pt' ? 'PDX' : activeZone.code.split(' ')[0]}
             </span>
           </div>
@@ -257,8 +257,8 @@ export function TimeSyncOverlay({ activeNode }: TimeSyncOverlayProps) {
               {/* Header */}
               <div className="flex items-center justify-between pb-2.5 mb-2.5 border-b border-[#30363d]">
                 <div className="flex items-center gap-2">
-                  <div className="w-6 h-6 rounded-none bg-indigo-500/20 border border-indigo-500/40 flex items-center justify-center">
-                    <Radio size={13} className="text-indigo-400 animate-pulse" />
+                  <div className="w-6 h-6 rounded-none bg-blue-500/20 border border-blue-500/40 flex items-center justify-center">
+                    <Radio size={13} className="text-blue-400 animate-pulse" />
                   </div>
                   <div>
                     <div className="text-xs font-bold text-white uppercase tracking-wide flex items-center gap-1.5">
@@ -277,14 +277,14 @@ export function TimeSyncOverlay({ activeNode }: TimeSyncOverlayProps) {
                 <div className="flex items-center gap-1 bg-[#0d1117] p-0.5 border border-[#30363d] rounded text-[10px]">
                   <button
                     onClick={() => setUse24Hour(!use24Hour)}
-                    className={`px-1.5 py-0.5 rounded transition-colors ${use24Hour ? 'bg-indigo-600 text-white font-bold' : 'text-slate-400 hover:text-white'}`}
+                    className={`px-1.5 py-0.5 rounded transition-colors ${use24Hour ? 'bg-blue-600 text-white font-bold' : 'text-slate-400 hover:text-white'}`}
                     title="Toggle 24-hour vs 12-hour format"
                   >
                     24H
                   </button>
                   <button
                     onClick={() => setShowMillis(!showMillis)}
-                    className={`px-1.5 py-0.5 rounded transition-colors ${showMillis ? 'bg-indigo-600 text-white font-bold' : 'text-slate-400 hover:text-white'}`}
+                    className={`px-1.5 py-0.5 rounded transition-colors ${showMillis ? 'bg-blue-600 text-white font-bold' : 'text-slate-400 hover:text-white'}`}
                     title="Toggle millisecond precision"
                   >
                     .ms
@@ -334,7 +334,7 @@ export function TimeSyncOverlay({ activeNode }: TimeSyncOverlayProps) {
                       key={zone.id}
                       className={`p-2 rounded-none border transition-all ${
                         isNodePrimary
-                          ? 'bg-indigo-950/40 border-indigo-500/70 shadow-[0_0_12px_rgba(99,102,241,0.15)]'
+                          ? 'bg-blue-950/40 border-blue-500/70 shadow-[0_0_12px_rgba(59,130,246,0.15)]'
                           : 'bg-[#0d1117]/80 border-[#30363d] hover:bg-[#161b22] hover:border-slate-500'
                       }`}
                     >
@@ -345,7 +345,7 @@ export function TimeSyncOverlay({ activeNode }: TimeSyncOverlayProps) {
                             <div className="flex items-center gap-1.5">
                               <span className="font-bold text-white text-[11px] truncate">{zone.code}</span>
                               {isNodePrimary && (
-                                <span className="text-[8px] bg-indigo-500/30 text-indigo-200 border border-indigo-400/50 px-1 py-0.2 rounded font-bold uppercase tracking-wider">
+                                <span className="text-[8px] bg-blue-500/30 text-blue-200 border border-blue-400/50 px-1 py-0.2 rounded font-bold uppercase tracking-wider">
                                   ACTIVE TARGET
                                 </span>
                               )}
@@ -362,7 +362,7 @@ export function TimeSyncOverlay({ activeNode }: TimeSyncOverlayProps) {
                             {formatted.isDay ? (
                               <Sun size={11} className="text-amber-400" />
                             ) : (
-                              <Moon size={11} className="text-indigo-300" />
+                              <Moon size={11} className="text-blue-300" />
                             )}
                             <span className={`font-bold tabular-nums text-xs ${isNodePrimary ? 'text-emerald-400' : 'text-slate-100'}`}>
                               {formatted.timeStr}
@@ -389,7 +389,7 @@ export function TimeSyncOverlay({ activeNode }: TimeSyncOverlayProps) {
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                   <span className="truncate">Target: <strong className="text-white">{activeNode.label}</strong> ({activeZone.code.split(' ')[0]})</span>
                 </div>
-                <span className="text-indigo-400 font-semibold shrink-0">GPS // UTC LOCKED</span>
+                <span className="text-blue-400 font-semibold shrink-0">GPS // UTC LOCKED</span>
               </div>
             </motion.div>
           </>

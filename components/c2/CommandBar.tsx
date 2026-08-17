@@ -321,7 +321,7 @@ export function CommandBar({
           >
             {/* Input Bar */}
             <div className="flex items-center px-4 py-3.5 border-b border-[#30363d] bg-[#0d1117]/80 gap-3">
-              <Search size={16} className="text-indigo-400 shrink-0" />
+              <Search size={16} className="text-blue-400 shrink-0" />
               <input
                 ref={inputRef}
                 type="text"
@@ -355,7 +355,7 @@ export function CommandBar({
               {filteredCommands.length === 0 ? (
                 <div className="p-8 text-center text-slate-400 text-xs">
                   <div className="text-sm font-bold text-slate-300 mb-1">No matching nodes or commands</div>
-                  <div>Try searching for <strong className="text-indigo-400">Portland</strong>, <strong className="text-indigo-400">515 NE Holladay</strong>, or <strong className="text-indigo-400">physical</strong>.</div>
+                  <div>Try searching for <strong className="text-blue-400">Portland</strong>, <strong className="text-blue-400">515 NE Holladay</strong>, or <strong className="text-blue-400">physical</strong>.</div>
                 </div>
               ) : (
                 categories.map((cat) => {
@@ -379,18 +379,18 @@ export function CommandBar({
                             onMouseEnter={() => setSelectedIndex(globalIndex)}
                             className={`flex items-center justify-between px-3 py-2 rounded-none text-xs cursor-pointer transition-colors ${
                               isSelected
-                                ? 'bg-indigo-600 text-white'
+                                ? 'bg-blue-600 text-white'
                                 : 'text-slate-300 hover:bg-[#21262d] hover:text-white'
                             }`}
                           >
                             <div className="flex items-center gap-3 overflow-hidden">
-                              <div className={`p-1.5 rounded-none shrink-0 ${isSelected ? 'bg-indigo-700 text-white' : 'bg-[#0d1117] text-indigo-400 border border-[#30363d]'}`}>
+                              <div className={`p-1.5 rounded-none shrink-0 ${isSelected ? 'bg-blue-700 text-white' : 'bg-[#0d1117] text-blue-400 border border-[#30363d]'}`}>
                                 <Icon size={14} />
                               </div>
                               <div className="truncate">
                                 <div className="font-semibold truncate">{item.title}</div>
                                 {item.subtitle && (
-                                  <div className={`text-[10px] truncate ${isSelected ? 'text-indigo-200' : 'text-slate-400'}`}>
+                                  <div className={`text-[10px] truncate ${isSelected ? 'text-blue-200' : 'text-slate-400'}`}>
                                     {item.subtitle}
                                   </div>
                                 )}
@@ -401,14 +401,14 @@ export function CommandBar({
                               {item.badge && (
                                 <span className={`text-[9px] px-1.5 py-0.5 rounded font-bold uppercase ${
                                   isSelected
-                                    ? 'bg-indigo-800 text-white'
-                                    : 'bg-[#0d1117] text-indigo-300 border border-[#30363d]'
+                                    ? 'bg-blue-800 text-white'
+                                    : 'bg-[#0d1117] text-blue-300 border border-[#30363d]'
                                 }`}>
                                   {item.badge}
                                 </span>
                               )}
                               {isSelected && (
-                                <CornerDownLeft size={12} className="text-indigo-200 shrink-0" />
+                                <CornerDownLeft size={12} className="text-blue-200 shrink-0" />
                               )}
                             </div>
                           </div>
@@ -431,7 +431,7 @@ export function CommandBar({
                   <kbd className="px-1.5 py-0.5 bg-[#161b22] border border-[#30363d] rounded text-white">↵</kbd> Select
                 </span>
               </div>
-              <div className="text-indigo-400">
+              <div className="text-blue-400">
                 GDR Spotlight v3.7
               </div>
             </div>

@@ -94,13 +94,13 @@ export function KeyMapModal() {
             {/* Header */}
             <div className="flex items-center justify-between px-5 py-4 border-b border-[#30363d] bg-[#0d1117]/80">
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-none bg-indigo-600/20 border border-indigo-500/40 flex items-center justify-center text-indigo-400">
+                <div className="w-8 h-8 rounded-none bg-blue-600/20 border border-blue-500/40 flex items-center justify-center text-blue-400">
                   <Keyboard size={16} />
                 </div>
                 <div>
                   <h3 className="text-sm font-bold text-white uppercase tracking-wide flex items-center gap-2">
                     Keyboard Shortcuts Guide
-                    <span className="text-[9px] bg-indigo-950 text-indigo-300 border border-indigo-800 px-1.5 py-0.5 rounded">
+                    <span className="text-[9px] bg-blue-950 text-blue-300 border border-blue-800 px-1.5 py-0.5 rounded">
                       HOTKEYS
                     </span>
                   </h3>
@@ -132,7 +132,7 @@ export function KeyMapModal() {
                           className="flex items-center justify-between p-2 rounded-none bg-[#0d1117]/70 border border-[#30363d]/60 hover:border-slate-500 transition-colors text-xs"
                         >
                           <div className="flex items-center gap-2.5 text-slate-300">
-                            {Icon && <Icon size={14} className="text-indigo-400 shrink-0" />}
+                            {Icon && <Icon size={14} className="text-blue-400 shrink-0" />}
                             <span>{item.description}</span>
                           </div>
 
@@ -157,7 +157,7 @@ export function KeyMapModal() {
             {/* Footer */}
             <div className="px-5 py-3 bg-[#0d1117] border-t border-[#30363d] flex items-center justify-between text-[11px] text-slate-400">
               <span>Press <kbd className="px-1.5 py-0.5 bg-[#21262d] text-white rounded border border-[#30363d]">ESC</kbd> or <kbd className="px-1.5 py-0.5 bg-[#21262d] text-white rounded border border-[#30363d]">?</kbd> to dismiss</span>
-              <span className="text-indigo-400 font-semibold">GDR-C2 Operational Suite</span>
+              <span className="text-blue-400 font-semibold">GDR-C2 Operational Suite</span>
             </div>
           </motion.div>
         </div>

@@ -134,9 +134,9 @@ export const CONTINENTS: ContinentDomain[] = [
     id: 'projects',
     name: 'Projects Domain',
     code: 'DOM-02',
-    color: '#6366f1', // Indigo
-    borderAccent: 'border-indigo-500/50',
-    bgGlow: 'from-indigo-500/20 to-indigo-950/40',
+    color: '#3b82f6', // Indigo
+    borderAccent: 'border-blue-500/50',
+    bgGlow: 'from-blue-500/20 to-blue-950/40',
     icon: Cpu,
     tagline: 'Living software, C2 telemetry & distribution systems',
     description: 'Production software systems built by Christopher Rodriguez, including the Global Distribution Runtime, Hermes C2 Engine, and Memory Kernel.',
@@ -337,8 +337,8 @@ export const CONTINENTS: ContinentDomain[] = [
     name: 'Knowledge Domain',
     code: 'DOM-06',
     color: '#8b5cf6', // Purple
-    borderAccent: 'border-purple-500/50',
-    bgGlow: 'from-purple-500/20 to-purple-950/40',
+    borderAccent: 'border-blue-500/50',
+    bgGlow: 'from-blue-500/20 to-blue-950/40',
     icon: FolderGit2,
     tagline: 'Ontological schemas, repositories & execution runtime',
     description: 'Formal schemas, source code repositories, execution runtime telemetry, and interactive technical documentation.',
@@ -460,7 +460,7 @@ export function KnowledgeSpaceView({
         className="absolute inset-0 opacity-20 pointer-events-none"
         style={{
           backgroundImage: `
-            radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 60%),
+            radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 60%),
             linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
             linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px)
           `,
@@ -474,7 +474,7 @@ export function KnowledgeSpaceView({
         <div className="flex items-center gap-2 font-mono text-xs">
           <button
             onClick={handleReset}
-            className="flex items-center gap-1.5 px-2.5 py-1 bg-[#131826] hover:bg-indigo-600/30 text-indigo-400 hover:text-white border border-indigo-500/40 rounded transition-all cursor-pointer font-bold"
+            className="flex items-center gap-1.5 px-2.5 py-1 bg-[#131826] hover:bg-blue-600/30 text-blue-400 hover:text-white border border-blue-500/40 rounded transition-all cursor-pointer font-bold"
           >
             <Globe size={13} />
             <span>Knowledge Space</span>
@@ -499,7 +499,7 @@ export function KnowledgeSpaceView({
           {activeItem && (
             <>
               <ChevronRight size={13} className="text-slate-500 shrink-0" />
-              <div className="px-2.5 py-1 bg-indigo-950/80 border border-indigo-700/80 text-indigo-200 rounded font-bold truncate max-w-[220px]">
+              <div className="px-2.5 py-1 bg-blue-950/80 border border-blue-700/80 text-blue-200 rounded font-bold truncate max-w-[220px]">
                 {activeItem.title}
               </div>
             </>
@@ -516,7 +516,7 @@ export function KnowledgeSpaceView({
               placeholder="Search domains, projects, incidents..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-48 sm:w-64 pl-8 pr-3 py-1 bg-[#0a0d14] border border-[#2d3748] rounded-none text-xs font-mono text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-all"
+              className="w-48 sm:w-64 pl-8 pr-3 py-1 bg-[#0a0d14] border border-[#2d3748] rounded-none text-xs font-mono text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 transition-all"
             />
             {searchQuery && (
               <button
@@ -568,7 +568,7 @@ export function KnowledgeSpaceView({
             <svg className="absolute inset-0 w-full h-full pointer-events-none z-0">
               <defs>
                 <linearGradient id="vector-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#6366f1" stopOpacity="0.4" />
+                  <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.4" />
                   <stop offset="50%" stopColor="#f59e0b" stopOpacity="0.3" />
                   <stop offset="100%" stopColor="#10b981" stopOpacity="0.4" />
                 </linearGradient>
@@ -595,7 +595,7 @@ export function KnowledgeSpaceView({
                       y1={`${c1.position.y}%`}
                       x2={`${c3.position.x}%`}
                       y2={`${c3.position.y}%`}
-                      stroke="rgba(99, 102, 241, 0.15)"
+                      stroke="rgba(59, 130, 246, 0.15)"
                       strokeWidth="1"
                       strokeDasharray="2 4"
                     />
@@ -636,7 +636,7 @@ export function KnowledgeSpaceView({
                         </div>
                       </div>
 
-                      <h2 className="text-base font-bold text-white font-mono tracking-tight flex items-center gap-2 group-hover:text-indigo-300 transition-colors">
+                      <h2 className="text-base font-bold text-white font-mono tracking-tight flex items-center gap-2 group-hover:text-blue-300 transition-colors">
                         {continent.name}
                       </h2>
                       <p className="text-[11px] text-slate-400 font-sans mt-1 line-clamp-2 leading-relaxed">
@@ -651,7 +651,7 @@ export function KnowledgeSpaceView({
                         <strong className="text-white">{continent.items.length}</strong> Artifacts
                       </span>
 
-                      <div className="flex items-center gap-1 text-indigo-400 font-bold group-hover:translate-x-1 transition-transform text-[11px]">
+                      <div className="flex items-center gap-1 text-blue-400 font-bold group-hover:translate-x-1 transition-transform text-[11px]">
                         <span>Explore Domain</span>
                         <ArrowRight size={13} />
                       </div>
@@ -669,7 +669,7 @@ export function KnowledgeSpaceView({
             <div className="max-w-5xl mx-auto space-y-4">
               <div className="flex items-center justify-between border-b border-slate-800 pb-3 font-mono">
                 <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                  <Search size={14} className="text-indigo-400" />
+                  <Search size={14} className="text-blue-400" />
                   Search Results for &quot;{searchQuery}&quot;
                 </h3>
                 <span className="text-xs text-slate-400">{searchResults.length} matching items</span>
@@ -686,10 +686,10 @@ export function KnowledgeSpaceView({
                       key={item.id}
                       onClick={() => handleSelectItem(item, continent.id)}
                       whileHover={{ scale: 1.01 }}
-                      className="p-4 rounded-none bg-[#0e1322] border border-slate-700 hover:border-indigo-500 cursor-pointer transition-all font-mono space-y-2"
+                      className="p-4 rounded-none bg-[#0e1322] border border-slate-700 hover:border-blue-500 cursor-pointer transition-all font-mono space-y-2"
                     >
                       <div className="flex items-center justify-between text-[10px]">
-                        <span className="px-2 py-0.5 rounded bg-indigo-950 text-indigo-300 border border-indigo-800 uppercase font-bold">
+                        <span className="px-2 py-0.5 rounded bg-blue-950 text-blue-300 border border-blue-800 uppercase font-bold">
                           {continent.name}
                         </span>
                         <span className="text-slate-400">{item.category}</span>
@@ -758,7 +758,7 @@ export function KnowledgeSpaceView({
                       onClick={() => handleSelectItem(item)}
                       className={`p-5 rounded-none bg-[#0c101d]/90 border transition-all cursor-pointer font-mono flex flex-col justify-between space-y-4 shadow-lg ${
                         isSelected 
-                          ? 'border-indigo-400 bg-indigo-950/40 shadow-[0_0_20px_rgba(99,102,241,0.3)]' 
+                          ? 'border-blue-400 bg-blue-950/40 shadow-[0_0_20px_rgba(59,130,246,0.3)]' 
                           : 'border-slate-800 hover:border-slate-600'
                       }`}
                     >
@@ -771,13 +771,13 @@ export function KnowledgeSpaceView({
                           <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold ${
                             item.status === 'OPTIMAL' ? 'bg-emerald-950 text-emerald-400 border border-emerald-800' :
                             item.status === 'CRITICAL_RECOVERY' ? 'bg-amber-950 text-amber-400 border border-amber-800' :
-                            'bg-indigo-950 text-indigo-300 border border-indigo-800'
+                            'bg-blue-950 text-blue-300 border border-blue-800'
                           }`}>
                             {item.status}
                           </span>
                         </div>
 
-                        <h3 className="text-sm font-bold text-white leading-snug hover:text-indigo-300 transition-colors">
+                        <h3 className="text-sm font-bold text-white leading-snug hover:text-blue-300 transition-colors">
                           {item.title}
                         </h3>
 
@@ -790,7 +790,7 @@ export function KnowledgeSpaceView({
                       <ul className="text-[11px] text-slate-300 font-sans space-y-1.5 border-t border-slate-800/80 pt-3">
                         {item.details.slice(0, 2).map((detail, idx) => (
                           <li key={idx} className="flex items-start gap-1.5">
-                            <span className="text-indigo-400 font-bold shrink-0">›</span>
+                            <span className="text-blue-400 font-bold shrink-0">›</span>
                             <span>{detail}</span>
                           </li>
                         ))}
@@ -802,14 +802,14 @@ export function KnowledgeSpaceView({
                           {Object.entries(item.metrics).map(([k, v]) => (
                             <div key={k} className="px-2 py-0.5 bg-[#05070a] border border-slate-800 rounded text-[9.5px] text-slate-400">
                               <span className="text-slate-500 uppercase">{k}: </span>
-                              <strong className="text-indigo-300">{v}</strong>
+                              <strong className="text-blue-300">{v}</strong>
                             </div>
                           ))}
                         </div>
                       )}
 
                       {/* Footer CTA */}
-                      <div className="flex items-center justify-between pt-2 text-[10px] text-indigo-400 font-bold">
+                      <div className="flex items-center justify-between pt-2 text-[10px] text-blue-400 font-bold">
                         <span>{item.dateOrVersion || 'Inspect Details'}</span>
                         <div className="flex items-center gap-1">
                           <span>View Item</span>
@@ -833,13 +833,13 @@ export function KnowledgeSpaceView({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 50 }}
             transition={{ duration: 0.22 }}
-            className="absolute bottom-4 left-4 right-4 max-w-4xl mx-auto z-40 bg-[#0e1322]/98 border border-indigo-500/80 rounded-none p-5 shadow-[0_0_40px_rgba(0,0,0,0.8)] backdrop-blur-xl font-mono text-xs text-white space-y-4"
+            className="absolute bottom-4 left-4 right-4 max-w-4xl mx-auto z-40 bg-[#0e1322]/98 border border-blue-500/80 rounded-none p-5 shadow-[0_0_40px_rgba(0,0,0,0.8)] backdrop-blur-xl font-mono text-xs text-white space-y-4"
           >
             {/* Header */}
-            <div className="flex items-start justify-between gap-4 border-b border-indigo-500/30 pb-3">
+            <div className="flex items-start justify-between gap-4 border-b border-blue-500/30 pb-3">
               <div>
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="px-2 py-0.5 bg-indigo-950 text-indigo-300 border border-indigo-700 text-[10px] rounded uppercase font-bold">
+                  <span className="px-2 py-0.5 bg-blue-950 text-blue-300 border border-blue-700 text-[10px] rounded uppercase font-bold">
                     {activeItem.category}
                   </span>
                   <span className="text-[10px] text-slate-400">{activeItem.dateOrVersion}</span>
@@ -875,7 +875,7 @@ export function KnowledgeSpaceView({
                 {activeItem.codeSnippet && (
                   <div className="space-y-1 pt-2">
                     <h4 className="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Implementation Snippet:</h4>
-                    <pre className="p-3 bg-[#05070a] border border-slate-800 rounded-none text-[11px] text-indigo-300 overflow-x-auto">
+                    <pre className="p-3 bg-[#05070a] border border-slate-800 rounded-none text-[11px] text-blue-300 overflow-x-auto">
                       <code>{activeItem.codeSnippet}</code>
                     </pre>
                   </div>
@@ -900,7 +900,7 @@ export function KnowledgeSpaceView({
                   <h4 className="text-[10px] uppercase tracking-wider text-slate-400 font-bold mb-1.5">Domain Tags</h4>
                   <div className="flex flex-wrap gap-1">
                     {activeItem.tags.map(t => (
-                      <span key={t} className="px-1.5 py-0.5 bg-indigo-950/80 text-indigo-300 text-[9.5px] rounded border border-indigo-800">
+                      <span key={t} className="px-1.5 py-0.5 bg-blue-950/80 text-blue-300 text-[9.5px] rounded border border-blue-800">
                         #{t}
                       </span>
                     ))}
@@ -914,7 +914,7 @@ export function KnowledgeSpaceView({
                         onSelectNode(activeItem.ontologyNodeId);
                       }
                     }}
-                    className="w-full mt-3 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-none font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow-md"
+                    className="w-full mt-3 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-none font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5 shadow-md"
                   >
                     <Zap size={13} />
                     <span>Select Node in C2 Telemetry</span>
