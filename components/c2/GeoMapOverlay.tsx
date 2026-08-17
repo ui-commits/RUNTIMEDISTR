@@ -748,16 +748,16 @@ function ContinentalRegionView({
             onMouseLeave={() => onHoverNode(null)}
           >
             {/* Pulsing SVG Heartbeat/EKG Ring Indicator */}
-            <SvgMapHeartbeatPin cx={120} cy={130} radius={24} health={pnwHealth} />
+            <SvgMapHeartbeatPin cx={45} cy={105} radius={24} health={pnwHealth} />
             
-            <circle cx="120" cy="130" r="11" fill={pnwHealth.color} fillOpacity="0.85" stroke="#ffffff" strokeWidth="1.5" className="group-hover:scale-125 transition-transform" />
-            <circle cx="120" cy="130" r="5" fill="#ffffff" />
+            <circle cx="45" cy="105" r="11" fill={pnwHealth.color} fillOpacity="0.85" stroke="#ffffff" strokeWidth="1.5" className="group-hover:scale-125 transition-transform" />
+            <circle cx="45" cy="105" r="5" fill="#ffffff" />
             
-            <rect x="135" y="110" width="190" height="44" rx="4" fill="#090d16" stroke={pnwHealth.color} strokeWidth="1.2" className="group-hover:stroke-white transition-colors" />
-            <text x="145" y="126" fill="#ffffff" fontSize="10" fontFamily="monospace" fontWeight="bold">
+            <rect x="60" y="85" width="190" height="44" rx="4" fill="#090d16" stroke={pnwHealth.color} strokeWidth="1.2" className="group-hover:stroke-white transition-colors" />
+            <text x="70" y="101" fill="#ffffff" fontSize="10" fontFamily="monospace" fontWeight="bold">
               PACIFIC NW GRID (OR/WA)
             </text>
-            <text x="145" y="140" fill={pnwHealth.color} fontSize="8" fontFamily="monospace">
+            <text x="70" y="115" fill={pnwHealth.color} fontSize="8" fontFamily="monospace">
               ● {pnwHealth.label} → OPEN INSPECTOR
             </text>
           </motion.g>
@@ -788,16 +788,16 @@ function ContinentalRegionView({
             onMouseLeave={() => onHoverNode(null)}
           >
             {/* Pulsing SVG Heartbeat/EKG Ring Indicator */}
-            <SvgMapHeartbeatPin cx={480} cy={150} radius={22} health={eastHealth} />
+            <SvgMapHeartbeatPin cx={555} cy={150} radius={22} health={eastHealth} />
             
-            <circle cx="480" cy="150" r="10" fill={eastHealth.color} stroke="#ffffff" strokeWidth="1.5" className="group-hover:scale-125 transition-transform" />
-            <circle cx="480" cy="150" r="4" fill="#ffffff" />
+            <circle cx="555" cy="150" r="10" fill={eastHealth.color} stroke="#ffffff" strokeWidth="1.5" className="group-hover:scale-125 transition-transform" />
+            <circle cx="555" cy="150" r="4" fill="#ffffff" />
             
-            <rect x="355" y="165" width="170" height="40" rx="4" fill="#090d16" stroke={eastHealth.color} strokeWidth="1.2" className="group-hover:stroke-white transition-colors" />
-            <text x="365" y="181" fill="#ffffff" fontSize="9.5" fontFamily="monospace" fontWeight="bold">
+            <rect x="425" y="165" width="170" height="40" rx="4" fill="#090d16" stroke={eastHealth.color} strokeWidth="1.2" className="group-hover:stroke-white transition-colors" />
+            <text x="435" y="181" fill="#ffffff" fontSize="9.5" fontFamily="monospace" fontWeight="bold">
               EASTERN SEABOARD
             </text>
-            <text x="365" y="195" fill={eastHealth.color} fontSize="8" fontFamily="monospace">
+            <text x="435" y="195" fill={eastHealth.color} fontSize="8" fontFamily="monospace">
               {`● ${eastHealth.label} // NYC METRO`}
             </text>
           </motion.g>

@@ -218,11 +218,11 @@ function GDRDashboardContent() {
           <button
             onClick={() => {
               resetNodes();
-              selectNode('earth');
+              selectNode('na');
               setProjection('geographic');
             }}
             className="w-8 h-8 rounded-sm bg-blue-600/20 border border-blue-500/50 flex items-center justify-center shadow-inner hover:bg-blue-600/30 transition-colors cursor-pointer"
-            title="GDR // Global Distribution Runtime — reset ontology state & return to Global Earth"
+            title="GDR // Global Distribution Runtime — reset ontology state & return to United States view"
             aria-label="Global Distribution Runtime"
           >
             <Radar size={16} className="text-blue-300 animate-radar-sweep" />
@@ -233,7 +233,7 @@ function GDRDashboardContent() {
           {/* Quick 1-Click Jump Presets (shared container: globe, plane, house) */}
           <div className="flex items-center gap-1 p-1 bg-[#0d1117]/70 border border-[#30363d] rounded-sm">
             {[
-              { id: 'earth', icon: Globe, label: 'Global Earth', hint: 'Jump to Global Earth Root (default view)' },
+              { id: 'earth', icon: Globe, label: 'Global Earth', hint: 'Jump to Global Earth Root' },
               { id: 'pdx', icon: Plane, label: 'Portland (PDX)', hint: 'Jump to Portland Metro Operations' },
               { id: 'apt', icon: Home, label: '515 NE Holladay', hint: 'Jump to The Louisa Flowers (515 NE Holladay St)' },
             ].map(({ id, icon: PresetIcon, label, hint }) => {

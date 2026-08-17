@@ -64,7 +64,7 @@ const C2Context = createContext<C2ContextType | undefined>(undefined);
 
 export function C2Provider({ children }: { children: ReactNode }) {
   const [nodes, setNodes] = useState<Record<string, NodeData>>(initialNodes);
-  const [activeNodeId, setActiveNodeId] = useState("earth");
+  const [activeNodeId, setActiveNodeId] = useState("na");
   const [overlayOpacity, setOverlayOpacity] = useState(0.92);
   const [commandBarOpen, setCommandBarOpen] = useState(false);
   const [keyMapOpen, setKeyMapOpen] = useState(false);
@@ -192,7 +192,7 @@ export function C2Provider({ children }: { children: ReactNode }) {
   };
   const resetNodes = () => {
     commitNodes(initialNodes);
-    commitActiveNodeId("earth");
+    commitActiveNodeId("na");
     setSearchQuery("");
     setSearchSelectedHaloNodeId(null);
     setRecentGhosts([]);
