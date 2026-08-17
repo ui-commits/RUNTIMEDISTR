@@ -12,12 +12,12 @@ Hermes C2 is an interactive command-and-control dashboard for exploring and oper
 - **Drill-down hierarchy** from global operations to regions, facilities, runtime services, and execution nodes.
 - **Searchable command palette** for nodes, projections, and system actions.
 - **Telemetry inspector** (left canvas panel) with metrics, health, logs, and snapshot artifacts.
-- **Hierarchy tree navigation** (left canvas panel).
+- **Hierarchy tree navigation** (right canvas shelf).
 - **Natural-language Gemini terminal** with validated structured actions.
 - **Local CLI commands** and a useful no-key/offline terminal mode.
 - **Canvas-generated PNG snapshot artifacts** attached to node metadata.
 - **Health rings, data-flow paths, time synchronization, keyboard controls, and responsive overlays**.
-- **Sharp 90-degree panels**, consistent design tokens, and a subtle animated grid background.
+- **Sharp 90-degree panels**, an ops-blue accent (#3b82f6), and a subtle animated grid background.
 
 ## Technology
 
